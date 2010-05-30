@@ -41,7 +41,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>org.desgrange.pwad.Main</mainClass>
+                            <mainClass>net.desgrange.pwad.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -55,7 +55,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>org.desgrange.pwad.Main</mainClass>
+                            <mainClass>net.desgrange.pwad.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -1,4 +1,4 @@
-package org.desgrange.pwad;
+package net.desgrange.pwad;
 
 import com.google.gdata.client.photos.PicasawebService;
 import com.google.gdata.data.media.mediarss.MediaContent;
@@ -8,7 +8,6 @@ import com.google.gdata.data.photos.PhotoFeed;
 import com.google.gdata.util.ServiceException;
 import org.apache.log4j.Logger;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class Main {
 
 
         logger.trace("Starting PicasawebService…");
-        PicasawebService service = new PicasawebService("pwad-1.0-SNAPSHOT");
+        PicasawebService service = new PicasawebService("pwad-0.1-SNAPSHOT");
         String version = service.getServiceVersion();
         logger.trace("PicasawebService version " + version + " started.");
 
