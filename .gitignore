@@ -3,3 +3,7 @@ target
 *.ipr
 *.iws
 .gitignore~
+.classpath
+.project
+.settings
+nbactions.xml
