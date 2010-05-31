@@ -7,6 +7,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+import net.desgrange.pwad.ui.MainForm;
+
 import org.apache.log4j.Logger;
 
 import com.google.gdata.client.photos.PicasawebService;
@@ -22,13 +24,20 @@ public class Main {
     public static void main(final String... args) throws Exception {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
 
+        // foo();
+
+        final MainForm mainForm = new MainForm();
+        mainForm.setVisible(true);
+    }
+
+    private static void foo() throws Exception {
         logger.trace("Starting PicasawebService…");
         final PicasawebService service = new PicasawebService("pwad-0.1-SNAPSHOT");
         final String version = service.getServiceVersion();
         logger.trace("PicasawebService version " + version + " started.");
 
-        final String userId = args[0];
-        final String albumId = args[1];
+        final String userId = null;// args[0];
+        final String albumId = null;// args[1];
         final StringBuilder albumUrl = new StringBuilder("http://picasaweb.google.com/data/feed/api");
         albumUrl.append("/user/").append(userId);
         albumUrl.append("/albumid/").append(albumId);
@@ -44,7 +53,7 @@ public class Main {
             System.out.println("Description: " + entry.getDescription().getPlainText());
             System.out.println("Link: " + entry.getFeedLink().getHref());
             System.out.println("Photo ID: " + entry.getGphotoId() + ", id: " + entry.getId() + ", kind: " + entry.getKind());
-            getPhoto(service, entry.getFeedLink().getHref());
+            // getPhoto(service, entry.getFeedLink().getHref());
             System.out.println("");
         }
 
