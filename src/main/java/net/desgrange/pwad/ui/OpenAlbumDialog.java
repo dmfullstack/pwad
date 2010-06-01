@@ -2,24 +2,22 @@ package net.desgrange.pwad.ui;
 
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class OpenAlbumDialog extends JDialog {
     private static final long serialVersionUID = -1066338781417528922L;
+    private String link;
 
     public OpenAlbumDialog(final Frame parent) {
         super(parent, true);
@@ -28,7 +26,7 @@ public class OpenAlbumDialog extends JDialog {
     }
 
     public String getLink() {
-        return null;
+        return link;
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,7 +39,7 @@ public class OpenAlbumDialog extends JDialog {
         okButton = new JButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        ResourceBundle bundle = ResourceBundle.getBundle("pwad/l10n/OpenAlbumDialog"); // NOI18N
+        final ResourceBundle bundle = ResourceBundle.getBundle("pwad/l10n/OpenAlbumDialog"); // NOI18N
         setTitle(bundle.getString("OpenAlbumDialog.title")); // NOI18N
         setMinimumSize(new Dimension(474, 97));
 
@@ -57,46 +55,43 @@ public class OpenAlbumDialog extends JDialog {
 
         cancelButton.setText(bundle.getString("OpenAlbumDialog.cancelButton.text")); // NOI18N
         cancelButton.setName("cancelButton"); // NOI18N
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
 
         okButton.setText(bundle.getString("OpenAlbumDialog.okButton.text")); // NOI18N
         okButton.setName("okButton"); // NOI18N
+        okButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent evt) {
+                okButtonActionPerformed(evt);
+            }
+        });
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                    .addComponent(messageLabel, GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(invitationLinkLabel)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(invitationLinkField, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))
-                    .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(okButton)
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addComponent(cancelButton)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(messageLabel)
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                    .addComponent(invitationLinkLabel)
-                    .addComponent(invitationLinkField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                    .addComponent(cancelButton)
-                    .addComponent(okButton))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(
+                layout.createSequentialGroup().addContainerGap().addGroup(
+                        layout.createParallelGroup(Alignment.LEADING).addComponent(messageLabel, GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE).addGroup(
+                                layout.createSequentialGroup().addComponent(invitationLinkLabel).addPreferredGap(ComponentPlacement.RELATED).addComponent(invitationLinkField, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)).addGroup(Alignment.TRAILING,
+                                layout.createSequentialGroup().addComponent(okButton).addPreferredGap(ComponentPlacement.RELATED).addComponent(cancelButton))).addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(
+                layout.createSequentialGroup().addContainerGap().addComponent(messageLabel).addPreferredGap(ComponentPlacement.RELATED).addGroup(
+                        layout.createParallelGroup(Alignment.BASELINE).addComponent(invitationLinkLabel).addComponent(invitationLinkField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)).addPreferredGap(ComponentPlacement.RELATED).addGroup(
+                        layout.createParallelGroup(Alignment.BASELINE).addComponent(cancelButton).addComponent(okButton)).addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cancelButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
+        dispose();
+    }// GEN-LAST:event_cancelButtonActionPerformed
+
+    private void okButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_okButtonActionPerformed
+        link = invitationLinkField.getText();
+        dispose();
+    }// GEN-LAST:event_okButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton cancelButton;
@@ -105,5 +100,4 @@ public class OpenAlbumDialog extends JDialog {
     private JLabel messageLabel;
     private JButton okButton;
     // End of variables declaration//GEN-END:variables
-
 }

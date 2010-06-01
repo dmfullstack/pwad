@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+import net.desgrange.pwad.service.PwadService;
 import net.desgrange.pwad.ui.MainForm;
 
 import org.apache.log4j.Logger;
@@ -24,7 +25,9 @@ public class Main {
     public static void main(final String... args) throws Exception {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
 
+        final PwadService pwadService = new PwadService();
         final MainForm mainForm = new MainForm();
+        mainForm.setPwadService(pwadService);
         mainForm.setVisible(true);
     }
 

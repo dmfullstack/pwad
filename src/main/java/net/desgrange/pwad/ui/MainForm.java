@@ -6,17 +6,23 @@ import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import net.desgrange.pwad.model.Album;
+import net.desgrange.pwad.service.PwadService;
 
 import org.apache.log4j.Logger;
 
 public class MainForm extends JFrame {
     private static final long serialVersionUID = 4313821019914508450L;
     private final Logger logger = Logger.getLogger(getClass());
+    private PwadService pwadService;
 
     public MainForm() {
         initComponents();
@@ -25,6 +31,8 @@ public class MainForm extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        albumNameLabel = new JLabel();
+        albumNameField = new JLabel();
         menuBar = new JMenuBar();
         fileMenu = new JMenu();
         openMenuItem = new JMenuItem();
@@ -33,6 +41,12 @@ public class MainForm extends JFrame {
         final ResourceBundle bundle = ResourceBundle.getBundle("pwad/l10n/MainForm"); // NOI18N
         setTitle(bundle.getString("MainForm.title")); // NOI18N
         setName("Form"); // NOI18N
+
+        albumNameLabel.setText(bundle.getString("MainForm.albumNameLabel.text")); // NOI18N
+        albumNameLabel.setName("albumNameLabel"); // NOI18N
+
+        albumNameField.setText(bundle.getString("MainForm.albumNameField.text")); // NOI18N
+        albumNameField.setName("albumNameField"); // NOI18N
 
         menuBar.setName("menuBar"); // NOI18N
 
@@ -54,8 +68,9 @@ public class MainForm extends JFrame {
 
         final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGap(0, 400, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGap(0, 278, Short.MAX_VALUE));
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(
+                layout.createSequentialGroup().addContainerGap().addComponent(albumNameLabel).addPreferredGap(ComponentPlacement.RELATED).addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE).addContainerGap()));
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(albumNameLabel).addComponent(albumNameField)).addContainerGap(242, Short.MAX_VALUE)));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -66,12 +81,21 @@ public class MainForm extends JFrame {
         final String link = dialog.getLink();
         logger.debug("Invitation link: " + link);
 
+        final Album album = pwadService.getAlbumByInvitationLink(link);
+        albumNameField.setText(album.getName());
+
     }// GEN-LAST:event_openMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JLabel albumNameField;
+    private JLabel albumNameLabel;
     private JMenu fileMenu;
     private JMenuBar menuBar;
     private JMenuItem openMenuItem;
+
     // End of variables declaration//GEN-END:variables
 
+    public void setPwadService(final PwadService pwadService) {
+        this.pwadService = pwadService;
+    }
 }

@@ -16,19 +16,16 @@ public class ViewAlbumTest extends PwadTestCase {
 
         assertTrue(window.titleEquals("pwad - Picasa Web Albums Downloader"));
         final MenuItem fileMenu = window.getMenuBar().getMenu("File");
-        final WindowInterceptor interceptor = WindowInterceptor.init(fileMenu.getSubMenu("Open album from invitation link…").triggerClick());
-        interceptor.process(new WindowHandler() {
+        WindowInterceptor.init(fileMenu.getSubMenu("Open album from invitation link…").triggerClick()).process(new WindowHandler() {
             @Override
             public Trigger process(final Window dialog) throws Exception {
-                System.out.println("Handling intercepted dialog…");
                 assertTrue(dialog.titleEquals("Open album from invitation link…"));
                 assertTrue(dialog.getTextBox("message").textEquals("Paste, in the following field, the link you received in the invitation email."));
                 dialog.getInputTextBox("Invitation link").setText(createInvitationLink());
                 return dialog.getButton("OK").triggerClick();
             }
-        });
-        interceptor.run();
-        window.getTextBox("albumName").textEquals("Holyday in Cambodia");
+        }).run();
+        assertTrue(window.getTextBox("albumNameField").textEquals("Holiday in Cambodia"));
         // window.getTable("Pictures").
     }
 
