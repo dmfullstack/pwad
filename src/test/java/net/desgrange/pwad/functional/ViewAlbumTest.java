@@ -2,17 +2,6 @@ package net.desgrange.pwad.functional;
 
 import static org.uispec4j.assertion.UISpecAssert.assertTrue;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.desgrange.pwad.utils.UiTestCase;
-
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.AbstractHandler;
 import org.junit.Test;
 import org.uispec4j.MenuItem;
 import org.uispec4j.Trigger;
@@ -20,12 +9,9 @@ import org.uispec4j.Window;
 import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 
-public class ViewAlbumTest extends UiTestCase {
+public class ViewAlbumTest extends PwadTestCase {
     @Test
     public void testUserCanViewPublicAlbumFromInvitationLink() throws Exception {
-        System.setProperty("http.proxyHost", "127.0.0.1");
-        System.setProperty("http.proxyPort", "8080");
-        startServer();
         final Window window = getMainWindow();
 
         assertTrue(window.titleEquals("pwad - Picasa Web Albums Downloader"));
@@ -36,7 +22,7 @@ public class ViewAlbumTest extends UiTestCase {
             public Trigger process(final Window dialog) throws Exception {
                 System.out.println("Handling intercepted dialog…");
                 assertTrue(dialog.titleEquals("Open album from invitation link…"));
-                assertTrue(dialog.getTextBox("Paste, in the following field, the link you received in the invitation email.").isVisible());
+                assertTrue(dialog.getTextBox("message").textEquals("Paste, in the following field, the link you received in the invitation email."));
                 dialog.getInputTextBox("Invitation link").setText(createInvitationLink());
                 return dialog.getButton("OK").triggerClick();
             }
@@ -44,20 +30,6 @@ public class ViewAlbumTest extends UiTestCase {
         interceptor.run();
         window.getTextBox("albumName").textEquals("Holyday in Cambodia");
         // window.getTable("Pictures").
-    }
-
-    private void startServer() throws Exception {
-        final Server server = new Server(8080);
-        server.setHandler(new AbstractHandler() {
-            @Override
-            public void handle(final String target, final Request jettyRequest, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
-                System.out.println("Target: " + target);
-                System.out.println("Request: " + request);
-                System.out.println("Response: " + response);
-            }
-        });
-        server.start();
-
     }
 
     private String createInvitationLink() {

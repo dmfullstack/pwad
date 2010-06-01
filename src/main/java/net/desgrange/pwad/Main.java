@@ -24,8 +24,6 @@ public class Main {
     public static void main(final String... args) throws Exception {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
 
-        // foo();
-
         final MainForm mainForm = new MainForm();
         mainForm.setVisible(true);
     }
