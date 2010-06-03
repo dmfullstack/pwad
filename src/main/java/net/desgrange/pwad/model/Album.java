@@ -18,7 +18,21 @@
 package net.desgrange.pwad.model;
 
 public class Album {
+    private String id;
     private String name;
+
+    @Override
+    public String toString() {
+        return id + " - " + name;
+    }
+
+    public void setId(final String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 
     public void setName(final String name) {
         this.name = name;

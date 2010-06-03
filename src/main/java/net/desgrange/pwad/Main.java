@@ -22,7 +22,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.List;
 import java.util.Properties;
 
 import net.desgrange.pwad.service.PwadService;
@@ -33,7 +32,6 @@ import org.apache.log4j.Logger;
 import com.google.gdata.client.photos.PicasawebService;
 import com.google.gdata.data.media.mediarss.MediaContent;
 import com.google.gdata.data.photos.AlbumFeed;
-import com.google.gdata.data.photos.GphotoEntry;
 import com.google.gdata.data.photos.PhotoFeed;
 import com.google.gdata.util.ServiceException;
 
@@ -47,28 +45,31 @@ public class Main {
 
         final Properties pwadProperties = loadProperties();
         final String version = pwadProperties.getProperty("pwad.version");
-        logger.info("Version: " + version);
+        logger.info("pwad version: " + version);
+
         final PicasawebService picasawebService = new PicasawebService(APPLICATION_NAME + "-" + version);
+        logger.info("PicasawebService version: " + picasawebService.getServiceVersion());
+
         final PwadService pwadService = new PwadService();
+        pwadService.setPicasawebService(picasawebService);
+
         final MainForm mainForm = new MainForm();
         mainForm.setPwadService(pwadService);
         mainForm.setVisible(true);
     }
 
-    private static void foo() throws Exception {
     private static Properties loadProperties() throws IOException {
         final Properties pwadProperties = new Properties();
         pwadProperties.load(ClassLoader.getSystemResource(PROPERTIES_FILE_PATH).openStream());
         return pwadProperties;
     }
 
+    private static void foo(final String userId, final String albumId) throws Exception {
         logger.trace("Starting PicasawebService…");
         final PicasawebService service = new PicasawebService("pwad-0.1-SNAPSHOT");
         final String version = service.getServiceVersion();
         logger.trace("PicasawebService version " + version + " started.");
 
-        final String userId = null;// args[0];
-        final String albumId = null;// args[1];
         final StringBuilder albumUrl = new StringBuilder("http://picasaweb.google.com/data/feed/api");
         albumUrl.append("/user/").append(userId);
         albumUrl.append("/albumid/").append(albumId);
@@ -78,15 +79,15 @@ public class Main {
         System.out.println("UserFeed: " + userFeed + ", description: " + userFeed.getDescription().getPlainText());
         System.out.println("nickname:" + userFeed.getNickname());
 
-        final List<GphotoEntry> entries = userFeed.getEntries();
-        for (final GphotoEntry entry : entries) {
-            System.out.println("Entry: " + entry);
-            System.out.println("Description: " + entry.getDescription().getPlainText());
-            System.out.println("Link: " + entry.getFeedLink().getHref());
-            System.out.println("Photo ID: " + entry.getGphotoId() + ", id: " + entry.getId() + ", kind: " + entry.getKind());
-            // getPhoto(service, entry.getFeedLink().getHref());
-            System.out.println("");
-        }
+        // final List<GphotoEntry> entries = userFeed.getEntries();
+        // for (final GphotoEntry entry : entries) {
+        // System.out.println("Entry: " + entry);
+        // System.out.println("Description: " + entry.getDescription().getPlainText());
+        // System.out.println("Link: " + entry.getFeedLink().getHref());
+        // System.out.println("Photo ID: " + entry.getGphotoId() + ", id: " + entry.getId() + ", kind: " + entry.getKind());
+        // // getPhoto(service, entry.getFeedLink().getHref());
+        // System.out.println("");
+        // }
 
     }
 
