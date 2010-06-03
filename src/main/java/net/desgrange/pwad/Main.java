@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
+import java.util.Properties;
 
 import net.desgrange.pwad.service.PwadService;
 import net.desgrange.pwad.ui.MainForm;
@@ -38,10 +39,16 @@ import com.google.gdata.util.ServiceException;
 
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class);
+    private static final String APPLICATION_NAME = "pwad";
+    private static final String PROPERTIES_FILE_PATH = "pwad/pwad.properties";
 
     public static void main(final String... args) throws Exception {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
 
+        final Properties pwadProperties = loadProperties();
+        final String version = pwadProperties.getProperty("pwad.version");
+        logger.info("Version: " + version);
+        final PicasawebService picasawebService = new PicasawebService(APPLICATION_NAME + "-" + version);
         final PwadService pwadService = new PwadService();
         final MainForm mainForm = new MainForm();
         mainForm.setPwadService(pwadService);
@@ -49,6 +56,12 @@ public class Main {
     }
 
     private static void foo() throws Exception {
+    private static Properties loadProperties() throws IOException {
+        final Properties pwadProperties = new Properties();
+        pwadProperties.load(ClassLoader.getSystemResource(PROPERTIES_FILE_PATH).openStream());
+        return pwadProperties;
+    }
+
         logger.trace("Starting PicasawebService…");
         final PicasawebService service = new PicasawebService("pwad-0.1-SNAPSHOT");
         final String version = service.getServiceVersion();
