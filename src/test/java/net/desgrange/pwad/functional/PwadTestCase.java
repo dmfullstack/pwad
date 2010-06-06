@@ -18,8 +18,10 @@
 package net.desgrange.pwad.functional;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -43,7 +45,7 @@ public abstract class PwadTestCase extends UiTestCase {
     @Before
     public void ensureEnvironmentIsInitialized() throws Exception {
         getServer();
-        System.setProperty("http.proxyHost", "127.0.0.1");
+        System.setProperty("http.proxyHost", "localhost");
         System.setProperty("http.proxyPort", "8080");
     }
 
@@ -72,6 +74,23 @@ public abstract class PwadTestCase extends UiTestCase {
                     System.out.println("Target: " + target);
                     System.out.println("Request: " + request);
                     System.out.println("Response: " + response);
+                    if (target.equals("/data/feed/api/user/some_user_id/albumid/an_album_id")) {
+                        sendResponse(response, "response.xml");
+                    }
+
+                }
+
+                private void sendResponse(final HttpServletResponse response, final String resourcePath) throws IOException {
+                    response.setContentType("application/atom+xml; charset=UTF-8; type=feed");
+                    final ServletOutputStream output = response.getOutputStream();
+                    final InputStream input = ClassLoader.getSystemResource(resourcePath).openStream();
+                    final byte chunk[] = new byte[1024];
+                    int read = 0;
+                    while ((read = input.read(chunk)) != -1) {
+                        output.write(chunk, 0, read);
+                    }
+                    input.close();
+                    // output.close();
                 }
             });
             server.start();
