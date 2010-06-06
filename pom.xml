@@ -56,6 +56,9 @@
                         <goals>
                             <goal>xvfb</goal>
                         </goals>
+                        <configuration>
+                            <display>:99</display>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
