@@ -38,7 +38,7 @@ import com.google.gdata.util.ServiceException;
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class);
     private static final String APPLICATION_NAME = "pwad";
-    private static final String PROPERTIES_FILE_PATH = "pwad/pwad.properties";
+    private static final String PROPERTIES_FILE_PATH = "/pwad/pwad.properties";
 
     public static void main(final String... args) throws Exception {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
@@ -60,7 +60,7 @@ public class Main {
 
     private static Properties loadProperties() throws IOException {
         final Properties pwadProperties = new Properties();
-        // pwadProperties.load(ClassLoader.getSystemResource(PROPERTIES_FILE_PATH).openStream());
+        pwadProperties.load(Main.class.getResource(PROPERTIES_FILE_PATH).openStream());
         return pwadProperties;
     }
 

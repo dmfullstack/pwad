@@ -75,7 +75,7 @@ public abstract class PwadTestCase extends UiTestCase {
                     System.out.println("Request: " + request);
                     System.out.println("Response: " + response);
                     if (target.equals("/data/feed/api/user/dead_kennedys/albumid/holiday_in_cambodia")) {
-                        sendResponse(response, "response.xml");
+                        sendResponse(response, "/response.xml");
                     }
 
                 }
@@ -83,7 +83,7 @@ public abstract class PwadTestCase extends UiTestCase {
                 private void sendResponse(final HttpServletResponse response, final String resourcePath) throws IOException {
                     response.setContentType("application/atom+xml; charset=UTF-8; type=feed");
                     final ServletOutputStream output = response.getOutputStream();
-                    final InputStream input = ClassLoader.getSystemResource(resourcePath).openStream();
+                    final InputStream input = Main.class.getResource(resourcePath).openStream();
                     final byte chunk[] = new byte[1024];
                     int read = 0;
                     while ((read = input.read(chunk)) != -1) {
