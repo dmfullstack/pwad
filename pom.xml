@@ -67,7 +67,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.5</version>
                 <configuration>
-                    <forkMode>once</forkMode>
+                    <forkMode>never</forkMode>
                     <excludes>
                         <exclude>**/functional/**</exclude>
                     </excludes>
