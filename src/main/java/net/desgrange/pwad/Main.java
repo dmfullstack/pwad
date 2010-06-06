@@ -60,7 +60,7 @@ public class Main {
 
     private static Properties loadProperties() throws IOException {
         final Properties pwadProperties = new Properties();
-        pwadProperties.load(ClassLoader.getSystemResource(PROPERTIES_FILE_PATH).openStream());
+        // pwadProperties.load(ClassLoader.getSystemResource(PROPERTIES_FILE_PATH).openStream());
         return pwadProperties;
     }
 
