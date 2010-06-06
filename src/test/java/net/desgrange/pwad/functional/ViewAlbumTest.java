@@ -47,8 +47,8 @@ public class ViewAlbumTest extends PwadTestCase {
     }
 
     private String createInvitationLink() {
-        final String userId = "some_user_id";
-        final String albumId = "an_album_id";
+        final String userId = "dead_kennedys";
+        final String albumId = "holiday_in_cambodia";
         final String authenticationKey = "the_authentication_key";
         final String invitationId = "invitation_id";
         return "http://picasaweb.google.fr/lh/sredir?uname=" + userId + "&target=ALBUM&id=" + albumId + "&authkey=" + authenticationKey + "&invite=" + invitationId + "&feat=email";

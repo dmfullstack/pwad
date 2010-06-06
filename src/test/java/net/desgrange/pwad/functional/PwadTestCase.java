@@ -74,7 +74,7 @@ public abstract class PwadTestCase extends UiTestCase {
                     System.out.println("Target: " + target);
                     System.out.println("Request: " + request);
                     System.out.println("Response: " + response);
-                    if (target.equals("/data/feed/api/user/some_user_id/albumid/an_album_id")) {
+                    if (target.equals("/data/feed/api/user/dead_kennedys/albumid/holiday_in_cambodia")) {
                         sendResponse(response, "response.xml");
                     }
 
@@ -90,7 +90,7 @@ public abstract class PwadTestCase extends UiTestCase {
                         output.write(chunk, 0, read);
                     }
                     input.close();
-                    // output.close();
+                    output.close();
                 }
             });
             server.start();

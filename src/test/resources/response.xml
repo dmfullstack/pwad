@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom' xmlns:exif='http://schemas.google.com/photos/exif/2007' xmlns:gphoto='http://schemas.google.com/photos/2007' xmlns:media='http://search.yahoo.com/mrss/'
+    xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/' xmlns:gd='http://schemas.google.com/g/2005' gd:etag='W/&quot;DEEEQHY5eCp7ImA9WxFXGUs.&quot;'>
+    <id>http://picasaweb.google.com/data/feed/user/dead_kennedys/albumid/holiday_in_cambodia</id>
+    <updated>2010-05-25T13:37:42.123Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#album' />
+    <title>Holiday in Cambodia</title>
+    <subtitle />
+    <rights>public</rights>
+    <icon>http://lh6.ggpht.com/_0aa0aAAaaA0/A_Aaaa_AaaA/AAAAAAAAAAa/aAA0AA_aaA0/a000-a/HolidayInCambodia.jpg</icon>
+    <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml' href='http://picasaweb.google.com/data/feed/api/user/dead_kennedys/albumid/holiday_in_cambodia' />
+    <link rel='alternate' type='text/html' href='http://picasaweb.google.com/dead_kennedys/HolidayInCambodia' />
+    <link rel='http://schemas.google.com/photos/2007#slideshow' type='application/x-shockwave-flash'
+        href='http://picasaweb.google.com/s/c/bin/slideshow.swf?host=picasaweb.google.com&amp;RGB=0x000000&amp;feed=http%3A%2F%2Fpicasaweb.google.com%2Fdata%2Ffeed%2Fapi%2Fuser%2Fdead_kennedys%2Falbumid%2Fholiday_in_cambodia%3Falt%3Drss' />
+    <link rel='http://schemas.google.com/photos/2007#report' type='text/html' href='http://picasaweb.google.com/lh/reportAbuse?uname=dead_kennedys&amp;aid=holiday_in_cambodia' />
+    <link rel='self' type='application/atom+xml' href='http://picasaweb.google.com/data/feed/api/user/dead_kennedys/albumid/holiday_in_cambodia?start-index=1&amp;max-results=1000&amp;kind=photo&amp;imgmax=d' />
+    <author>
+        <name>dead_kennedys</name>
+        <uri>http://picasaweb.google.com/dead_kennedys</uri>
+    </author>
+    <generator version='1.00' uri='http://picasaweb.google.com/'>Picasaweb</generator>
+    <openSearch:totalResults>2</openSearch:totalResults>
+    <openSearch:startIndex>1</openSearch:startIndex>
+    <openSearch:itemsPerPage>1000</openSearch:itemsPerPage>
+    <gphoto:id>holiday_in_cambodia</gphoto:id>
+    <gphoto:location>Cambodia</gphoto:location>
+    <gphoto:access>public</gphoto:access>
+    <gphoto:timestamp>1273734000000</gphoto:timestamp>
+    <gphoto:numphotos>2</gphoto:numphotos>
+    <gphoto:user>dead_kennedys</gphoto:user>
+    <gphoto:nickname>dead_kennedys</gphoto:nickname>
+    <gphoto:allowPrints>true</gphoto:allowPrints>
+    <gphoto:allowDownloads>true</gphoto:allowDownloads>
+    <entry gd:etag='&quot;YD8qeyI.&quot;'>
+        <id>http://picasaweb.google.com/data/entry/user/dead_kennedys/albumid/holiday_in_cambodia/photoid/0123456789012345678</id>
+        <published>2010-05-19T17:42:19.000Z</published>
+        <updated>2010-05-27T11:23:36.027Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo' />
+        <title>100_0001.JPG</title>
+        <summary />
+        <content type='image/jpeg' src='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/d/100_0001.JPG' />
+        <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml' href='http://picasaweb.google.com/data/feed/api/user/dead_kennedys/albumid/holiday_in_cambodia/photoid/0123456789012345678' />
+        <link rel='alternate' type='text/html' href='http://picasaweb.google.com/dead_kennedys/HolidayInCambodia#0123456789012345678' />
+        <link rel='http://schemas.google.com/photos/2007#canonical' type='text/html' href='http://picasaweb.google.com/lh/photo/aAAAAa0_AAAAAA0AAaAaAa' />
+        <link rel='self' type='application/atom+xml' href='http://picasaweb.google.com/data/entry/api/user/dead_kennedys/albumid/holiday_in_cambodia/photoid/0123456789012345678' />
+        <link rel='http://schemas.google.com/photos/2007#report' type='text/html' href='http://picasaweb.google.com/lh/reportAbuse?uname=dead_kennedys&amp;aid=holiday_in_cambodia&amp;iid=0123456789012345678' />
+        <gphoto:id>0123456789012345678</gphoto:id>
+        <gphoto:albumid>holiday_in_cambodia</gphoto:albumid>
+        <gphoto:access>public</gphoto:access>
+        <gphoto:width>2304</gphoto:width>
+        <gphoto:height>1728</gphoto:height>
+        <gphoto:rotation>0</gphoto:rotation>
+        <gphoto:size>721948</gphoto:size>
+        <gphoto:checksum />
+        <gphoto:timestamp>1137149725000</gphoto:timestamp>
+        <gphoto:imageVersion>1142</gphoto:imageVersion>
+        <gphoto:commentCount>0</gphoto:commentCount>
+        <gphoto:license id='0' name='All Rights Reserved' url=''>ALL_RIGHTS_RESERVED</gphoto:license>
+        <exif:tags>
+            <exif:fstop>4.8</exif:fstop>
+            <exif:exposure>0.001596</exif:exposure>
+            <exif:flash>false</exif:flash>
+            <exif:focallength>6.0</exif:focallength>
+            <exif:iso>80</exif:iso>
+            <exif:time>1137149725000</exif:time>
+            <exif:imageUniqueID>0aa0000a0000a0aa00a00a00000aa0a0</exif:imageUniqueID>
+        </exif:tags>
+        <media:group>
+            <media:content url='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/d/100_0001.JPG' height='1728' width='2304' type='image/jpeg' medium='image' />
+            <media:credit>dead_kennedys</media:credit>
+            <media:description type='plain' />
+            <media:keywords />
+            <media:thumbnail url='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/s72/100_0001.JPG' height='54' width='72' />
+            <media:thumbnail url='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/s144/100_0001.JPG' height='108' width='144' />
+            <media:thumbnail url='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/s288/100_0001.JPG' height='216' width='288' />
+            <media:title type='plain'>100_0001.JPG</media:title>
+        </media:group>
+    </entry>
+    <entry gd:etag='&quot;YD8qeyI.&quot;'>
+        <id>http://picasaweb.google.com/data/entry/user/dead_kennedys/albumid/holiday_in_cambodia/photoid/0123456789876543210</id>
+        <published>2010-05-19T18:42:19.000Z</published>
+        <updated>2010-05-27T12:23:36.027Z</updated>
+        <category scheme='http://schemas.google.com/g/2005#kind' term='http://schemas.google.com/photos/2007#photo' />
+        <title>100_0002.JPG</title>
+        <summary />
+        <content type='image/jpeg' src='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/d/100_0002.JPG' />
+        <link rel='http://schemas.google.com/g/2005#feed' type='application/atom+xml' href='http://picasaweb.google.com/data/feed/api/user/dead_kennedys/albumid/holiday_in_cambodia/photoid/0123456789876543210' />
+        <link rel='alternate' type='text/html' href='http://picasaweb.google.com/dead_kennedys/HolidayInCambodia#0123456789876543210' />
+        <link rel='http://schemas.google.com/photos/2007#canonical' type='text/html' href='http://picasaweb.google.com/lh/photo/aAAAAa0_AAAAAA0AAaAaAb' />
+        <link rel='self' type='application/atom+xml' href='http://picasaweb.google.com/data/entry/api/user/dead_kennedys/albumid/holiday_in_cambodia/photoid/0123456789876543210' />
+        <link rel='http://schemas.google.com/photos/2007#report' type='text/html' href='http://picasaweb.google.com/lh/reportAbuse?uname=dead_kennedys&amp;aid=holiday_in_cambodia&amp;iid=0123456789876543210' />
+        <gphoto:id>0123456789876543210</gphoto:id>
+        <gphoto:albumid>holiday_in_cambodia</gphoto:albumid>
+        <gphoto:access>public</gphoto:access>
+        <gphoto:width>2304</gphoto:width>
+        <gphoto:height>1728</gphoto:height>
+        <gphoto:rotation>0</gphoto:rotation>
+        <gphoto:size>721948</gphoto:size>
+        <gphoto:checksum />
+        <gphoto:timestamp>1137149725000</gphoto:timestamp>
+        <gphoto:imageVersion>1142</gphoto:imageVersion>
+        <gphoto:commentCount>0</gphoto:commentCount>
+        <gphoto:license id='0' name='All Rights Reserved' url=''>ALL_RIGHTS_RESERVED</gphoto:license>
+        <exif:tags>
+            <exif:fstop>4.8</exif:fstop>
+            <exif:exposure>0.001596</exif:exposure>
+            <exif:flash>false</exif:flash>
+            <exif:focallength>6.0</exif:focallength>
+            <exif:iso>80</exif:iso>
+            <exif:time>1137149725000</exif:time>
+            <exif:imageUniqueID>0aa0000a0000a0aa00a00a00000aa0a1</exif:imageUniqueID>
+        </exif:tags>
+        <media:group>
+            <media:content url='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/d/100_0002.JPG' height='1728' width='2304' type='image/jpeg' medium='image' />
+            <media:credit>dead_kennedys</media:credit>
+            <media:description type='plain' />
+            <media:keywords />
+            <media:thumbnail url='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/s72/100_0002.JPG' height='54' width='72' />
+            <media:thumbnail url='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/s144/100_0002.JPG' height='108' width='144' />
+            <media:thumbnail url='http://lh3.ggpht.com/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/s288/100_0002.JPG' height='216' width='288' />
+            <media:title type='plain'>100_0002.JPG</media:title>
+        </media:group>
+    </entry>
+</feed>
