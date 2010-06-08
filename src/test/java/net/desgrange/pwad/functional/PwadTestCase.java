@@ -31,7 +31,7 @@ public abstract class PwadTestCase extends UiTestCase {
 
     @Before
     public void ensureEnvironmentIsInitialized() throws Exception {
-        TestEnvironment.getInstance();
+        FunctionalTestEnvironment.getInstance();
     }
 
     @After

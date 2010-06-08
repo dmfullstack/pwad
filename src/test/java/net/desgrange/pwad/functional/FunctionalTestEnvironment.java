@@ -31,19 +31,19 @@ import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
-public class TestEnvironment {
-    private static TestEnvironment instance;
+public class FunctionalTestEnvironment {
+    private static FunctionalTestEnvironment instance;
     private Server server;
     private int port;
 
-    public static TestEnvironment getInstance() throws Exception {
+    public static FunctionalTestEnvironment getInstance() throws Exception {
         if (instance == null) {
-            instance = new TestEnvironment();
+            instance = new FunctionalTestEnvironment();
         }
         return instance;
     }
 
-    private TestEnvironment() throws Exception {
+    private FunctionalTestEnvironment() throws Exception {
         System.setProperty("http.proxyHost", "localhost");
         System.setProperty("http.proxyPort", "8080");
         startServer();
