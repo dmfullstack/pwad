@@ -22,8 +22,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Properties;
 
+import net.desgrange.pwad.service.EnvironmentService;
 import net.desgrange.pwad.service.PwadService;
 import net.desgrange.pwad.ui.MainForm;
 
@@ -43,25 +43,18 @@ public class Main {
     public static void main(final String... args) throws Exception {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
 
-        final Properties pwadProperties = loadProperties();
-        final String version = pwadProperties.getProperty("pwad.version");
-        logger.info("pwad version: " + version);
 
-        final PicasawebService picasawebService = new PicasawebService(APPLICATION_NAME + "-" + version);
+        final EnvironmentService environmentService = new EnvironmentService(PROPERTIES_FILE_PATH);
+        logger.info("pwad version: " + environmentService.getVersion());
+
+        final PicasawebService picasawebService = new PicasawebService(APPLICATION_NAME + "-" + environmentService.getVersion());
         logger.info("PicasawebService version: " + picasawebService.getServiceVersion());
 
-        final PwadService pwadService = new PwadService();
-        pwadService.setPicasawebService(picasawebService);
-
+        final PwadService pwadService = new PwadService(picasawebService);
         final MainForm mainForm = new MainForm();
+        mainForm.setEnvironmentService(environmentService);
         mainForm.setPwadService(pwadService);
         mainForm.setVisible(true);
-    }
-
-    private static Properties loadProperties() throws IOException {
-        final Properties pwadProperties = new Properties();
-        pwadProperties.load(Main.class.getResource(PROPERTIES_FILE_PATH).openStream());
-        return pwadProperties;
     }
 
     private static void foo(final String userId, final String albumId) throws Exception {

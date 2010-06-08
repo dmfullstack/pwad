@@ -29,9 +29,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JPopupMenu.Separator;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import net.desgrange.pwad.model.Album;
+import net.desgrange.pwad.service.EnvironmentService;
 import net.desgrange.pwad.service.PwadService;
 
 import org.apache.log4j.Logger;
@@ -39,6 +41,7 @@ import org.apache.log4j.Logger;
 public class MainForm extends JFrame {
     private static final long serialVersionUID = 4313821019914508450L;
     private final Logger logger = Logger.getLogger(getClass());
+    private EnvironmentService environmentService;
     private PwadService pwadService;
 
     public MainForm() {
@@ -52,6 +55,8 @@ public class MainForm extends JFrame {
         albumNameField = new JLabel();
         menuBar = new JMenuBar();
         fileMenu = new JMenu();
+        aboutPwad = new JMenuItem();
+        separator1 = new Separator();
         openMenuItem = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -70,6 +75,18 @@ public class MainForm extends JFrame {
         fileMenu.setText(bundle.getString("MainForm.fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
+        aboutPwad.setText(bundle.getString("MainForm.aboutPwad.text")); // NOI18N
+        aboutPwad.setName("aboutPwad"); // NOI18N
+        aboutPwad.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent evt) {
+                aboutPwadActionPerformed(evt);
+            }
+        });
+        fileMenu.add(aboutPwad);
+
+        separator1.setName("separator1"); // NOI18N
+        fileMenu.add(separator1);
+
         openMenuItem.setText(bundle.getString("MainForm.openMenuItem.text")); // NOI18N
         openMenuItem.setName("openMenuItem"); // NOI18N
         openMenuItem.addActionListener(new ActionListener() {
@@ -85,14 +102,37 @@ public class MainForm extends JFrame {
 
         final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(
-                layout.createSequentialGroup().addContainerGap().addComponent(albumNameLabel).addPreferredGap(ComponentPlacement.RELATED).addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE).addContainerGap()));
-        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING).addGroup(layout.createSequentialGroup().addContainerGap().addGroup(layout.createParallelGroup(Alignment.BASELINE).addComponent(albumNameLabel).addComponent(albumNameField)).addContainerGap(242, Short.MAX_VALUE)));
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(albumNameLabel)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                                .addContainerGap())
+                );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(albumNameLabel)
+                                        .addComponent(albumNameField))
+                                .addContainerGap(242, Short.MAX_VALUE))
+                );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void aboutPwadActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_aboutPwadActionPerformed
+        logger.trace(evt);
+        final AboutDialog dialog = new AboutDialog(this, environmentService);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }// GEN-LAST:event_aboutPwadActionPerformed
+
     private void openMenuItemActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_openMenuItemActionPerformed
+        logger.trace(evt);
         final OpenAlbumDialog dialog = new OpenAlbumDialog(this);
         dialog.setVisible(true);
         final String link = dialog.getLink();
@@ -104,15 +144,21 @@ public class MainForm extends JFrame {
     }// GEN-LAST:event_openMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JMenuItem aboutPwad;
     private JLabel albumNameField;
     private JLabel albumNameLabel;
     private JMenu fileMenu;
     private JMenuBar menuBar;
     private JMenuItem openMenuItem;
+    private Separator separator1;
 
     // End of variables declaration//GEN-END:variables
 
     public void setPwadService(final PwadService pwadService) {
         this.pwadService = pwadService;
+    }
+
+    public void setEnvironmentService(final EnvironmentService environmentService) {
+        this.environmentService = environmentService;
     }
 }

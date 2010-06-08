@@ -26,9 +26,9 @@ import org.uispec4j.Window;
 import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 
-public class ViewAlbumTest extends PwadTestCase {
+public class DownloadPublicAlbumTest extends PwadTestCase {
     @Test
-    public void testUserCanViewPublicAlbumFromInvitationLink() throws Exception {
+    public void testUserCanDownloadPublicAlbumFromInvitationLink() throws Exception {
         final Window window = getMainWindow();
 
         assertTrue(window.titleEquals("pwad - Picasa Web Albums Downloader"));

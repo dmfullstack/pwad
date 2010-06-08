@@ -31,7 +31,11 @@ import com.google.gdata.data.photos.PhotoEntry;
 import com.google.gdata.util.ServiceException;
 
 public class PwadService {
-    private PicasawebService picasawebService;
+    private final PicasawebService picasawebService;
+
+    public PwadService(final PicasawebService picasawebService) throws IOException {
+        this.picasawebService = picasawebService;
+    }
 
     public Album getAlbumByInvitationLink(final String url) {
         final String userName = UrlUtils.getParameter(url, "uname");
@@ -79,9 +83,5 @@ public class PwadService {
         } catch (final ServiceException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void setPicasawebService(final PicasawebService picasawebService) {
-        this.picasawebService = picasawebService;
     }
 }
