@@ -23,6 +23,8 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -44,6 +46,8 @@ public class MainForm extends JFrame {
     private final Logger logger = Logger.getLogger(getClass());
     private EnvironmentService environmentService;
     private PwadService pwadService;
+    private String selectTitle;
+    private String selectText;
 
     public MainForm() {
         initComponents();
@@ -56,6 +60,7 @@ public class MainForm extends JFrame {
         albumNameField = new JLabel();
         picturesCountLabel = new JLabel();
         picturesCountField = new JLabel();
+        downloadButton = new JButton();
         menuBar = new JMenuBar();
         fileMenu = new JMenu();
         aboutPwad = new JMenuItem();
@@ -63,9 +68,9 @@ public class MainForm extends JFrame {
         openMenuItem = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        final ResourceBundle bundle = ResourceBundle.getBundle("pwad/l10n/MainForm"); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("pwad/l10n/MainForm"); // NOI18N
         setTitle(bundle.getString("MainForm.title")); // NOI18N
-        setName("Form"); // NOI18N
+        setName("pwad"); // NOI18N
 
         albumNameLabel.setText(bundle.getString("MainForm.albumNameLabel.text")); // NOI18N
         albumNameLabel.setName("albumNameLabel"); // NOI18N
@@ -79,6 +84,17 @@ public class MainForm extends JFrame {
         picturesCountField.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.picturesCountField.text"), new Object[] {})); // NOI18N
         picturesCountField.setName("picturesCountField"); // NOI18N
 
+        downloadButton.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.downloadButton.text"), new Object[] {})); // NOI18N
+        downloadButton.setEnabled(false);
+        downloadButton.setName("downloadButton"); // NOI18N
+        downloadButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                downloadButtonActionPerformed(evt);
+            }
+        });
+        selectTitle = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.downloadButton.selectTitle");
+        selectText = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.downloadButton.selectText");
+
         menuBar.setName("menuBar"); // NOI18N
 
         fileMenu.setText(bundle.getString("MainForm.fileMenu.text")); // NOI18N
@@ -87,7 +103,7 @@ public class MainForm extends JFrame {
         aboutPwad.setText(bundle.getString("MainForm.aboutPwad.text")); // NOI18N
         aboutPwad.setName("aboutPwad"); // NOI18N
         aboutPwad.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 aboutPwadActionPerformed(evt);
             }
         });
@@ -99,7 +115,7 @@ public class MainForm extends JFrame {
         openMenuItem.setText(bundle.getString("MainForm.openMenuItem.text")); // NOI18N
         openMenuItem.setName("openMenuItem"); // NOI18N
         openMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 openMenuItemActionPerformed(evt);
             }
         });
@@ -109,37 +125,55 @@ public class MainForm extends JFrame {
 
         setJMenuBar(menuBar);
 
-        final GroupLayout layout = new GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(albumNameLabel, Alignment.TRAILING)
-                                        .addComponent(picturesCountLabel, Alignment.TRAILING))
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                                        .addComponent(picturesCountField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
-                                .addContainerGap())
-                );
+            layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                            .addComponent(albumNameLabel, Alignment.TRAILING)
+                            .addComponent(picturesCountLabel, Alignment.TRAILING))
+                        .addPreferredGap(ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                            .addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                            .addComponent(picturesCountField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
+                    .addComponent(downloadButton, Alignment.TRAILING))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(albumNameLabel)
-                                        .addComponent(albumNameField))
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(picturesCountLabel)
-                                        .addComponent(picturesCountField))
-                                .addContainerGap(218, Short.MAX_VALUE))
-                );
+            layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                    .addComponent(albumNameLabel)
+                    .addComponent(albumNameField))
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                    .addComponent(picturesCountLabel)
+                    .addComponent(picturesCountField))
+                .addPreferredGap(ComponentPlacement.UNRELATED)
+                .addComponent(downloadButton)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void downloadButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_downloadButtonActionPerformed
+        logger.trace(evt);
+        final JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle(selectTitle);
+        fileChooser.setApproveButtonText(selectText);
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        final int result = fileChooser.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            logger.debug("Selected directory: " + fileChooser.getSelectedFile());
+        }
+
+    }// GEN-LAST:event_downloadButtonActionPerformed
 
     private void aboutPwadActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_aboutPwadActionPerformed
         logger.trace(evt);
@@ -158,19 +192,20 @@ public class MainForm extends JFrame {
         final Album album = pwadService.getAlbumByInvitationLink(link);
         albumNameField.setText(album.getName());
         picturesCountField.setText(String.valueOf(album.getPictures().size()));
+        downloadButton.setEnabled(true);
     }// GEN-LAST:event_openMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenuItem aboutPwad;
     private JLabel albumNameField;
     private JLabel albumNameLabel;
+    private JButton downloadButton;
     private JMenu fileMenu;
     private JMenuBar menuBar;
     private JMenuItem openMenuItem;
     private JLabel picturesCountField;
     private JLabel picturesCountLabel;
     private Separator separator1;
-
     // End of variables declaration//GEN-END:variables
 
     public void setPwadService(final PwadService pwadService) {

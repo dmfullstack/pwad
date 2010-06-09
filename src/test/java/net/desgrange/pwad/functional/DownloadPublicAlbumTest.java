@@ -17,32 +17,50 @@
  */
 package net.desgrange.pwad.functional;
 
+import static org.uispec4j.assertion.UISpecAssert.assertFalse;
 import static org.uispec4j.assertion.UISpecAssert.assertTrue;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.uispec4j.Button;
 import org.uispec4j.MenuItem;
+import org.uispec4j.TextBox;
 import org.uispec4j.Trigger;
 import org.uispec4j.Window;
+import org.uispec4j.interception.FileChooserHandler;
 import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 
 public class DownloadPublicAlbumTest extends PwadTestCase {
+    private Window window;
+    private MenuItem openAlbumFromLinkMenu;
+    private TextBox albumNameField;
+    private TextBox picturesCountField;
+    private Button downloadButton;
+
+    @Before
+    public void setUp() {
+        window = getMainWindow();
+        openAlbumFromLinkMenu = window.getMenuBar().getMenu("File").getSubMenu("Open album from invitation link…");
+        albumNameField = window.getTextBox("albumNameField");
+        picturesCountField = window.getTextBox("picturesCountField");
+        downloadButton = window.getButton("Download all pictures");
+    }
+
     @Test
     public void testUserCanDownloadPublicAlbumFromInvitationLink() throws Exception {
-        final Window window = getMainWindow();
         assertTrue(window.titleEquals("pwad - Picasa Web Albums Downloader"));
-        final MenuItem fileMenu = window.getMenuBar().getMenu("File");
-        WindowInterceptor.init(fileMenu.getSubMenu("Open album from invitation link…").triggerClick()).process(new WindowHandler() {
-            @Override
-            public Trigger process(final Window dialog) throws Exception {
-                assertTrue(dialog.titleEquals("Open album from invitation link…"));
-                assertTrue(dialog.getTextBox("message").textEquals("Paste, in the following field, the link you received in the invitation email."));
-                dialog.getInputTextBox("Invitation link").setText(createInvitationLink());
-                return dialog.getButton("OK").triggerClick();
-            }
-        }).run();
-        assertTrue(window.getTextBox("albumNameField").textEquals("Holiday in Cambodia"));
-        assertTrue(window.getTextBox("picturesCountField").textEquals("2"));
+        assertFalse(downloadButton.isEnabled());
+        WindowInterceptor.init(openAlbumFromLinkMenu.triggerClick()).process(new OpenAlbumDialog(createInvitationLink())).run();
+        assertTrue(albumNameField.textEquals("Holiday in Cambodia"));
+        assertTrue(picturesCountField.textEquals("2"));
+        assertTrue(downloadButton.isEnabled());
+        final File outputFolder = createTempDirectory();
+        WindowInterceptor.init(downloadButton.triggerClick())
+                .process(FileChooserHandler.init().titleEquals("Select output folder").assertAcceptsDirectoriesOnly().select(outputFolder)).run();
     }
 
     private String createInvitationLink() {
@@ -51,5 +69,29 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
         final String authenticationKey = "the_authentication_key";
         final String invitationId = "invitation_id";
         return "http://picasaweb.google.fr/lh/sredir?uname=" + userId + "&target=ALBUM&id=" + albumId + "&authkey=" + authenticationKey + "&invite=" + invitationId + "&feat=email";
+    }
+
+    private File createTempDirectory() throws IOException {
+        final File file = File.createTempFile(getClass().getSimpleName(), "");
+        file.delete();
+        file.mkdir();
+        file.deleteOnExit();
+        return file;
+    }
+
+    private static class OpenAlbumDialog extends WindowHandler {
+        private final String link;
+
+        public OpenAlbumDialog(final String link) {
+            this.link = link;
+        }
+
+        @Override
+        public Trigger process(final Window dialog) throws Exception {
+            assertTrue(dialog.titleEquals("Open album from invitation link…"));
+            assertTrue(dialog.getTextBox("message").textEquals("Paste, in the following field, the link you received in the invitation email."));
+            dialog.getInputTextBox("Invitation link").setText(link);
+            return dialog.getButton("OK").triggerClick();
+        }
     }
 }
