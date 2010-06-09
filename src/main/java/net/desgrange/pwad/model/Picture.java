@@ -17,12 +17,9 @@
  */
 package net.desgrange.pwad.model;
 
-import java.util.List;
-
-public class Album {
+public class Picture {
     private String id;
     private String name;
-    private List<Picture> pictures;
 
     public String getId() {
         return id;
@@ -38,13 +35,5 @@ public class Album {
 
     public void setName(final String name) {
         this.name = name;
-    }
-
-    public List<Picture> getPictures() {
-        return pictures;
-    }
-
-    public void setPictures(final List<Picture> pictures) {
-        this.pictures = pictures;
     }
 }

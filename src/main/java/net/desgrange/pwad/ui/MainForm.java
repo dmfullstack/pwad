@@ -19,6 +19,7 @@ package net.desgrange.pwad.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
@@ -53,6 +54,8 @@ public class MainForm extends JFrame {
 
         albumNameLabel = new JLabel();
         albumNameField = new JLabel();
+        picturesCountLabel = new JLabel();
+        picturesCountField = new JLabel();
         menuBar = new JMenuBar();
         fileMenu = new JMenu();
         aboutPwad = new JMenuItem();
@@ -69,6 +72,12 @@ public class MainForm extends JFrame {
 
         albumNameField.setText(bundle.getString("MainForm.albumNameField.text")); // NOI18N
         albumNameField.setName("albumNameField"); // NOI18N
+
+        picturesCountLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.picturesCountLabel.text"), new Object[] {})); // NOI18N
+        picturesCountLabel.setName("picturesCountLabel"); // NOI18N
+
+        picturesCountField.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.picturesCountField.text"), new Object[] {})); // NOI18N
+        picturesCountField.setName("picturesCountField"); // NOI18N
 
         menuBar.setName("menuBar"); // NOI18N
 
@@ -106,9 +115,13 @@ public class MainForm extends JFrame {
                 layout.createParallelGroup(Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(albumNameLabel)
+                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(albumNameLabel, Alignment.TRAILING)
+                                        .addComponent(picturesCountLabel, Alignment.TRAILING))
                                 .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                                        .addComponent(picturesCountField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
                                 .addContainerGap())
                 );
         layout.setVerticalGroup(
@@ -118,7 +131,11 @@ public class MainForm extends JFrame {
                                 .addGroup(layout.createParallelGroup(Alignment.BASELINE)
                                         .addComponent(albumNameLabel)
                                         .addComponent(albumNameField))
-                                .addContainerGap(242, Short.MAX_VALUE))
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(picturesCountLabel)
+                                        .addComponent(picturesCountField))
+                                .addContainerGap(218, Short.MAX_VALUE))
                 );
 
         pack();
@@ -140,7 +157,7 @@ public class MainForm extends JFrame {
 
         final Album album = pwadService.getAlbumByInvitationLink(link);
         albumNameField.setText(album.getName());
-
+        picturesCountField.setText(String.valueOf(album.getPictures().size()));
     }// GEN-LAST:event_openMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -150,6 +167,8 @@ public class MainForm extends JFrame {
     private JMenu fileMenu;
     private JMenuBar menuBar;
     private JMenuItem openMenuItem;
+    private JLabel picturesCountField;
+    private JLabel picturesCountLabel;
     private Separator separator1;
 
     // End of variables declaration//GEN-END:variables

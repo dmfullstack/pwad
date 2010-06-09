@@ -43,7 +43,6 @@ public class Main {
     public static void main(final String... args) throws Exception {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
 
-
         final EnvironmentService environmentService = new EnvironmentService(PROPERTIES_FILE_PATH);
         logger.info("pwad version: " + environmentService.getVersion());
 
