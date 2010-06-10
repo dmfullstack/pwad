@@ -17,6 +17,7 @@
  */
 package net.desgrange.pwad.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -93,5 +94,15 @@ public class PwadService {
         albumUrl.append("/albumid/").append(targetId);
         albumUrl.append("?kind=photo&imgmax=d");
         return albumUrl;
+    }
+
+    public void downloadPicture(final Picture picture, final File outputDirectory) {
+        // TODO Auto-generated method stub
+        try {
+            Thread.sleep(200);
+        } catch (final InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }

@@ -60,7 +60,20 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
         assertTrue(downloadButton.isEnabled());
         final File outputFolder = createTempDirectory();
         WindowInterceptor.init(downloadButton.triggerClick())
-                .process(FileChooserHandler.init().titleEquals("Select output folder").assertAcceptsDirectoriesOnly().select(outputFolder)).run();
+                .process(FileChooserHandler.init().titleEquals("Select output folder").assertAcceptsDirectoriesOnly().select(outputFolder))
+                .process(new WindowHandler() {
+                    @Override
+                    public Trigger process(final Window dialog) throws Exception {
+                        assertTrue(dialog.titleEquals("Downloading…"));
+                        assertTrue(dialog.getTextBox().textContains("Downloading picture", "out of", "…"));
+                        assertTrue(dialog.getProgressBar().isVisible());
+                        assertTrue(dialog.getProgressBar().completionEquals(0));
+                        Thread.sleep(1000);
+                        assertTrue(dialog.getProgressBar().isCompleted());
+                        return Trigger.DO_NOTHING;
+                    }
+                }).run();
+        // assertEquals("100_0001.JPG, 100_0002.JPG", Arrays.asList(outputFolder.list()));
     }
 
     private String createInvitationLink() {

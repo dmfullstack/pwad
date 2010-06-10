@@ -19,6 +19,7 @@ package net.desgrange.pwad.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
@@ -48,6 +49,7 @@ public class MainForm extends JFrame {
     private PwadService pwadService;
     private String selectTitle;
     private String selectText;
+    private Album album;
 
     public MainForm() {
         initComponents();
@@ -68,7 +70,7 @@ public class MainForm extends JFrame {
         openMenuItem = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        ResourceBundle bundle = ResourceBundle.getBundle("pwad/l10n/MainForm"); // NOI18N
+        final ResourceBundle bundle = ResourceBundle.getBundle("pwad/l10n/MainForm"); // NOI18N
         setTitle(bundle.getString("MainForm.title")); // NOI18N
         setName("pwad"); // NOI18N
 
@@ -88,7 +90,7 @@ public class MainForm extends JFrame {
         downloadButton.setEnabled(false);
         downloadButton.setName("downloadButton"); // NOI18N
         downloadButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+            public void actionPerformed(final ActionEvent evt) {
                 downloadButtonActionPerformed(evt);
             }
         });
@@ -103,7 +105,7 @@ public class MainForm extends JFrame {
         aboutPwad.setText(bundle.getString("MainForm.aboutPwad.text")); // NOI18N
         aboutPwad.setName("aboutPwad"); // NOI18N
         aboutPwad.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+            public void actionPerformed(final ActionEvent evt) {
                 aboutPwadActionPerformed(evt);
             }
         });
@@ -115,7 +117,7 @@ public class MainForm extends JFrame {
         openMenuItem.setText(bundle.getString("MainForm.openMenuItem.text")); // NOI18N
         openMenuItem.setName("openMenuItem"); // NOI18N
         openMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
+            public void actionPerformed(final ActionEvent evt) {
                 openMenuItemActionPerformed(evt);
             }
         });
@@ -125,39 +127,39 @@ public class MainForm extends JFrame {
 
         setJMenuBar(menuBar);
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                            .addComponent(albumNameLabel, Alignment.TRAILING)
-                            .addComponent(picturesCountLabel, Alignment.TRAILING))
-                        .addPreferredGap(ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                            .addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                            .addComponent(picturesCountField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
-                    .addComponent(downloadButton, Alignment.TRAILING))
-                .addContainerGap())
-        );
+                layout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                                        .addComponent(albumNameLabel, Alignment.TRAILING)
+                                                        .addComponent(picturesCountLabel, Alignment.TRAILING))
+                                                .addPreferredGap(ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                                        .addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                                                        .addComponent(picturesCountField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
+                                        .addComponent(downloadButton, Alignment.TRAILING))
+                                .addContainerGap())
+                );
         layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                    .addComponent(albumNameLabel)
-                    .addComponent(albumNameField))
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                    .addComponent(picturesCountLabel)
-                    .addComponent(picturesCountField))
-                .addPreferredGap(ComponentPlacement.UNRELATED)
-                .addComponent(downloadButton)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(albumNameLabel)
+                                        .addComponent(albumNameField))
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                                        .addComponent(picturesCountLabel)
+                                        .addComponent(picturesCountField))
+                                .addPreferredGap(ComponentPlacement.UNRELATED)
+                                .addComponent(downloadButton)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -170,7 +172,10 @@ public class MainForm extends JFrame {
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         final int result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
-            logger.debug("Selected directory: " + fileChooser.getSelectedFile());
+            final File outputDirectory = fileChooser.getSelectedFile();
+            logger.debug("Selected directory: " + outputDirectory);
+            final DownloadDialog downloadDialog = new DownloadDialog(this, pwadService, album.getPictures(), outputDirectory);
+            downloadDialog.run();
         }
 
     }// GEN-LAST:event_downloadButtonActionPerformed
@@ -189,7 +194,7 @@ public class MainForm extends JFrame {
         final String link = dialog.getLink();
         logger.debug("Invitation link: " + link);
 
-        final Album album = pwadService.getAlbumByInvitationLink(link);
+        album = pwadService.getAlbumByInvitationLink(link);
         albumNameField.setText(album.getName());
         picturesCountField.setText(String.valueOf(album.getPictures().size()));
         downloadButton.setEnabled(true);
@@ -206,6 +211,7 @@ public class MainForm extends JFrame {
     private JLabel picturesCountField;
     private JLabel picturesCountLabel;
     private Separator separator1;
+
     // End of variables declaration//GEN-END:variables
 
     public void setPwadService(final PwadService pwadService) {
