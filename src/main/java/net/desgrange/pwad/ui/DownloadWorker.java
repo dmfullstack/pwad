@@ -46,7 +46,7 @@ public class DownloadWorker extends SwingWorker<Void, Integer> {
             logger.trace("Downloading picture " + (i + 1) + " out of " + pictures.size() + "…");
             final Picture picture = pictures.get(i);
             pwadService.downloadPicture(picture, outputDirectory);
-            setProgress((i + 1) / pictures.size() * 100);
+            setProgress(i + 1);
         }
         return null;
     }

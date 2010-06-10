@@ -24,12 +24,12 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutionException;
 
 import javax.swing.GroupLayout;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -55,31 +55,27 @@ public class DownloadDialog extends JDialog {
     }
 
     public void run() {
+        final String pattern = progressLabel.getText();
+        progressLabel.setText(MessageFormat.format(pattern, 0, pictures.size()));
         setLocationRelativeTo(getParent());
-        setVisible(true);
 
         final DownloadWorker worker = new DownloadWorker(pwadService, pictures, outputDirectory);
-        final String pattern = progressLabel.getText();
         worker.addPropertyChangeListener(new PropertyChangeListener() {
             public void propertyChange(final PropertyChangeEvent event) {
-                logger.trace(event.getNewValue());
+                logger.trace(event);
                 if ("progress".equals(event.getPropertyName())) {
-                    final Integer progressValue = (Integer) event.getNewValue();
-                    progressLabel.setText(MessageFormat.format(pattern, progressValue, pictures.size()));
-                    progressBar.setValue(progressValue);
+                    final Integer pictureNumber = (Integer) event.getNewValue();
+                    progressLabel.setText(MessageFormat.format(pattern, pictureNumber, pictures.size()));
+                    progressBar.setValue(100 * pictureNumber / pictures.size());
+                }
+                if ("state".equals(event.getPropertyName()) && SwingWorker.StateValue.DONE.equals(event.getNewValue())) {
+                    progressBar.setValue(100);
+                    dispose();
                 }
             }
         });
         worker.execute();
-        try {
-            worker.get();
-            progressBar.setValue(100);
-        } catch (final InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (final ExecutionException e) {
-            throw new RuntimeException(e);
-        }
-        dispose();
+        setVisible(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -69,6 +69,8 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
                         assertTrue(dialog.titleEquals("Downloading…"));
                         assertTrue(dialog.getTextBox().textContains("Downloading picture", "out of", "…"));
                         assertTrue(dialog.getProgressBar().isVisible());
+                        assertTrue(dialog.getProgressBar().completionEquals(0));
+                        assertTrue(dialog.getProgressBar().isCompleted());
                         return Trigger.DO_NOTHING;
                     }
                 }).run();
