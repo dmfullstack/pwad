@@ -27,12 +27,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.desgrange.pwad.Main;
 
+import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
 
 public class FunctionalTestEnvironment {
     private static FunctionalTestEnvironment instance;
+    private final Logger logger = Logger.getLogger(getClass());
     private Server server;
     private int port;
 
@@ -54,17 +56,18 @@ public class FunctionalTestEnvironment {
         server.setHandler(new AbstractHandler() {
             @Override
             public void handle(final String target, final Request jettyRequest, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
-                System.out.println("Target: " + target);
-                System.out.println("Request: " + request);
-                System.out.println("Response: " + response);
+                logger.trace("Target: " + target);
                 if (target.equals("/data/feed/api/user/dead_kennedys/albumid/holiday_in_cambodia")) {
-                    sendResponse(response, "/response.xml");
+                    sendResponse(response, "application/atom+xml; charset=UTF-8; type=feed", "/response.xml");
+                } else if (target.equals("/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/d/100_0001.JPG")) {
+                    sendResponse(response, "image/jpeg", "/pictures/100_0001.JPG");
+                } else if (target.equals("/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/d/100_0002.JPG")) {
+                    sendResponse(response, "image/jpeg", "/pictures/100_0002.JPG");
                 }
-
             }
 
-            private void sendResponse(final HttpServletResponse response, final String resourcePath) throws IOException {
-                response.setContentType("application/atom+xml; charset=UTF-8; type=feed");
+            private void sendResponse(final HttpServletResponse response, final String contentType, final String resourcePath) throws IOException {
+                response.setContentType(contentType);
                 final ServletOutputStream output = response.getOutputStream();
                 final InputStream input = Main.class.getResource(resourcePath).openStream();
                 final byte chunk[] = new byte[1024];

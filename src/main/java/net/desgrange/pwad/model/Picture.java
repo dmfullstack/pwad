@@ -20,6 +20,7 @@ package net.desgrange.pwad.model;
 public class Picture {
     private String id;
     private String name;
+    private String url;
 
     public String getId() {
         return id;
@@ -35,5 +36,13 @@ public class Picture {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(final String url) {
+        this.url = url;
     }
 }

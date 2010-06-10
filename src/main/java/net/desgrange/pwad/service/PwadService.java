@@ -18,7 +18,10 @@
 package net.desgrange.pwad.service;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ import org.apache.log4j.Logger;
 import com.google.gdata.client.photos.PicasawebService;
 import com.google.gdata.data.photos.AlbumFeed;
 import com.google.gdata.data.photos.GphotoEntry;
+import com.google.gdata.data.photos.PhotoEntry;
 import com.google.gdata.util.ServiceException;
 
 public class PwadService {
@@ -70,11 +74,7 @@ public class PwadService {
             final Picture picture = new Picture();
             picture.setId(entry.getId());
             picture.setName(entry.getTitle().getPlainText());
-
-            // final PhotoEntry photoEntry = new PhotoEntry(entry);
-            // System.out.println("Entry pic size: " + photoEntry.getWidth() + "x" + photoEntry.getHeight());
-            // System.out.println("Entry url: " + photoEntry.getMediaContents().get(0).getUrl());
-
+            picture.setUrl(new PhotoEntry(entry).getMediaContents().get(0).getUrl());
             pictures.add(picture);
         }
         return pictures;
@@ -97,12 +97,25 @@ public class PwadService {
     }
 
     public void downloadPicture(final Picture picture, final File outputDirectory) {
-        // TODO Auto-generated method stub
         try {
-            Thread.sleep(200);
-        } catch (final InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            final FileOutputStream output = new FileOutputStream(new File(outputDirectory, picture.getName()));
+            final InputStream input = new URL(picture.getUrl()).openStream();
+            final byte chunk[] = new byte[1024];
+            int read = 0;
+            while ((read = input.read(chunk)) != -1) {
+                output.write(chunk, 0, read);
+            }
+            input.close();
+            output.close();
+        } catch (final FileNotFoundException e) {
+            logger.error(e);
+            throw new RuntimeException(e);
+        } catch (final MalformedURLException e) {
+            logger.error(e);
+            throw new RuntimeException(e);
+        } catch (final IOException e) {
+            logger.error(e);
+            throw new RuntimeException(e);
         }
     }
 }

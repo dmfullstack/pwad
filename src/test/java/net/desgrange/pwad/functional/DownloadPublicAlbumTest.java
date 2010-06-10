@@ -17,11 +17,13 @@
  */
 package net.desgrange.pwad.functional;
 
+import static org.junit.Assert.assertEquals;
 import static org.uispec4j.assertion.UISpecAssert.assertFalse;
 import static org.uispec4j.assertion.UISpecAssert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -67,13 +69,10 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
                         assertTrue(dialog.titleEquals("Downloading…"));
                         assertTrue(dialog.getTextBox().textContains("Downloading picture", "out of", "…"));
                         assertTrue(dialog.getProgressBar().isVisible());
-                        assertTrue(dialog.getProgressBar().completionEquals(0));
-                        Thread.sleep(1000);
-                        assertTrue(dialog.getProgressBar().isCompleted());
                         return Trigger.DO_NOTHING;
                     }
                 }).run();
-        // assertEquals("100_0001.JPG, 100_0002.JPG", Arrays.asList(outputFolder.list()));
+        assertEquals("[100_0001.JPG, 100_0002.JPG]", Arrays.asList(outputFolder.list()).toString());
     }
 
     private String createInvitationLink() {
