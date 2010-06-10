@@ -24,6 +24,8 @@ import static org.uispec4j.assertion.UISpecAssert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -74,7 +76,9 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
                         return Trigger.DO_NOTHING;
                     }
                 }).run();
-        assertEquals("[100_0001.JPG, 100_0002.JPG]", Arrays.asList(outputFolder.list()).toString());
+        final List<String> actualFiles = Arrays.asList(outputFolder.list());
+        Collections.sort(actualFiles);
+        assertEquals("[100_0001.JPG, 100_0002.JPG]", actualFiles.toString());
     }
 
     private String createInvitationLink() {
