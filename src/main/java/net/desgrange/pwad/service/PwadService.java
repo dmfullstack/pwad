@@ -100,7 +100,7 @@ public class PwadService {
         return albumUrl;
     }
 
-    public void downloadPicture(final Picture picture, final File outputDirectory) {
+    public void downloadPicture(final Picture picture, final File outputDirectory) throws DownloadFailedException {
         try {
             final FileOutputStream output = new FileOutputStream(new File(outputDirectory, picture.getName()));
             final InputStream input = new URL(picture.getUrl()).openStream();
@@ -113,13 +113,13 @@ public class PwadService {
             output.close();
         } catch (final FileNotFoundException e) {
             logger.error(e);
-            throw new RuntimeException(e);
+            throw new DownloadFailedException(e);
         } catch (final MalformedURLException e) {
             logger.error(e);
-            throw new RuntimeException(e);
+            throw new DownloadFailedException(e);
         } catch (final IOException e) {
             logger.error(e);
-            throw new RuntimeException(e);
+            throw new DownloadFailedException(e);
         }
     }
 }

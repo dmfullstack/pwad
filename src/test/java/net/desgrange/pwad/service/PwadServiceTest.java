@@ -61,19 +61,6 @@ public class PwadServiceTest {
     }
 
     @Test
-    public void testGetAlbumByInvitationLinkThrowsAnExceptionWhenGivenUrlIsInvalid() {
-        thrown.expect(BadUrlException.class);
-        pwadService.getAlbumByInvitationLink("bad url");
-    }
-
-    @Test
-    public void testGetAlbumByInvitationLinkThrowsAnExceptionWhenGivenUrlIsNotSupported() {
-        thrown.expect(BadUrlException.class);
-        thrown.expectMessage("The link provided is not supported.");
-        pwadService.getAlbumByInvitationLink("http://picasaweb.google.fr/lh/sredir");
-    }
-
-    @Test
     public void testGetAlbumByInvitationLink() throws Exception {
         final AlbumFeed albumFeed = mock(AlbumFeed.class);
         final String expectedUrl = "http://picasaweb.google.com/data/feed/api/user/my_name/albumid/1234567890?kind=photo&imgmax=d";
@@ -92,6 +79,19 @@ public class PwadServiceTest {
     }
 
     @Test
+    public void testGetAlbumByInvitationLinkThrowsAnExceptionWhenGivenUrlIsInvalid() {
+        thrown.expect(BadUrlException.class);
+        pwadService.getAlbumByInvitationLink("bad url");
+    }
+
+    @Test
+    public void testGetAlbumByInvitationLinkThrowsAnExceptionWhenGivenUrlIsNotSupported() {
+        thrown.expect(BadUrlException.class);
+        thrown.expectMessage("The link provided is not supported.");
+        pwadService.getAlbumByInvitationLink("http://picasaweb.google.fr/lh/sredir");
+    }
+
+    @Test
     public void testDownloadPicture() throws Exception {
         final File outputFolder = testFolder.newFolder("output_folder");
         final URL pictureFile = getClass().getResource("/pictures/100_0001.JPG");
@@ -101,6 +101,17 @@ public class PwadServiceTest {
 
         pwadService.downloadPicture(picture, outputFolder);
         assertTrue(FileUtils.contentEquals(new File(pictureFile.toURI()), outputFolder.listFiles()[0]));
+    }
+
+    @Test
+    public void testDownloadPictureThrowsAnExceptionIfDownloadFailed() {
+        final File outputFolder = testFolder.newFolder("output_folder");
+        final Picture picture = new Picture();
+        picture.setName("02.JPG");
+        picture.setUrl("bad url");
+
+        thrown.expect(DownloadFailedException.class);
+        pwadService.downloadPicture(picture, outputFolder);
     }
 
     @SuppressWarnings("unchecked")
