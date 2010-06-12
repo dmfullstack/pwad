@@ -15,7 +15,7 @@
  * limitations under the License.
  *
  */
-package net.desgrange.pwad.functional;
+package net.desgrange.pwad.functional.utils;
 
 import net.desgrange.pwad.Main;
 import net.desgrange.pwad.utils.UiTestCase;

@@ -15,7 +15,7 @@
  * limitations under the License.
  *
  */
-package net.desgrange.pwad.functional;
+package net.desgrange.pwad.functional.utils;
 
 import java.io.IOException;
 import java.io.InputStream;
