@@ -25,7 +25,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
 public class UrlUtils {
-    public static String getParameter(final String url, final String parameterName) {
+    public static String getParameter(final String url, final String parameterName) throws BadUrlException {
         try {
             final List<NameValuePair> nameValuePairs = URLEncodedUtils.parse(new URI(url), "UTF-8");
             for (final NameValuePair pair : nameValuePairs) {

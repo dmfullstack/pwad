@@ -30,6 +30,7 @@ import java.util.List;
 import net.desgrange.pwad.model.Album;
 import net.desgrange.pwad.model.Picture;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import com.google.gdata.client.photos.PicasawebService;
@@ -46,7 +47,7 @@ public class PwadService {
         this.picasawebService = picasawebService;
     }
 
-    public Album getAlbumByInvitationLink(final String url) {
+    public Album getAlbumByInvitationLink(final String url) throws BadUrlException {
         final StringBuilder albumUrl = buildAlbumUrl(url);
         logger.debug("album url: " + albumUrl);
 
@@ -80,13 +81,16 @@ public class PwadService {
         return pictures;
     }
 
-    private StringBuilder buildAlbumUrl(final String url) {
+    private StringBuilder buildAlbumUrl(final String url) throws BadUrlException {
         final String userName = UrlUtils.getParameter(url, "uname");
-        final String targetType = UrlUtils.getParameter(url, "target"); // ALBUM
+        final String targetType = UrlUtils.getParameter(url, "target");
         final String targetId = UrlUtils.getParameter(url, "id");
 
+        if (StringUtils.isBlank(userName) || StringUtils.isBlank(targetType) || StringUtils.isBlank(targetId)) {
+            throw new BadUrlException("The link provided is not supported.");
+        }
         if (!"ALBUM".equalsIgnoreCase(targetType)) {
-            throw new RuntimeException("Sorry, can't handle that");// TODO change this (IllegalArgumentException, etc.)
+            throw new BadUrlException("The link provided is not supported.");
         }
 
         final StringBuilder albumUrl = new StringBuilder("http://picasaweb.google.com/data/feed/api");
