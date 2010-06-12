@@ -21,6 +21,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import net.desgrange.pwad.service.exceptions.BadUrlException;
+
 import org.junit.Test;
 
 public class UrlUtilsTest {

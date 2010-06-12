@@ -15,12 +15,16 @@
  * limitations under the License.
  *
  */
-package net.desgrange.pwad.service;
+package net.desgrange.pwad.service.exceptions;
 
-public class DownloadFailedException extends RuntimeException {
-    private static final long serialVersionUID = -801325764822826139L;
+public class BadUrlException extends RuntimeException {
+    private static final long serialVersionUID = -1108309226264346515L;
 
-    public DownloadFailedException(final Throwable cause) {
+    public BadUrlException(final String message) {
+        super(message);
+    }
+
+    public BadUrlException(final Throwable cause) {
         super(cause);
     }
 }

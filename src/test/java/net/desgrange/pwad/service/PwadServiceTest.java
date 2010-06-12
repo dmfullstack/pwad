@@ -29,6 +29,8 @@ import java.util.Arrays;
 
 import net.desgrange.pwad.model.Album;
 import net.desgrange.pwad.model.Picture;
+import net.desgrange.pwad.service.exceptions.BadUrlException;
+import net.desgrange.pwad.service.exceptions.DownloadFailedException;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
