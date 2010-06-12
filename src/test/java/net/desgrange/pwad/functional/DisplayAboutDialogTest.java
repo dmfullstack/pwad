@@ -19,6 +19,8 @@ package net.desgrange.pwad.functional;
 
 import static org.uispec4j.assertion.UISpecAssert.assertTrue;
 
+import net.desgrange.pwad.functional.utils.PwadTestCase;
+
 import org.junit.Test;
 import org.uispec4j.MenuItem;
 import org.uispec4j.Trigger;
