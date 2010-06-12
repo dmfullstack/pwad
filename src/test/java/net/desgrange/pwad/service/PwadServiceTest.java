@@ -18,19 +18,24 @@
 package net.desgrange.pwad.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 
 import net.desgrange.pwad.model.Album;
+import net.desgrange.pwad.model.Picture;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
 
 import com.google.gdata.client.photos.PicasawebService;
 import com.google.gdata.data.TextConstruct;
@@ -44,9 +49,10 @@ import com.google.gdata.util.common.xml.XmlWriter;
 public class PwadServiceTest {
     private PwadService pwadService;
     private PicasawebService picasawebService;
-
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
+    @Rule
+    public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Before
     public void setUp() throws Exception {
@@ -83,6 +89,18 @@ public class PwadServiceTest {
         assertEquals("01", actual.getPictures().get(0).getId());
         assertEquals("100_0001.JPG", actual.getPictures().get(0).getName());
         assertEquals("http://foo/bar/100_0001.JPG", actual.getPictures().get(0).getUrl());
+    }
+
+    @Test
+    public void testDownloadPicture() throws Exception {
+        final File outputFolder = testFolder.newFolder("output_folder");
+        final URL pictureFile = getClass().getResource("/pictures/100_0001.JPG");
+        final Picture picture = new Picture();
+        picture.setName("01.JPG");
+        picture.setUrl("file://" + pictureFile.getFile());
+
+        pwadService.downloadPicture(picture, outputFolder);
+        assertTrue(FileUtils.contentEquals(new File(pictureFile.toURI()), outputFolder.listFiles()[0]));
     }
 
     @SuppressWarnings("unchecked")
