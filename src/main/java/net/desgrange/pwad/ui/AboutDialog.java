@@ -22,8 +22,10 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
@@ -43,9 +45,15 @@ public class AboutDialog extends JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        logoLabel = new JLabel();
         aboutLabel = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+        logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        logoLabel.setIcon(new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_64.png"))); // NOI18N
+        logoLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/AboutDialog").getString("AboutDialog.logoLabel.text"), new Object[] {})); // NOI18N
+        logoLabel.setName("logoLabel"); // NOI18N
 
         aboutLabel.setHorizontalAlignment(SwingConstants.CENTER);
         aboutLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/AboutDialog").getString("AboutDialog.aboutLabel.text"), new Object[] {environmentService.getVersion()})); // NOI18N
@@ -55,16 +63,20 @@ public class AboutDialog extends JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(aboutLabel, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
+                    .addComponent(logoLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                    .addComponent(aboutLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(aboutLabel, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                .addComponent(logoLabel)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(aboutLabel)
                 .addContainerGap())
         );
 
@@ -73,5 +85,6 @@ public class AboutDialog extends JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel aboutLabel;
+    private JLabel logoLabel;
     // End of variables declaration//GEN-END:variables
 }
