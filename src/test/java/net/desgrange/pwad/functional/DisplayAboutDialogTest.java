@@ -18,7 +18,6 @@
 package net.desgrange.pwad.functional;
 
 import static org.uispec4j.assertion.UISpecAssert.assertTrue;
-
 import net.desgrange.pwad.functional.utils.PwadTestCase;
 
 import org.junit.Test;
@@ -36,7 +35,7 @@ public class DisplayAboutDialogTest extends PwadTestCase {
         WindowInterceptor.init(fileMenu.getSubMenu("About pwad").triggerClick()).process(new WindowHandler() {
             @Override
             public Trigger process(final Window dialog) throws Exception {
-                assertTrue(dialog.getTextBox().textContains("<b>pwad</b>", "Version ", "pwad homepage", "© Laurent Desgrange, 2010"));
+                assertTrue(dialog.getTextBox("aboutLabel").textContains("<b>pwad</b>", "Version ", "pwad homepage", "© Laurent Desgrange, 2010"));
                 dialog.dispose();
                 return Trigger.DO_NOTHING;
             }
