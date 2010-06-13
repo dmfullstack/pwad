@@ -28,11 +28,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="204.51393"
-     inkscape:cy="113.52765"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="352.59035"
+     inkscape:cy="206.85829"
      inkscape:document-units="px"
-     inkscape:current-layer="layer4"
+     inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -40,7 +40,7 @@
      inkscape:window-height="1152"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="0">
+     inkscape:window-maximized="1">
     <sodipodi:guide
        orientation="1,0"
        position="200,321.5"
@@ -101,6 +101,10 @@
        orientation="1,0"
        position="175,125"
        id="guide3909" />
+    <sodipodi:guide
+       orientation="1,0"
+       position="275,200"
+       id="guide3089" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -110,7 +114,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -201,4 +205,23 @@
        id="path4017"
        inkscape:connector-curvature="0" />
   </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="text"
+     sodipodi:insensitive="true">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3092"
+       style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0;word-spacing:0;fill:#000000;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans"
+       transform="translate(0,-16.719824)"><flowRegion
+         id="flowRegion3094"><rect
+           id="rect3096"
+           width="390.30359"
+           height="245.45935"
+           x="275"
+           y="802.36218"
+           style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans" /></flowRegion><flowPara
+         id="flowPara3098"
+         style="font-size:144px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans">pwad</flowPara></flowRoot>  </g>
 </svg>
