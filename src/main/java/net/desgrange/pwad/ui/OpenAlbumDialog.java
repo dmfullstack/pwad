@@ -17,6 +17,7 @@
  */
 package net.desgrange.pwad.ui;
 
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
@@ -37,7 +38,8 @@ public class OpenAlbumDialog extends JDialog {
     private String link;
 
     public OpenAlbumDialog(final Frame parent) {
-        super(parent, true);
+        super(parent, Dialog.ModalityType.DOCUMENT_MODAL);
+        getRootPane().putClientProperty("apple.awt.documentModalSheet", "true");
         initComponents();
         setLocationRelativeTo(parent);
     }

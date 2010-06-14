@@ -17,6 +17,7 @@
  */
 package net.desgrange.pwad.ui;
 
+import java.awt.Dialog;
 import java.awt.Frame;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -47,7 +49,8 @@ public class DownloadDialog extends JDialog {
     private final File outputDirectory;
 
     public DownloadDialog(final Frame parent, final PwadService pwadService, final List<Picture> pictures, final File outputDirectory) {
-        super(parent, true);
+        super(parent, Dialog.ModalityType.DOCUMENT_MODAL);
+        getRootPane().putClientProperty("apple.awt.documentModalSheet", "true");
         this.pwadService = pwadService;
         this.pictures = pictures;
         this.outputDirectory = outputDirectory;
@@ -81,41 +84,50 @@ public class DownloadDialog extends JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+
         progressLabel = new JLabel();
         progressBar = new JProgressBar();
+        cancelButton = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.title"), new Object[] {})); // NOI18N
         progressLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.progressLabel.text"), new Object[] {})); // NOI18N
         progressLabel.setName("progressLabel"); // NOI18N
 
         progressBar.setName("progressBar"); // NOI18N
 
-        final GroupLayout layout = new GroupLayout(getContentPane());
+        cancelButton.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.cancelButton.text"), new Object[] {})); // NOI18N
+        cancelButton.setName("cancelButton"); // NOI18N
+
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(progressBar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                                        .addComponent(progressLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE))
-                                .addContainerGap())
-                );
+            layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                    .addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addComponent(progressLabel, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addComponent(cancelButton, Alignment.TRAILING))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(progressLabel)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
+            layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(progressLabel)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(cancelButton)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JButton cancelButton;
     private JProgressBar progressBar;
     private JLabel progressLabel;
     // End of variables declaration//GEN-END:variables
