@@ -20,16 +20,18 @@ package net.desgrange.pwad.utils;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-public class WaitAnswer implements Answer<Void> {
-    private final int waitTime;
-
-    public WaitAnswer(final int waitTime) {
-        this.waitTime = waitTime;
-    }
+public class BlockingAnswer implements Answer<Void> {
+    private boolean blocking = true;
 
     @Override
     public Void answer(final InvocationOnMock invocation) throws Throwable {
-        Thread.sleep(waitTime);
+        while (blocking) {
+            Thread.sleep(50);
+        }
         return null;
+    }
+
+    public void unblock() {
+        blocking = false;
     }
 }

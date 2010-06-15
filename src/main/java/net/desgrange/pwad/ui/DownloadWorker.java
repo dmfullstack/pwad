@@ -44,9 +44,13 @@ public class DownloadWorker extends SwingWorker<Void, Integer> {
         logger.trace("Starting downloading pictures in background…");
         for (int i = 0; i < pictures.size(); i++) {
             logger.trace("Downloading picture " + (i + 1) + " out of " + pictures.size() + "…");
+            setProgress(i + 1);
             final Picture picture = pictures.get(i);
             pwadService.downloadPicture(picture, outputDirectory);
-            setProgress(i + 1);
+            if (Thread.currentThread().isInterrupted()) {
+                System.out.println("Interrupted");
+                break;
+            }
         }
         return null;
     }

@@ -19,6 +19,8 @@ package net.desgrange.pwad.ui;
 
 import java.awt.Dialog;
 import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -44,28 +46,18 @@ import org.apache.log4j.Logger;
 public class DownloadDialog extends JDialog {
     private static final long serialVersionUID = 2574421000272809793L;
     private final Logger logger = Logger.getLogger(getClass());
-    private final PwadService pwadService;
-    private final List<Picture> pictures;
-    private final File outputDirectory;
+    private final DownloadWorker worker;
 
     public DownloadDialog(final Frame parent, final PwadService pwadService, final List<Picture> pictures, final File outputDirectory) {
         super(parent, Dialog.ModalityType.DOCUMENT_MODAL);
         getRootPane().putClientProperty("apple.awt.documentModalSheet", "true");
-        this.pwadService = pwadService;
-        this.pictures = pictures;
-        this.outputDirectory = outputDirectory;
         initComponents();
-    }
-
-    public void run() {
         final String pattern = progressLabel.getText();
         progressLabel.setText(MessageFormat.format(pattern, 0, pictures.size()));
-        setLocationRelativeTo(getParent());
-
-        final DownloadWorker worker = new DownloadWorker(pwadService, pictures, outputDirectory);
+        worker = new DownloadWorker(pwadService, pictures, outputDirectory);
         worker.addPropertyChangeListener(new PropertyChangeListener() {
             public void propertyChange(final PropertyChangeEvent event) {
-                logger.trace(event);
+                logger.trace(event + " - " + event.getPropertyName() + ": " + event.getNewValue());
                 if ("progress".equals(event.getPropertyName())) {
                     final Integer pictureNumber = (Integer) event.getNewValue();
                     progressLabel.setText(MessageFormat.format(pattern, pictureNumber, pictures.size()));
@@ -77,13 +69,16 @@ public class DownloadDialog extends JDialog {
                 }
             }
         });
+    }
+
+    public void run() {
+        setLocationRelativeTo(getParent());
         worker.execute();
         setVisible(true);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
 
         progressLabel = new JLabel();
         progressBar = new JProgressBar();
@@ -98,33 +93,44 @@ public class DownloadDialog extends JDialog {
 
         cancelButton.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.cancelButton.text"), new Object[] {})); // NOI18N
         cancelButton.setName("cancelButton"); // NOI18N
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent evt) {
+                cancelButtonActionPerformed(evt);
+            }
+        });
 
-        GroupLayout layout = new GroupLayout(getContentPane());
+        final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                    .addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                    .addComponent(progressLabel, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                    .addComponent(cancelButton, Alignment.TRAILING))
-                .addContainerGap())
-        );
+                layout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                                        .addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                                        .addComponent(progressLabel, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                                        .addComponent(cancelButton, Alignment.TRAILING))
+                                .addContainerGap())
+                );
         layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(progressLabel)
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(ComponentPlacement.RELATED)
-                .addComponent(cancelButton)
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(progressLabel)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(ComponentPlacement.RELATED)
+                                .addComponent(cancelButton)
+                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cancelButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
+        logger.trace(evt);
+        cancelButton.setEnabled(false);
+        worker.cancel(true);
+    }// GEN-LAST:event_cancelButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JButton cancelButton;

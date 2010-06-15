@@ -19,6 +19,7 @@ package net.desgrange.pwad.ui;
 
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.uispec4j.assertion.UISpecAssert.assertFalse;
 import static org.uispec4j.assertion.UISpecAssert.assertTrue;
 
 import java.io.File;
@@ -27,8 +28,8 @@ import java.util.List;
 
 import net.desgrange.pwad.model.Picture;
 import net.desgrange.pwad.service.PwadService;
+import net.desgrange.pwad.utils.BlockingAnswer;
 import net.desgrange.pwad.utils.UiTestCase;
-import net.desgrange.pwad.utils.WaitAnswer;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,26 +41,39 @@ public class DownloadDialogTest extends UiTestCase {
     private PwadService pwadService;
     private List<Picture> pictures;
     private File outputDirectory;
-    private Picture picture1;
-    private Picture picture2;
 
     @Before
     public void setUp() {
         pwadService = mock(PwadService.class);
-        pictures = Arrays.asList(picture1, picture2);
+        pictures = Arrays.asList(new Picture(), new Picture());
         outputDirectory = mock(File.class);
     }
 
     @Test
     public void testDefaultState() {
-        doAnswer(new WaitAnswer(5000)).when(pwadService).downloadPicture(picture1, outputDirectory);
-
+        final BlockingAnswer blockingAnswer = new BlockingAnswer();
+        doAnswer(blockingAnswer).when(pwadService).downloadPicture(pictures.get(0), outputDirectory);
         final Window dialog = createWindow();
+        assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
         assertTrue(dialog.isModal());
-        assertTrue(dialog.getTextBox().textEquals("Downloading picture 0 out of 2…"));
-        assertTrue(dialog.getProgressBar().completionEquals(0));
-        assertTrue(dialog.getButton().isEnabled());
+        assertTrue(dialog.getProgressBar().completionEquals(50));
+        assertTrue(dialog.getButton("Cancel").isEnabled());
+        blockingAnswer.unblock();
+        assertTrue(dialog.getTextBox().textEquals("Downloading picture 2 out of 2…"));
+        assertFalse(dialog.isVisible());
+    }
 
+    @Test
+    public void testCancelStopsDownload() throws Exception {
+        final BlockingAnswer blockingAnswer = new BlockingAnswer();
+        doAnswer(blockingAnswer).when(pwadService).downloadPicture(pictures.get(0), outputDirectory);
+        final Window dialog = createWindow();
+        assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
+        dialog.getButton("Cancel").click();
+        assertFalse(dialog.getButton("Cancel").isEnabled());
+        blockingAnswer.unblock();
+        assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
+        assertFalse(dialog.isVisible());
     }
 
     private Window createWindow() {
