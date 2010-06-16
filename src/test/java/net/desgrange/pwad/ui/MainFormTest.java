@@ -30,6 +30,7 @@ import net.desgrange.pwad.model.Album;
 import net.desgrange.pwad.model.Picture;
 import net.desgrange.pwad.service.EnvironmentService;
 import net.desgrange.pwad.service.PwadService;
+import net.desgrange.pwad.service.exceptions.BadUrlException;
 import net.desgrange.pwad.utils.UiTestCase;
 
 import org.junit.Before;
@@ -37,6 +38,7 @@ import org.junit.Test;
 import org.uispec4j.MenuItem;
 import org.uispec4j.Trigger;
 import org.uispec4j.Window;
+import org.uispec4j.interception.BasicHandler;
 import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 
@@ -67,31 +69,36 @@ public class MainFormTest extends UiTestCase {
     @Test
     public void testOpenInvitationLink() {
         final String link = "http://some.link.to/album";
+        final String badLink = "hey, this is not a link!";
         final Album album = createAlbum("The album name", 3);
         when(pwadService.getAlbumByInvitationLink(link)).thenReturn(album);
+        when(pwadService.getAlbumByInvitationLink(badLink)).thenThrow(new BadUrlException());
 
         final Window window = createWindow();
         final MenuItem fileMenu = window.getMenuBar().getMenu("File");
-        WindowInterceptor.init(fileMenu.getSubMenu("Open album from invitation link…").triggerClick()).process(new WindowHandler() {
-            @Override
-            public Trigger process(final Window dialog) throws Exception {
-                dialog.getInputTextBox("Invitation link").setText(link);
-                return dialog.getButton("Cancel").triggerClick();
-            }
-        }).run();
-        assertTrue(window.getTextBox("albumNameFIeld").textEquals(" "));
+        final MenuItem openInvitationMenu = fileMenu.getSubMenu("Open album from invitation link…");
+        WindowInterceptor.init(openInvitationMenu.triggerClick()).process(new OpenAlbumDialogHandler(badLink, "Cancel")).run();
+        assertTrue(window.getTextBox("albumNameField").textEquals(" "));
         assertTrue(window.getTextBox("picturesCountField").textEquals(" "));
         assertFalse(window.getButton().isEnabled());
         verifyZeroInteractions(pwadService);
 
-        WindowInterceptor.init(fileMenu.getSubMenu("Open album from invitation link…").triggerClick()).process(new WindowHandler() {
+        WindowInterceptor.init(openInvitationMenu.triggerClick()).process(new OpenAlbumDialogHandler(badLink, "OK")).process(BasicHandler.init()
+                .assertTitleEquals("Bad link provided")
+                .assertContainsText("The link you provided was not recognized as a valid Picasa Album link.")
+                .triggerButtonClick("OK")).run();
+        assertTrue(window.getTextBox("albumNameField").textEquals(" "));
+        assertTrue(window.getTextBox("picturesCountField").textEquals(" "));
+        assertFalse(window.getButton().isEnabled());
+
+        WindowInterceptor.init(openInvitationMenu.triggerClick()).process(new WindowHandler() {
             @Override
             public Trigger process(final Window dialog) throws Exception {
                 dialog.getInputTextBox("Invitation link").setText(link);
                 return dialog.getButton("OK").triggerClick();
             }
         }).run();
-        assertTrue(window.getTextBox("albumNameFIeld").textEquals("The album name"));
+        assertTrue(window.getTextBox("albumNameField").textEquals("The album name"));
         assertTrue(window.getTextBox("picturesCountField").textEquals("3"));
         assertTrue(window.getButton().isEnabled());
     }
@@ -122,4 +129,19 @@ public class MainFormTest extends UiTestCase {
         });
     }
 
+    private final class OpenAlbumDialogHandler extends WindowHandler {
+        private final String link;
+        private final String button;
+
+        private OpenAlbumDialogHandler(final String link, final String button) {
+            this.link = link;
+            this.button = button;
+        }
+
+        @Override
+        public Trigger process(final Window dialog) throws Exception {
+            dialog.getInputTextBox("Invitation link").setText(link);
+            return dialog.getButton(button).triggerClick();
+        }
+    }
 }

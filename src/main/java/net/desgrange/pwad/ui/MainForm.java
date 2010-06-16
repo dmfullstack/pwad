@@ -31,6 +31,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPopupMenu.Separator;
@@ -39,6 +40,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import net.desgrange.pwad.model.Album;
 import net.desgrange.pwad.service.EnvironmentService;
 import net.desgrange.pwad.service.PwadService;
+import net.desgrange.pwad.service.exceptions.BadUrlException;
 
 import org.apache.log4j.Logger;
 
@@ -49,6 +51,8 @@ public class MainForm extends JFrame {
     private PwadService pwadService;
     private String selectTitle;
     private String selectText;
+    private String openInvitationErrorTitle;
+    private String openInvitationErrorMessage;
     private Album album;
 
     public MainForm() {
@@ -127,6 +131,8 @@ public class MainForm extends JFrame {
                 openMenuItemActionPerformed(evt);
             }
         });
+        openInvitationErrorTitle = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.openMenuItem.errorTitle");
+        openInvitationErrorMessage = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.openMenuItem.errorMessage");
         fileMenu.add(openMenuItem);
 
         menuBar.add(fileMenu);
@@ -203,10 +209,14 @@ public class MainForm extends JFrame {
         if (link == null) {
             return;
         }
-        album = pwadService.getAlbumByInvitationLink(link);
-        albumNameField.setText(album.getName());
-        picturesCountField.setText(String.valueOf(album.getPictures().size()));
-        downloadButton.setEnabled(true);
+        try {
+            album = pwadService.getAlbumByInvitationLink(link);
+            albumNameField.setText(album.getName());
+            picturesCountField.setText(String.valueOf(album.getPictures().size()));
+            downloadButton.setEnabled(true);
+        } catch (final BadUrlException e) {
+            JOptionPane.showMessageDialog(this, openInvitationErrorMessage, openInvitationErrorTitle, JOptionPane.WARNING_MESSAGE);
+        }
     }// GEN-LAST:event_openMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

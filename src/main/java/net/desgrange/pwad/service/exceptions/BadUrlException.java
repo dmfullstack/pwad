@@ -20,6 +20,10 @@ package net.desgrange.pwad.service.exceptions;
 public class BadUrlException extends RuntimeException {
     private static final long serialVersionUID = -1108309226264346515L;
 
+    public BadUrlException() {
+        super();
+    }
+
     public BadUrlException(final String message) {
         super(message);
     }

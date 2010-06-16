@@ -61,11 +61,11 @@ public class PwadService {
             album.setPictures(getPictures(albumFeed));
             return album;
         } catch (final MalformedURLException e) {
-            throw new RuntimeException(e);
+            throw new BadUrlException(e);
         } catch (final IOException e) {
-            throw new RuntimeException(e);
+            throw new BadUrlException(e);
         } catch (final ServiceException e) {
-            throw new RuntimeException(e);
+            throw new BadUrlException(e);
         }
     }
 

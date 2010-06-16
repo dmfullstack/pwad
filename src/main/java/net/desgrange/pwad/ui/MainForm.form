@@ -41,6 +41,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenuItemActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="openInvitationErrorTitle = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.openMenuItem.errorTitle&quot;);&#xa;openInvitationErrorMessage = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.openMenuItem.errorMessage&quot;);"/>
+              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
