@@ -60,7 +60,7 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
     public void testUserCanDownloadPublicAlbumFromInvitationLink() throws Exception {
         assertTrue(window.titleEquals("pwad - Picasa Web Albums Downloader"));
         assertFalse(downloadButton.isEnabled());
-        WindowInterceptor.init(openAlbumFromLinkMenu.triggerClick()).process(new OpenAlbumDialog(createInvitationLink())).run();
+        WindowInterceptor.init(openAlbumFromLinkMenu.triggerClick()).process(new OpenAlbumDialogHandler(createInvitationLink())).run();
         assertTrue(albumNameField.textEquals("Holiday in Cambodia"));
         assertTrue(picturesCountField.textEquals("2"));
         assertTrue(downloadButton.isEnabled());
@@ -99,10 +99,10 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
         return file;
     }
 
-    private static class OpenAlbumDialog extends WindowHandler {
+    private static class OpenAlbumDialogHandler extends WindowHandler {
         private final String link;
 
-        public OpenAlbumDialog(final String link) {
+        public OpenAlbumDialogHandler(final String link) {
             this.link = link;
         }
 

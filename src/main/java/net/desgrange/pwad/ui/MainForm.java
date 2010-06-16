@@ -200,6 +200,9 @@ public class MainForm extends JFrame {
         final String link = dialog.getLink();
         logger.debug("Invitation link: " + link);
 
+        if (link == null) {
+            return;
+        }
         album = pwadService.getAlbumByInvitationLink(link);
         albumNameField.setText(album.getName());
         picturesCountField.setText(String.valueOf(album.getPictures().size()));
