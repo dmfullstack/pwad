@@ -64,10 +64,13 @@ public class PwadService {
             album.setPictures(getPictures(albumFeed));
             return album;
         } catch (final MalformedURLException e) {
+            logger.error("Error while downloading album", e);
             throw new BadUrlException(e);
         } catch (final IOException e) {
+            logger.error("Error while downloading album", e);
             throw new BadUrlException(e);
         } catch (final ServiceException e) {
+            logger.error("Error while downloading album", e);
             throw new BadUrlException(e);
         }
     }
