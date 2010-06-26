@@ -29,23 +29,24 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingWorker;
 import javax.swing.WindowConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 import net.desgrange.pwad.model.Picture;
 import net.desgrange.pwad.service.PwadService;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DownloadDialog extends JDialog {
     private static final long serialVersionUID = 2574421000272809793L;
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final DownloadWorker worker;
 
     public DownloadDialog(final Frame parent, final PwadService pwadService, final List<Picture> pictures, final File outputDirectory) {
@@ -57,7 +58,7 @@ public class DownloadDialog extends JDialog {
         worker = new DownloadWorker(pwadService, pictures, outputDirectory);
         worker.addPropertyChangeListener(new PropertyChangeListener() {
             public void propertyChange(final PropertyChangeEvent event) {
-                logger.trace(event + " - " + event.getPropertyName() + ": " + event.getNewValue());
+                logger.trace("{} - {}: {}", new Object[] { event, event.getPropertyName(), event.getNewValue() });
                 if ("progress".equals(event.getPropertyName())) {
                     final Integer pictureNumber = (Integer) event.getNewValue();
                     progressLabel.setText(MessageFormat.format(pattern, pictureNumber, pictures.size()));
@@ -127,7 +128,7 @@ public class DownloadDialog extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
-        logger.trace(evt);
+        logger.trace("{}", evt);
         cancelButton.setEnabled(false);
         worker.cancel(true);
     }// GEN-LAST:event_cancelButtonActionPerformed

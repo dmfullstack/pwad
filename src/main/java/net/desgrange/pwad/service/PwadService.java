@@ -33,7 +33,8 @@ import net.desgrange.pwad.service.exceptions.BadUrlException;
 import net.desgrange.pwad.service.exceptions.DownloadFailedException;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gdata.client.photos.PicasawebService;
 import com.google.gdata.data.photos.AlbumFeed;
@@ -42,7 +43,7 @@ import com.google.gdata.data.photos.PhotoEntry;
 import com.google.gdata.util.ServiceException;
 
 public class PwadService {
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final PicasawebService picasawebService;
 
     public PwadService(final PicasawebService picasawebService) throws IOException {
@@ -51,7 +52,7 @@ public class PwadService {
 
     public Album getAlbumByInvitationLink(final String url) throws BadUrlException {
         final StringBuilder albumUrl = buildAlbumUrl(url);
-        logger.debug("album url: " + albumUrl);
+        logger.debug("album url: {}", albumUrl);
 
         try {
             final AlbumFeed albumFeed = picasawebService.getFeed(new URL(albumUrl.toString()), AlbumFeed.class);
@@ -114,13 +115,13 @@ public class PwadService {
             input.close();
             output.close();
         } catch (final FileNotFoundException e) {
-            logger.error(e);
+            logger.error("Error while downloading picture", e);
             throw new DownloadFailedException(e);
         } catch (final MalformedURLException e) {
-            logger.error(e);
+            logger.error("Error while downloading picture", e);
             throw new DownloadFailedException(e);
         } catch (final IOException e) {
-            logger.error(e);
+            logger.error("Error while downloading picture", e);
             throw new DownloadFailedException(e);
         }
     }

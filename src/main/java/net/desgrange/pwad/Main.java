@@ -21,12 +21,13 @@ import net.desgrange.pwad.service.EnvironmentService;
 import net.desgrange.pwad.service.PwadService;
 import net.desgrange.pwad.ui.MainForm;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.google.gdata.client.photos.PicasawebService;
 
 public class Main {
-    private static final Logger logger = Logger.getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static final String APPLICATION_NAME = "pwad";
     private static final String PROPERTIES_FILE_PATH = "/pwad/pwad.properties";
 
@@ -34,10 +35,10 @@ public class Main {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
 
         final EnvironmentService environmentService = new EnvironmentService(PROPERTIES_FILE_PATH);
-        logger.info("pwad version: " + environmentService.getVersion());
+        logger.info("pwad version: {}", environmentService.getVersion());
 
         final PicasawebService picasawebService = new PicasawebService(APPLICATION_NAME + "-" + environmentService.getVersion());
-        logger.info("PicasawebService version: " + picasawebService.getServiceVersion());
+        logger.info("PicasawebService version: {}", picasawebService.getServiceVersion());
 
         final PwadService pwadService = new PwadService(picasawebService);
         final MainForm mainForm = new MainForm();

@@ -27,14 +27,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.desgrange.pwad.Main;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FunctionalTestEnvironment {
     private static FunctionalTestEnvironment instance;
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private Server server;
     private int port;
 
@@ -56,7 +57,7 @@ public class FunctionalTestEnvironment {
         server.setHandler(new AbstractHandler() {
             @Override
             public void handle(final String target, final Request jettyRequest, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
-                logger.trace("Target: " + target);
+                logger.trace("Target: {}", target);
                 if (target.equals("/data/feed/api/user/dead_kennedys/albumid/holiday_in_cambodia")) {
                     sendResponse(response, "application/atom+xml; charset=UTF-8; type=feed", "/response.xml");
                 } else if (target.equals("/_0aa0aAAaaA0/A_Aa-0A_aAA/AAAAAAAAAAA/Aa0aaa0_aaA/d/100_0001.JPG")) {

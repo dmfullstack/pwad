@@ -25,10 +25,11 @@ import javax.swing.SwingWorker;
 import net.desgrange.pwad.model.Picture;
 import net.desgrange.pwad.service.PwadService;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DownloadWorker extends SwingWorker<Void, Integer> {
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final PwadService pwadService;
     private final List<Picture> pictures;
     private final File outputDirectory;
@@ -43,7 +44,7 @@ public class DownloadWorker extends SwingWorker<Void, Integer> {
     protected Void doInBackground() throws Exception {
         logger.trace("Starting downloading pictures in background…");
         for (int i = 0; i < pictures.size(); i++) {
-            logger.trace("Downloading picture " + (i + 1) + " out of " + pictures.size() + "…");
+            logger.trace("Downloading picture {} out of {}…", i + 1, pictures.size());
             setProgress(i + 1);
             final Picture picture = pictures.get(i);
             pwadService.downloadPicture(picture, outputDirectory);

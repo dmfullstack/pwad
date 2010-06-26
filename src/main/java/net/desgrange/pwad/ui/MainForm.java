@@ -24,6 +24,7 @@ import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -32,21 +33,21 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.WindowConstants;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPopupMenu.Separator;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.WindowConstants;
 
 import net.desgrange.pwad.model.Album;
 import net.desgrange.pwad.service.EnvironmentService;
 import net.desgrange.pwad.service.PwadService;
 import net.desgrange.pwad.service.exceptions.BadUrlException;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainForm extends JFrame {
     private static final long serialVersionUID = 4313821019914508450L;
-    private final Logger logger = Logger.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private EnvironmentService environmentService;
     private PwadService pwadService;
     private String selectTitle;
@@ -177,7 +178,7 @@ public class MainForm extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void downloadButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_downloadButtonActionPerformed
-        logger.trace(evt);
+        logger.trace("{}", evt);
         final JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle(selectTitle);
         fileChooser.setApproveButtonText(selectText);
@@ -185,7 +186,7 @@ public class MainForm extends JFrame {
         final int result = fileChooser.showSaveDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             final File outputDirectory = fileChooser.getSelectedFile();
-            logger.debug("Selected directory: " + outputDirectory);
+            logger.debug("Selected directory: {}", outputDirectory);
             final DownloadDialog downloadDialog = new DownloadDialog(this, pwadService, album.getPictures(), outputDirectory);
             downloadDialog.run();
         }
@@ -193,18 +194,18 @@ public class MainForm extends JFrame {
     }// GEN-LAST:event_downloadButtonActionPerformed
 
     private void aboutPwadActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_aboutPwadActionPerformed
-        logger.trace(evt);
+        logger.trace("{}", evt);
         final AboutDialog dialog = new AboutDialog(this, environmentService);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }// GEN-LAST:event_aboutPwadActionPerformed
 
     private void openMenuItemActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_openMenuItemActionPerformed
-        logger.trace(evt);
+        logger.trace("{}", evt);
         final OpenAlbumDialog dialog = new OpenAlbumDialog(this);
         dialog.setVisible(true);
         final String link = dialog.getLink();
-        logger.debug("Invitation link: " + link);
+        logger.debug("Invitation link: {}", link);
 
         if (link == null) {
             return;
