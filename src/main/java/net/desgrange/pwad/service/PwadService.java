@@ -57,6 +57,7 @@ public class PwadService {
 
         try {
             final AlbumFeed albumFeed = picasawebService.getFeed(new URL(albumUrl.toString()), AlbumFeed.class);
+            logger.trace("Received album feed: {}", albumFeed);
             final Album album = new Album();
             album.setId(albumFeed.getGphotoId());
             album.setName(albumFeed.getTitle().getPlainText());
