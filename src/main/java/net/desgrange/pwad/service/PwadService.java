@@ -53,6 +53,7 @@ public class PwadService {
     public Album getAlbumByInvitationLink(final String url) throws BadUrlException {
         final StringBuilder albumUrl = buildAlbumUrl(url);
         logger.debug("album url: {}", albumUrl);
+        logger.trace("Connecting to google using proxy: {}:{}", System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
 
         try {
             final AlbumFeed albumFeed = picasawebService.getFeed(new URL(albumUrl.toString()), AlbumFeed.class);
@@ -70,7 +71,7 @@ public class PwadService {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private List<Picture> getPictures(final AlbumFeed albumFeed) throws ServiceException {
         final List<Picture> pictures = new ArrayList<Picture>(albumFeed.getEntries().size());
         final List<GphotoEntry> photoEntries = albumFeed.getEntries();
