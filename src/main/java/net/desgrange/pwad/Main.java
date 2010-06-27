@@ -17,6 +17,9 @@
  */
 package net.desgrange.pwad;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import net.desgrange.pwad.service.EnvironmentService;
 import net.desgrange.pwad.service.PwadService;
 import net.desgrange.pwad.ui.MainForm;
@@ -33,6 +36,7 @@ public class Main {
 
     public static void main(final String... args) throws Exception {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
+        setLookAndFeel();
 
         final EnvironmentService environmentService = new EnvironmentService(PROPERTIES_FILE_PATH);
         logger.info("pwad version: {}", environmentService.getVersion());
@@ -45,5 +49,19 @@ public class Main {
         mainForm.setEnvironmentService(environmentService);
         mainForm.setPwadService(pwadService);
         mainForm.setVisible(true);
+    }
+
+    private static void setLookAndFeel() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (final ClassNotFoundException e) {
+            logger.warn("Unable to set look and feel", e);
+        } catch (final InstantiationException e) {
+            logger.warn("Unable to set look and feel", e);
+        } catch (final IllegalAccessException e) {
+            logger.warn("Unable to set look and feel", e);
+        } catch (final UnsupportedLookAndFeelException e) {
+            logger.warn("Unable to set look and feel", e);
+        }
     }
 }
