@@ -61,7 +61,6 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
         assertTrue(window.titleEquals("pwad - Picasa Web Albums Downloader"));
         assertFalse(downloadButton.isEnabled());
         WindowInterceptor.init(openAlbumFromLinkMenu.triggerClick()).process(new OpenAlbumDialogHandler(createInvitationLink())).run();
-        Thread.sleep(5000);
         assertTrue(albumNameField.textEquals("Holiday in Cambodia"));
         assertTrue(picturesCountField.textEquals("2"));
         assertTrue(downloadButton.isEnabled());
