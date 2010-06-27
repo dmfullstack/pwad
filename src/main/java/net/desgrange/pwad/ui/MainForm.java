@@ -17,14 +17,17 @@
  */
 package net.desgrange.pwad.ui;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -58,12 +61,12 @@ public class MainForm extends JFrame {
 
     public MainForm() {
         initComponents();
-        // final Image iconSvg = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo.svg")).getImage();
-        // final Image icon64 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_64.png")).getImage();
-        // final Image icon32 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_32.png")).getImage();
-        // final Image icon24 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_24.png")).getImage();
-        // final Image icon16 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_16.png")).getImage();
-        // setIconImages(Arrays.asList(iconSvg, icon64, icon32, icon24, icon16));
+        final Image iconSvg = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo.svg")).getImage();
+        final Image icon64 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_64.png")).getImage();
+        final Image icon32 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_32.png")).getImage();
+        final Image icon24 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_24.png")).getImage();
+        final Image icon16 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_16.png")).getImage();
+        setIconImages(Arrays.asList(iconSvg, icon64, icon32, icon24, icon16));
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
