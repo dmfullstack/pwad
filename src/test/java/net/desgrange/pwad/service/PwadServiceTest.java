@@ -116,7 +116,7 @@ public class PwadServiceTest {
         pwadService.downloadPicture(picture, outputFolder);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     private GphotoEntry createEntry(final String id, final String name) {
         final MediaContent content = new MediaContent();
         content.setUrl("http://foo/bar/" + name);
