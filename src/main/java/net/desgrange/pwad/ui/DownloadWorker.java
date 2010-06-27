@@ -49,7 +49,7 @@ public class DownloadWorker extends SwingWorker<Void, Integer> {
             final Picture picture = pictures.get(i);
             pwadService.downloadPicture(picture, outputDirectory);
             if (Thread.currentThread().isInterrupted()) {
-                System.out.println("Interrupted");
+                logger.trace("Interrupted");
                 break;
             }
         }
