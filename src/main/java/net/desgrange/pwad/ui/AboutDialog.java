@@ -50,6 +50,7 @@ public class AboutDialog extends JDialog {
         aboutLabel = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
         logoLabel.setIcon(new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_64.png"))); // NOI18N
@@ -57,29 +58,29 @@ public class AboutDialog extends JDialog {
         logoLabel.setName("logoLabel"); // NOI18N
 
         aboutLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        aboutLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/AboutDialog").getString("AboutDialog.aboutLabel.text"), new Object[] { environmentService.getVersion() })); // NOI18N
+        aboutLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/AboutDialog").getString("AboutDialog.aboutLabel.text"), new Object[] {environmentService.getVersion()})); // NOI18N
         aboutLabel.setName("aboutLabel"); // NOI18N
 
-        final GroupLayout layout = new GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(logoLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-                                        .addComponent(aboutLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
-                                .addContainerGap())
-                );
+            layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
+                    .addComponent(logoLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                    .addComponent(aboutLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
+                .addContainerGap())
+        );
         layout.setVerticalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(logoLabel)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(aboutLabel)
-                                .addContainerGap())
-                );
+            layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoLabel)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(aboutLabel)
+                .addContainerGap())
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
