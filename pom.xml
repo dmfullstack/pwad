@@ -130,7 +130,7 @@
                 <version>2.3.1</version>
                 <configuration>
                     <effort>Max</effort>
-                    <treshold>Low</treshold>
+                    <threshold>Low</threshold>
                     <findbugsXmlOutput>true</findbugsXmlOutput>
                     <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
                     <xmlOutput>true</xmlOutput>
