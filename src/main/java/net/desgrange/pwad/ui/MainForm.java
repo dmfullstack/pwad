@@ -48,11 +48,11 @@ import net.desgrange.pwad.service.exceptions.BadUrlException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MainForm extends JFrame {
+public final class MainForm extends JFrame {
     private static final long serialVersionUID = 4313821019914508450L;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private EnvironmentService environmentService;
-    private PwadService pwadService;
+    private transient final Logger logger = LoggerFactory.getLogger(getClass());
+    private transient EnvironmentService environmentService;
+    private transient PwadService pwadService;
     private String selectTitle;
     private String selectText;
     private String openInvitationErrorTitle;

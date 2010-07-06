@@ -46,8 +46,8 @@ import org.slf4j.LoggerFactory;
 
 public class DownloadDialog extends JDialog {
     private static final long serialVersionUID = 2574421000272809793L;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private final DownloadWorker worker;
+    private transient final Logger logger = LoggerFactory.getLogger(getClass());
+    private transient final DownloadWorker worker;
 
     public DownloadDialog(final Frame parent, final PwadService pwadService, final List<Picture> pictures, final File outputDirectory) {
         super(parent, Dialog.ModalityType.DOCUMENT_MODAL);

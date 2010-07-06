@@ -17,7 +17,10 @@
  */
 package net.desgrange.pwad.model;
 
-public class Picture {
+import java.io.Serializable;
+
+public class Picture implements Serializable {
+    private static final long serialVersionUID = 2265935029548908159L;
     private String id;
     private String name;
     private String url;

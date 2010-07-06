@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
 
 public class OpenAlbumDialog extends JDialog {
     private static final long serialVersionUID = -1066338781417528922L;
-    private final Logger logger = LoggerFactory.getLogger(getClass());
+    private transient final Logger logger = LoggerFactory.getLogger(getClass());
     private String link;
 
     public OpenAlbumDialog(final Frame parent) {

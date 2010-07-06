@@ -17,9 +17,11 @@
  */
 package net.desgrange.pwad.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Album {
+public class Album implements Serializable {
+    private static final long serialVersionUID = 4993642747667918694L;
     private String id;
     private String name;
     private List<Picture> pictures;
