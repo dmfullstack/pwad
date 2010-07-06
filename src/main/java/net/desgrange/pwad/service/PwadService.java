@@ -46,7 +46,7 @@ public class PwadService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final PicasawebService picasawebService;
 
-    public PwadService(final PicasawebService picasawebService) throws IOException {
+    public PwadService(final PicasawebService picasawebService) {
         this.picasawebService = picasawebService;
     }
 
@@ -76,7 +76,7 @@ public class PwadService {
     }
 
     @SuppressWarnings("rawtypes")
-    private List<Picture> getPictures(final AlbumFeed albumFeed) throws ServiceException {
+    private List<Picture> getPictures(final AlbumFeed albumFeed) {
         final List<Picture> pictures = new ArrayList<Picture>(albumFeed.getEntries().size());
         final List<GphotoEntry> photoEntries = albumFeed.getEntries();
         for (final GphotoEntry entry : photoEntries) {

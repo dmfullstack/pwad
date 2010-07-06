@@ -25,16 +25,20 @@ import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.WindowConstants;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class OpenAlbumDialog extends JDialog {
     private static final long serialVersionUID = -1066338781417528922L;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private String link;
 
     public OpenAlbumDialog(final Frame parent) {
@@ -104,10 +108,12 @@ public class OpenAlbumDialog extends JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
+        logger.trace("{}", evt);
         dispose();
     }// GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_okButtonActionPerformed
+        logger.trace("{}", evt);
         link = invitationLinkField.getText();
         dispose();
     }// GEN-LAST:event_okButtonActionPerformed
