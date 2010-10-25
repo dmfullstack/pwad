@@ -18,13 +18,14 @@
 package net.desgrange.pwad.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Album implements Serializable {
     private static final long serialVersionUID = 4993642747667918694L;
     private String id;
     private String name;
-    private List<Picture> pictures;
+    private ArrayList<Picture> pictures;
 
     public String getId() {
         return id;
@@ -47,6 +48,6 @@ public class Album implements Serializable {
     }
 
     public void setPictures(final List<Picture> pictures) {
-        this.pictures = pictures;
+        this.pictures = pictures == null ? null : new ArrayList<Picture>(pictures);
     }
 }
