@@ -17,6 +17,7 @@
  */
 package net.desgrange.pwad.service;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -109,16 +110,16 @@ public class PwadService {
     }
 
     public void downloadPicture(final Picture picture, final File outputDirectory) throws DownloadFailedException {
+        FileOutputStream output = null;
+        InputStream input = null;
         try {
-            final FileOutputStream output = new FileOutputStream(new File(outputDirectory, picture.getName()));
-            final InputStream input = new URL(picture.getUrl()).openStream();
+            output = new FileOutputStream(new File(outputDirectory, picture.getName()));
+            input = new URL(picture.getUrl()).openStream();
             final byte chunk[] = new byte[1024];
             int read = 0;
             while ((read = input.read(chunk)) != -1) {
                 output.write(chunk, 0, read);
             }
-            input.close();
-            output.close();
         } catch (final FileNotFoundException e) {
             logger.error("Error while downloading picture", e);
             throw new DownloadFailedException(e);
@@ -128,6 +129,20 @@ public class PwadService {
         } catch (final IOException e) {
             logger.error("Error while downloading picture", e);
             throw new DownloadFailedException(e);
+        } finally {
+            close(input);
+            close(output);
+        }
+    }
+
+    private void close(final Closeable closeable) {
+        if (closeable == null) {
+            return;
+        }
+        try {
+            closeable.close();
+        } catch (final IOException e) {
+            logger.debug("Error while closing resource", e);
         }
     }
 }
