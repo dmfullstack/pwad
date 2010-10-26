@@ -37,6 +37,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu.Separator;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.WindowConstants;
 
@@ -72,36 +73,32 @@ public final class MainForm extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        albumNameLabel = new JLabel();
-        albumNameField = new JLabel();
-        picturesCountLabel = new JLabel();
-        picturesCountField = new JLabel();
+        messageLabel = new JLabel();
+        invitationLinkLabel = new JLabel();
+        invitationLinkField = new JTextField();
         downloadButton = new JButton();
         menuBar = new JMenuBar();
         fileMenu = new JMenu();
-        aboutPwad = new JMenuItem();
+        aboutMenu = new JMenuItem();
         separator1 = new Separator();
-        openMenuItem = new JMenuItem();
+        quitMenu = new JMenuItem();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         final ResourceBundle bundle = ResourceBundle.getBundle("pwad/l10n/MainForm"); // NOI18N
         setTitle(bundle.getString("MainForm.title")); // NOI18N
         setName("pwad"); // NOI18N
 
-        albumNameLabel.setText(bundle.getString("MainForm.albumNameLabel.text")); // NOI18N
-        albumNameLabel.setName("albumNameLabel"); // NOI18N
+        messageLabel.setText(bundle.getString("MainForm.messageLabel.text")); // NOI18N
+        messageLabel.setName("messageLabel"); // NOI18N
 
-        albumNameField.setText(bundle.getString("MainForm.albumNameField.text")); // NOI18N
-        albumNameField.setName("albumNameField"); // NOI18N
+        invitationLinkLabel.setLabelFor(invitationLinkField);
+        invitationLinkLabel.setText(bundle.getString("MainForm.invitationLinkLabel.text")); // NOI18N
+        invitationLinkLabel.setName("invitationLinkLabel"); // NOI18N
 
-        picturesCountLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.picturesCountLabel.text"), new Object[] {})); // NOI18N
-        picturesCountLabel.setName("picturesCountLabel"); // NOI18N
-
-        picturesCountField.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.picturesCountField.text"), new Object[] {})); // NOI18N
-        picturesCountField.setName("picturesCountField"); // NOI18N
+        invitationLinkField.setText(bundle.getString("MainForm.invitationLinkField.text")); // NOI18N
+        invitationLinkField.setName("invitationLinkField"); // NOI18N
 
         downloadButton.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.downloadButton.text"), new Object[] {})); // NOI18N
-        downloadButton.setEnabled(false);
         downloadButton.setName("downloadButton"); // NOI18N
         downloadButton.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent evt) {
@@ -110,34 +107,29 @@ public final class MainForm extends JFrame {
         });
         selectTitle = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.downloadButton.selectTitle");
         selectText = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.downloadButton.selectText");
+        openInvitationErrorTitle = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.openMenuItem.errorTitle");
+        openInvitationErrorMessage = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.openMenuItem.errorMessage");
 
         menuBar.setName("menuBar"); // NOI18N
 
         fileMenu.setText(bundle.getString("MainForm.fileMenu.text")); // NOI18N
         fileMenu.setName("fileMenu"); // NOI18N
 
-        aboutPwad.setText(bundle.getString("MainForm.aboutPwad.text")); // NOI18N
-        aboutPwad.setName("aboutPwad"); // NOI18N
-        aboutPwad.addActionListener(new ActionListener() {
+        aboutMenu.setText(bundle.getString("MainForm.aboutMenu.text")); // NOI18N
+        aboutMenu.setName("aboutMenu"); // NOI18N
+        aboutMenu.addActionListener(new ActionListener() {
             public void actionPerformed(final ActionEvent evt) {
-                aboutPwadActionPerformed(evt);
+                aboutMenuActionPerformed(evt);
             }
         });
-        fileMenu.add(aboutPwad);
+        fileMenu.add(aboutMenu);
 
         separator1.setName("separator1"); // NOI18N
         fileMenu.add(separator1);
 
-        openMenuItem.setText(bundle.getString("MainForm.openMenuItem.text")); // NOI18N
-        openMenuItem.setName("openMenuItem"); // NOI18N
-        openMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent evt) {
-                openMenuItemActionPerformed(evt);
-            }
-        });
-        openInvitationErrorTitle = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.openMenuItem.errorTitle");
-        openInvitationErrorMessage = ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.openMenuItem.errorMessage");
-        fileMenu.add(openMenuItem);
+        quitMenu.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.quitMenu.text"), new Object[] {})); // NOI18N
+        quitMenu.setName("quitMenu"); // NOI18N
+        fileMenu.add(quitMenu);
 
         menuBar.add(fileMenu);
 
@@ -151,28 +143,27 @@ public final class MainForm extends JFrame {
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                                                        .addComponent(albumNameLabel, Alignment.TRAILING)
-                                                        .addComponent(picturesCountLabel, Alignment.TRAILING))
-                                                .addPreferredGap(ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                                                        .addComponent(albumNameField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-                                                        .addComponent(picturesCountField, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
-                                        .addComponent(downloadButton, Alignment.TRAILING))
-                                .addContainerGap())
+                                                .addComponent(messageLabel, GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+                                                .addContainerGap())
+                                        .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
+                                                        .addComponent(downloadButton)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(invitationLinkLabel)
+                                                                .addPreferredGap(ComponentPlacement.UNRELATED)
+                                                                .addComponent(invitationLinkField, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)))
+                                                .addGap(20, 20, 20))))
                 );
         layout.setVerticalGroup(
                 layout.createParallelGroup(Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(albumNameLabel)
-                                        .addComponent(albumNameField))
+                                .addComponent(messageLabel)
                                 .addPreferredGap(ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(picturesCountLabel)
-                                        .addComponent(picturesCountField))
-                                .addPreferredGap(ComponentPlacement.UNRELATED)
+                                        .addComponent(invitationLinkLabel)
+                                        .addComponent(invitationLinkField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(ComponentPlacement.RELATED)
                                 .addComponent(downloadButton)
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
@@ -182,6 +173,15 @@ public final class MainForm extends JFrame {
 
     private void downloadButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_downloadButtonActionPerformed
         logger.trace("{}", evt);
+
+        // if(StringUtils.isBlank(invitationLinkField.getText()))
+        try {
+            album = pwadService.getAlbumByInvitationLink(invitationLinkField.getText());
+        } catch (final BadUrlException e) {
+            JOptionPane.showMessageDialog(this, openInvitationErrorMessage, openInvitationErrorTitle, JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         final JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle(selectTitle);
         fileChooser.setApproveButtonText(selectText);
@@ -196,43 +196,42 @@ public final class MainForm extends JFrame {
 
     }// GEN-LAST:event_downloadButtonActionPerformed
 
-    private void aboutPwadActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_aboutPwadActionPerformed
+    private void aboutMenuActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_aboutPwadActionPerformed
         logger.trace("{}", evt);
         final AboutDialog dialog = new AboutDialog(this, environmentService);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }// GEN-LAST:event_aboutPwadActionPerformed
 
-    private void openMenuItemActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_openMenuItemActionPerformed
-        logger.trace("{}", evt);
-        final OpenAlbumDialog dialog = new OpenAlbumDialog(this);
-        dialog.setVisible(true);
-        final String link = dialog.getLink();
-        logger.debug("Invitation link: {}", link);
-
-        if (link == null) {
-            return;
-        }
-        try {
-            album = pwadService.getAlbumByInvitationLink(link);
-            albumNameField.setText(album.getName());
-            picturesCountField.setText(String.valueOf(album.getPictures().size()));
-            downloadButton.setEnabled(true);
-        } catch (final BadUrlException e) {
-            JOptionPane.showMessageDialog(this, openInvitationErrorMessage, openInvitationErrorTitle, JOptionPane.WARNING_MESSAGE);
-        }
-    }// GEN-LAST:event_openMenuItemActionPerformed
+    // private void openMenuItemActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_openMenuItemActionPerformed
+    // logger.trace("{}", evt);
+    // final OpenAlbumDialog dialog = new OpenAlbumDialog(this);
+    // dialog.setVisible(true);
+    // final String link = dialog.getLink();
+    // logger.debug("Invitation link: {}", link);
+    //
+    // if (link == null) {
+    // return;
+    // }
+    // try {
+    // album = pwadService.getAlbumByInvitationLink(link);
+    // albumNameField.setText(album.getName());
+    // picturesCountField.setText(String.valueOf(album.getPictures().size()));
+    // downloadButton.setEnabled(true);
+    // } catch (final BadUrlException e) {
+    // JOptionPane.showMessageDialog(this, openInvitationErrorMessage, openInvitationErrorTitle, JOptionPane.WARNING_MESSAGE);
+    // }
+    // }// GEN-LAST:event_openMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JMenuItem aboutPwad;
-    private JLabel albumNameField;
-    private JLabel albumNameLabel;
+    private JMenuItem aboutMenu;
     private JButton downloadButton;
     private JMenu fileMenu;
+    private JTextField invitationLinkField;
+    private JLabel invitationLinkLabel;
     private JMenuBar menuBar;
-    private JMenuItem openMenuItem;
-    private JLabel picturesCountField;
-    private JLabel picturesCountLabel;
+    private JLabel messageLabel;
+    private JMenuItem quitMenu;
     private Separator separator1;
 
     // End of variables declaration//GEN-END:variables

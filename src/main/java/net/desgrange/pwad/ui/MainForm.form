@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.1" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
@@ -15,15 +15,15 @@
             <Property name="name" type="java.lang.String" value="fileMenu" noResource="true"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="aboutPwad">
+            <MenuItem class="javax.swing.JMenuItem" name="aboutMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.aboutPwad.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.aboutMenu.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
-                <Property name="name" type="java.lang.String" value="aboutPwad" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="aboutMenu" noResource="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aboutPwadActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aboutMenuActionPerformed"/>
               </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="separator1">
@@ -31,19 +31,13 @@
                 <Property name="name" type="java.lang.String" value="separator1" noResource="true"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="openMenuItem">
+            <MenuItem class="javax.swing.JMenuItem" name="quitMenu">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.openMenuItem.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                  <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.quitMenu.text" replaceFormat="java.text.MessageFormat.format(java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;), {arguments})"/>
                 </Property>
-                <Property name="name" type="java.lang.String" value="openMenuItem" noResource="true"/>
+                <Property name="name" type="java.lang.String" value="quitMenu" noResource="true"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="openMenuItemActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="openInvitationErrorTitle = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.openMenuItem.errorTitle&quot;);&#xa;openInvitationErrorMessage = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.openMenuItem.errorMessage&quot;);"/>
-              </AuxValues>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -77,23 +71,25 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="albumNameLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="picturesCountLabel" alignment="1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="messageLabel" pref="466" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="albumNameField" alignment="0" pref="226" max="32767" attributes="0"/>
-                          <Component id="picturesCountField" alignment="0" pref="226" max="32767" attributes="0"/>
-                      </Group>
                   </Group>
-                  <Component id="downloadButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="downloadButton" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="invitationLinkLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="invitationLinkField" pref="360" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,16 +97,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="albumNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="albumNameField" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="messageLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="picturesCountLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="picturesCountField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="invitationLinkLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="invitationLinkField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="downloadButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -118,36 +111,31 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="albumNameLabel">
+    <Component class="javax.swing.JLabel" name="messageLabel">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.albumNameLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+          <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.messageLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="albumNameLabel" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="messageLabel" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="albumNameField">
+    <Component class="javax.swing.JLabel" name="invitationLinkLabel">
       <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.albumNameField.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+          <ComponentRef name="invitationLinkField"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="albumNameField" noResource="true"/>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+          <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.invitationLinkLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+        </Property>
+        <Property name="name" type="java.lang.String" value="invitationLinkLabel" noResource="true"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="picturesCountLabel">
+    <Component class="javax.swing.JTextField" name="invitationLinkField">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.picturesCountLabel.text" replaceFormat="java.text.MessageFormat.format(java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;), {arguments})"/>
+          <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.invitationLinkField.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
-        <Property name="name" type="java.lang.String" value="picturesCountLabel" noResource="true"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="picturesCountField">
-      <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.picturesCountField.text" replaceFormat="java.text.MessageFormat.format(java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;), {arguments})"/>
-        </Property>
-        <Property name="name" type="java.lang.String" value="picturesCountField" noResource="true"/>
+        <Property name="name" type="java.lang.String" value="invitationLinkField" noResource="true"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="downloadButton">
@@ -155,14 +143,13 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.downloadButton.text" replaceFormat="java.text.MessageFormat.format(java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;), {arguments})"/>
         </Property>
-        <Property name="enabled" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="downloadButton" noResource="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="downloadButtonActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="selectTitle = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.downloadButton.selectTitle&quot;);&#xa;selectText = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.downloadButton.selectText&quot;);"/>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="selectTitle = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.downloadButton.selectTitle&quot;);&#xa;selectText = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.downloadButton.selectText&quot;);&#xa;openInvitationErrorTitle = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.openMenuItem.errorTitle&quot;);&#xa;openInvitationErrorMessage = java.util.ResourceBundle.getBundle(&quot;pwad/l10n/MainForm&quot;).getString(&quot;MainForm.openMenuItem.errorMessage&quot;);"/>
       </AuxValues>
     </Component>
   </SubComponents>

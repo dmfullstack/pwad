@@ -18,7 +18,6 @@
 package net.desgrange.pwad.functional;
 
 import static org.junit.Assert.assertEquals;
-import static org.uispec4j.assertion.UISpecAssert.assertFalse;
 import static org.uispec4j.assertion.UISpecAssert.assertTrue;
 
 import java.io.File;
@@ -32,7 +31,6 @@ import net.desgrange.pwad.functional.utils.PwadTestCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.uispec4j.Button;
-import org.uispec4j.MenuItem;
 import org.uispec4j.TextBox;
 import org.uispec4j.Trigger;
 import org.uispec4j.Window;
@@ -42,28 +40,32 @@ import org.uispec4j.interception.WindowInterceptor;
 
 public class DownloadPublicAlbumTest extends PwadTestCase {
     private Window window;
-    private MenuItem openAlbumFromLinkMenu;
-    private TextBox albumNameField;
-    private TextBox picturesCountField;
+    // private MenuItem openAlbumFromLinkMenu;
+    // private TextBox albumNameField;
+    // private TextBox picturesCountField;
+    private TextBox linkField;
     private Button downloadButton;
 
     @Before
     public void setUp() {
         window = getMainWindow();
-        openAlbumFromLinkMenu = window.getMenuBar().getMenu("File").getSubMenu("Open album from invitation link…");
-        albumNameField = window.getTextBox("albumNameField");
-        picturesCountField = window.getTextBox("picturesCountField");
-        downloadButton = window.getButton("Download all pictures");
+        // openAlbumFromLinkMenu = window.getMenuBar().getMenu("File").getSubMenu("Open album from invitation link…");
+        // albumNameField = window.getTextBox("albumNameField");
+        // picturesCountField = window.getTextBox("picturesCountField");
+        linkField = window.getInputTextBox("Invitation link");
+        downloadButton = window.getButton("Download");
     }
 
     @Test
     public void testUserCanDownloadPublicAlbumFromInvitationLink() throws Exception {
         assertTrue(window.titleEquals("pwad - Picasa Web Albums Downloader"));
-        assertFalse(downloadButton.isEnabled());
-        WindowInterceptor.init(openAlbumFromLinkMenu.triggerClick()).process(new OpenAlbumDialogHandler(createInvitationLink())).run();
-        assertTrue(albumNameField.textEquals("Holiday in Cambodia"));
-        assertTrue(picturesCountField.textEquals("2"));
         assertTrue(downloadButton.isEnabled());
+        linkField.setText(createInvitationLink());
+
+        // WindowInterceptor.init(openAlbumFromLinkMenu.triggerClick()).process(new OpenAlbumDialogHandler(createInvitationLink())).run();
+        // assertTrue(albumNameField.textEquals("Holiday in Cambodia"));
+        // assertTrue(picturesCountField.textEquals("2"));
+        // assertTrue(downloadButton.isEnabled());
         final File outputFolder = createTempDirectory();
         WindowInterceptor.init(downloadButton.triggerClick())
                 .process(FileChooserHandler.init().titleEquals("Select output folder").assertAcceptsDirectoriesOnly().select(outputFolder))
