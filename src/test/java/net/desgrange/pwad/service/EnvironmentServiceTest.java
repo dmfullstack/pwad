@@ -31,11 +31,13 @@ public class EnvironmentServiceTest {
         service = new EnvironmentService(TEST_PROPERTIES_FILE_PATH);
     }
 
+    @SuppressWarnings("unused")
     @Test(expected = NullPointerException.class)
     public void testConstructorThrowsAnExceptioIfGivenPathIsNull() throws Exception {
         new EnvironmentService(null);
     }
 
+    @SuppressWarnings("unused")
     @Test(expected = NullPointerException.class)
     public void testConstructorThrowsAnExceptionIfGivenFileDoesNotExist() throws Exception {
         new EnvironmentService("test/does_not_exists.properties");

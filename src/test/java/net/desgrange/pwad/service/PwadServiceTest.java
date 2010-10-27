@@ -138,10 +138,12 @@ public class PwadServiceTest {
 
         @Override
         public void generateAtom(final XmlWriter w, final String elementName) throws IOException {
+            // Useless
         }
 
         @Override
         public void generateRss(final XmlWriter w, final String elementName, final RssFormat rssFormat) throws IOException {
+            // Useless
         }
 
         @Override
