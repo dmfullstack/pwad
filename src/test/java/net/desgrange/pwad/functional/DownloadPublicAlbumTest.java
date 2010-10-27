@@ -40,18 +40,12 @@ import org.uispec4j.interception.WindowInterceptor;
 
 public class DownloadPublicAlbumTest extends PwadTestCase {
     private Window window;
-    // private MenuItem openAlbumFromLinkMenu;
-    // private TextBox albumNameField;
-    // private TextBox picturesCountField;
     private TextBox linkField;
     private Button downloadButton;
 
     @Before
     public void setUp() {
         window = getMainWindow();
-        // openAlbumFromLinkMenu = window.getMenuBar().getMenu("File").getSubMenu("Open album from invitation link…");
-        // albumNameField = window.getTextBox("albumNameField");
-        // picturesCountField = window.getTextBox("picturesCountField");
         linkField = window.getInputTextBox("Invitation link");
         downloadButton = window.getButton("Download");
     }
@@ -62,10 +56,6 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
         assertTrue(downloadButton.isEnabled());
         linkField.setText(createInvitationLink());
 
-        // WindowInterceptor.init(openAlbumFromLinkMenu.triggerClick()).process(new OpenAlbumDialogHandler(createInvitationLink())).run();
-        // assertTrue(albumNameField.textEquals("Holiday in Cambodia"));
-        // assertTrue(picturesCountField.textEquals("2"));
-        // assertTrue(downloadButton.isEnabled());
         final File outputFolder = createTempDirectory();
         WindowInterceptor.init(downloadButton.triggerClick())
                 .process(FileChooserHandler.init().titleEquals("Select output folder").assertAcceptsDirectoriesOnly().select(outputFolder))
@@ -99,21 +89,5 @@ public class DownloadPublicAlbumTest extends PwadTestCase {
         file.mkdir();
         file.deleteOnExit();
         return file;
-    }
-
-    private static class OpenAlbumDialogHandler extends WindowHandler {
-        private final String link;
-
-        public OpenAlbumDialogHandler(final String link) {
-            this.link = link;
-        }
-
-        @Override
-        public Trigger process(final Window dialog) throws Exception {
-            assertTrue(dialog.titleEquals("Open album from invitation link…"));
-            assertTrue(dialog.getTextBox("message").textEquals("Paste, in the following field, the link you received in the invitation email."));
-            dialog.getInputTextBox("Invitation link").setText(link);
-            return dialog.getButton("OK").triggerClick();
-        }
     }
 }

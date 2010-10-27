@@ -58,7 +58,6 @@ public final class MainForm extends JFrame {
     private String selectText;
     private String openInvitationErrorTitle;
     private String openInvitationErrorMessage;
-    private Album album;
 
     public MainForm() {
         initComponents();
@@ -173,8 +172,8 @@ public final class MainForm extends JFrame {
 
     private void downloadButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_downloadButtonActionPerformed
         logger.trace("{}", evt);
+        Album album = null;
 
-        // if(StringUtils.isBlank(invitationLinkField.getText()))
         try {
             album = pwadService.getAlbumByInvitationLink(invitationLinkField.getText());
         } catch (final BadUrlException e) {
@@ -202,26 +201,6 @@ public final class MainForm extends JFrame {
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }// GEN-LAST:event_aboutPwadActionPerformed
-
-    // private void openMenuItemActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_openMenuItemActionPerformed
-    // logger.trace("{}", evt);
-    // final OpenAlbumDialog dialog = new OpenAlbumDialog(this);
-    // dialog.setVisible(true);
-    // final String link = dialog.getLink();
-    // logger.debug("Invitation link: {}", link);
-    //
-    // if (link == null) {
-    // return;
-    // }
-    // try {
-    // album = pwadService.getAlbumByInvitationLink(link);
-    // albumNameField.setText(album.getName());
-    // picturesCountField.setText(String.valueOf(album.getPictures().size()));
-    // downloadButton.setEnabled(true);
-    // } catch (final BadUrlException e) {
-    // JOptionPane.showMessageDialog(this, openInvitationErrorMessage, openInvitationErrorTitle, JOptionPane.WARNING_MESSAGE);
-    // }
-    // }// GEN-LAST:event_openMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenuItem aboutMenu;

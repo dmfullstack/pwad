@@ -18,9 +18,7 @@
 package net.desgrange.pwad.ui;
 
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verifyZeroInteractions;
 import static org.mockito.Mockito.when;
-import static org.uispec4j.assertion.UISpecAssert.assertFalse;
 import static org.uispec4j.assertion.UISpecAssert.assertTrue;
 
 import java.util.ArrayList;
@@ -34,12 +32,12 @@ import net.desgrange.pwad.service.exceptions.BadUrlException;
 import net.desgrange.pwad.utils.UiTestCase;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.uispec4j.MenuItem;
 import org.uispec4j.Trigger;
 import org.uispec4j.Window;
 import org.uispec4j.interception.BasicHandler;
+import org.uispec4j.interception.FileChooserHandler;
 import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 
@@ -67,7 +65,6 @@ public class MainFormTest extends UiTestCase {
 
     }
 
-    @Ignore
     @Test
     public void testDownload() {
         final String link = "http://some.link.to/album";
@@ -77,30 +74,24 @@ public class MainFormTest extends UiTestCase {
         when(pwadService.getAlbumByInvitationLink(badLink)).thenThrow(new BadUrlException());
         final Window window = createWindow();
 
-        WindowInterceptor.init(window.getButton().triggerClick()).process(new OpenAlbumDialogHandler(badLink, "Cancel")).run();
-        assertTrue(window.getTextBox("albumNameField").textEquals(" "));
-        assertTrue(window.getTextBox("picturesCountField").textEquals(" "));
-        assertFalse(window.getButton().isEnabled());
-        verifyZeroInteractions(pwadService);
-
-        WindowInterceptor.init(window.getButton().triggerClick()).process(new OpenAlbumDialogHandler(badLink, "OK")).process(BasicHandler.init()
+        window.getInputTextBox("Invitation link").setText(badLink);
+        WindowInterceptor.init(window.getButton().triggerClick()).process(BasicHandler.init()
                 .assertTitleEquals("Bad link provided")
                 .assertContainsText("The link you provided was not recognized as a valid Picasa Album link.")
                 .triggerButtonClick("OK")).run();
-        assertTrue(window.getTextBox("albumNameField").textEquals(" "));
-        assertTrue(window.getTextBox("picturesCountField").textEquals(" "));
-        assertFalse(window.getButton().isEnabled());
 
-        WindowInterceptor.init(window.getButton().triggerClick()).process(new WindowHandler() {
-            @Override
-            public Trigger process(final Window dialog) throws Exception {
-                dialog.getInputTextBox("Invitation link").setText(link);
-                return dialog.getButton("OK").triggerClick();
-            }
-        }).run();
-        assertTrue(window.getTextBox("albumNameField").textEquals("The album name"));
-        assertTrue(window.getTextBox("picturesCountField").textEquals("3"));
-        assertTrue(window.getButton().isEnabled());
+        window.getInputTextBox("Invitation link").setText(link);
+        WindowInterceptor.init(window.getButton().triggerClick()).process(new FileChooserHandler().cancelSelection()).run();
+        WindowInterceptor.init(window.getButton().triggerClick())
+                .process(new FileChooserHandler().select(System.getProperty("java.io.tmpdir")))
+                .process(new WindowHandler() {
+                    @Override
+                    public Trigger process(final Window downloadWindow) throws Exception {
+                        assertTrue(downloadWindow.isModal());
+                        assertTrue(downloadWindow.titleEquals("Downloading…"));
+                        return Trigger.DO_NOTHING;
+                    }
+                }).run();
     }
 
     private Album createAlbum(final String name, final int numberOfPictures) {
@@ -127,21 +118,5 @@ public class MainFormTest extends UiTestCase {
                 mainForm.setVisible(true);
             }
         });
-    }
-
-    private final class OpenAlbumDialogHandler extends WindowHandler {
-        private final String link;
-        private final String button;
-
-        private OpenAlbumDialogHandler(final String link, final String button) {
-            this.link = link;
-            this.button = button;
-        }
-
-        @Override
-        public Trigger process(final Window dialog) throws Exception {
-            dialog.getInputTextBox("Invitation link").setText(link);
-            return dialog.getButton(button).triggerClick();
-        }
     }
 }
