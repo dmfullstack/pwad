@@ -128,6 +128,11 @@ public final class MainForm extends JFrame {
 
         quitMenu.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.quitMenu.text"), new Object[] {})); // NOI18N
         quitMenu.setName("quitMenu"); // NOI18N
+        quitMenu.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent evt) {
+                quitMenuActionPerformed(evt);
+            }
+        });
         fileMenu.add(quitMenu);
 
         menuBar.add(fileMenu);
@@ -169,6 +174,11 @@ public final class MainForm extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void quitMenuActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_quitMenuActionPerformed
+        logger.trace("{}", evt);
+        dispose();
+    }// GEN-LAST:event_quitMenuActionPerformed
 
     private void downloadButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_downloadButtonActionPerformed
         logger.trace("{}", evt);
