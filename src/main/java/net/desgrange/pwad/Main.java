@@ -36,6 +36,8 @@ public class Main {
 
     public static void main(final String... args) throws Exception {
         logger.info("Starting pwad (Picasa Web Albums Downloader)…");
+        System.setProperty("apple.laf.useScreenMenuBar", "true");
+        System.setProperty("com.apple.mrj.application.apple.menu.about.name", APPLICATION_NAME);
         setLookAndFeel();
 
         final EnvironmentService environmentService = new EnvironmentService(PROPERTIES_FILE_PATH);
