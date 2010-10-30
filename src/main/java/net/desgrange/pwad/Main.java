@@ -27,6 +27,7 @@ import net.desgrange.pwad.ui.MainForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.apple.eawt.Application;
 import com.google.gdata.client.photos.PicasawebService;
 
 public class Main {
@@ -48,6 +49,10 @@ public class Main {
 
         final PwadService pwadService = new PwadService(picasawebService);
         final MainForm mainForm = new MainForm();
+        if (environmentService.isMacOs()) {
+            final Application macOsApplication = Application.getApplication();
+            macOsApplication.addApplicationListener(new MacOsApplicationAdapter(mainForm));
+        }
         mainForm.setEnvironmentService(environmentService);
         mainForm.setPwadService(pwadService);
         mainForm.setVisible(true);

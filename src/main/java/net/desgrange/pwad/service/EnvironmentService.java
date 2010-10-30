@@ -18,6 +18,7 @@
 package net.desgrange.pwad.service;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Properties;
 
 import net.desgrange.pwad.Main;
@@ -32,5 +33,9 @@ public class EnvironmentService {
 
     public String getVersion() {
         return properties.getProperty("pwad.version");
+    }
+
+    public boolean isMacOs() {
+        return System.getProperty("os.name").toUpperCase(Locale.ENGLISH).startsWith("MAC OS X");
     }
 }

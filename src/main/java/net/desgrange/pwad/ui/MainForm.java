@@ -69,6 +69,16 @@ public final class MainForm extends JFrame {
         setIconImages(Arrays.asList(iconSvg, icon64, icon32, icon24, icon16));
     }
 
+    public void displayAboutDialog() {
+        final AboutDialog dialog = new AboutDialog(this, environmentService);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }
+
+    public void quit() {
+        dispose();
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -175,9 +185,14 @@ public final class MainForm extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void aboutMenuActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_aboutPwadActionPerformed
+        logger.trace("{}", evt);
+        displayAboutDialog();
+    }// GEN-LAST:event_aboutPwadActionPerformed
+
     private void quitMenuActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_quitMenuActionPerformed
         logger.trace("{}", evt);
-        dispose();
+        quit();
     }// GEN-LAST:event_quitMenuActionPerformed
 
     private void downloadButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_downloadButtonActionPerformed
@@ -204,13 +219,6 @@ public final class MainForm extends JFrame {
         }
 
     }// GEN-LAST:event_downloadButtonActionPerformed
-
-    private void aboutMenuActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_aboutPwadActionPerformed
-        logger.trace("{}", evt);
-        final AboutDialog dialog = new AboutDialog(this, environmentService);
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
-    }// GEN-LAST:event_aboutPwadActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JMenuItem aboutMenu;
