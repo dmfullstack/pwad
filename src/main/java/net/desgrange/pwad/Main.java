@@ -17,6 +17,7 @@
  */
 package net.desgrange.pwad;
 
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -49,13 +50,14 @@ public class Main {
 
         final PwadService pwadService = new PwadService(picasawebService);
         final MainForm mainForm = new MainForm();
-        if (environmentService.isMacOs()) {
-            final Application macOsApplication = Application.getApplication();
-            macOsApplication.addApplicationListener(new MacOsApplicationAdapter(mainForm));
-        }
         mainForm.setEnvironmentService(environmentService);
         mainForm.setPwadService(pwadService);
         mainForm.init();
+        if (environmentService.isMacOs()) {
+            final Application macOsApplication = Application.getApplication();
+            macOsApplication.addApplicationListener(new MacOsApplicationAdapter(mainForm));
+            macOsApplication.setDockIconImage(new ImageIcon(Main.class.getResource("/pwad/images/pwad-logo_128.png")).getImage());
+        }
         mainForm.setVisible(true);
     }
 

@@ -61,11 +61,12 @@ public final class MainForm extends JFrame {
 
     public void init() {
         final Image iconSvg = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo.svg")).getImage();
+        final Image icon128 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_128.png")).getImage();
         final Image icon64 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_64.png")).getImage();
         final Image icon32 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_32.png")).getImage();
         final Image icon24 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_24.png")).getImage();
         final Image icon16 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_16.png")).getImage();
-        setIconImages(Arrays.asList(iconSvg, icon64, icon32, icon24, icon16));
+        setIconImages(Arrays.asList(iconSvg, icon128, icon64, icon32, icon24, icon16));
         initComponents();
         setLocationRelativeTo(null);
     }
