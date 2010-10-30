@@ -55,6 +55,7 @@ public class Main {
         }
         mainForm.setEnvironmentService(environmentService);
         mainForm.setPwadService(pwadService);
+        mainForm.init();
         mainForm.setVisible(true);
     }
 

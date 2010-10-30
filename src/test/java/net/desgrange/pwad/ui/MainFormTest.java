@@ -112,6 +112,7 @@ public class MainFormTest extends UiTestCase {
         final MainForm mainForm = new MainForm();
         mainForm.setEnvironmentService(environmentService);
         mainForm.setPwadService(pwadService);
+        mainForm.init();
         return WindowInterceptor.run(new Trigger() {
             @Override
             public void run() throws Exception {

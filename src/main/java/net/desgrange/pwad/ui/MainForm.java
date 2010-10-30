@@ -59,7 +59,7 @@ public final class MainForm extends JFrame {
     private String openInvitationErrorTitle;
     private String openInvitationErrorMessage;
 
-    public MainForm() {
+    public void init() {
         initComponents();
         final Image iconSvg = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo.svg")).getImage();
         final Image icon64 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_64.png")).getImage();
@@ -147,7 +147,10 @@ public final class MainForm extends JFrame {
 
         menuBar.add(fileMenu);
 
-        setJMenuBar(menuBar);
+        if (!environmentService.isMacOs()) {
+
+            setJMenuBar(menuBar);
+        }
 
         final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

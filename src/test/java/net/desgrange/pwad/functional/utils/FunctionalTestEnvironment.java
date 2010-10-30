@@ -47,6 +47,7 @@ public class FunctionalTestEnvironment {
     }
 
     private FunctionalTestEnvironment() throws Exception {
+        System.setProperty("os.name", "linux");
         System.setProperty("http.proxyHost", "localhost");
         System.setProperty("http.proxyPort", "8080");
         startServer();
