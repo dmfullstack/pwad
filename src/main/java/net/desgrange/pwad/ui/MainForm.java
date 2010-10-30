@@ -17,6 +17,7 @@
  */
 package net.desgrange.pwad.ui;
 
+import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -211,18 +212,28 @@ public final class MainForm extends JFrame {
             return;
         }
 
-        final JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle(selectTitle);
-        fileChooser.setApproveButtonText(selectText);
-        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        final int result = fileChooser.showSaveDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            final File outputDirectory = fileChooser.getSelectedFile();
+        File outputDirectory = null;
+
+        if (environmentService.isMacOs()) {
+            System.setProperty("apple.awt.fileDialogForDirectories", "true");
+            final FileDialog fileDialog = new FileDialog(this, selectTitle);
+            fileDialog.setVisible(true);
+            System.setProperty("apple.awt.fileDialogForDirectories", "false");
+            final String file = fileDialog.getFile();
+            outputDirectory = file == null ? null : new File(fileDialog.getDirectory() + file);
+        } else {
+            final JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle(selectTitle);
+            fileChooser.setApproveButtonText(selectText);
+            fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            final int result = fileChooser.showSaveDialog(this);
+            outputDirectory = result != JFileChooser.APPROVE_OPTION ? null : fileChooser.getSelectedFile();
+        }
+        if (outputDirectory != null) {
             logger.debug("Selected directory: {}", outputDirectory);
             final DownloadDialog downloadDialog = new DownloadDialog(this, pwadService, album.getPictures(), outputDirectory);
             downloadDialog.run();
         }
-
     }// GEN-LAST:event_downloadButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
