@@ -87,6 +87,8 @@ public class DownloadDialog extends JDialog {
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.title"), new Object[] {})); // NOI18N
+        setResizable(false);
+
         progressLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.progressLabel.text"), new Object[] {})); // NOI18N
         progressLabel.setName("progressLabel"); // NOI18N
 
