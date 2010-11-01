@@ -123,6 +123,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.messageLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="focusable" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="messageLabel" noResource="true"/>
       </Properties>
     </Component>
@@ -134,6 +135,7 @@
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
           <ResourceString bundle="pwad/l10n/MainForm.properties" key="MainForm.invitationLinkLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
         </Property>
+        <Property name="focusable" type="boolean" value="false"/>
         <Property name="name" type="java.lang.String" value="invitationLinkLabel" noResource="true"/>
       </Properties>
     </Component>
@@ -144,6 +146,9 @@
         </Property>
         <Property name="name" type="java.lang.String" value="invitationLinkField" noResource="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="invitationLinkFieldKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="downloadButton">
       <Properties>

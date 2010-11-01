@@ -21,6 +21,8 @@ import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.text.MessageFormat;
 import java.util.Arrays;
@@ -69,6 +71,7 @@ public final class MainForm extends JFrame {
         final Image icon16 = new ImageIcon(getClass().getResource("/pwad/images/pwad-logo_16.png")).getImage();
         setIconImages(Arrays.asList(iconSvg, icon128, icon64, icon32, icon24, icon16));
         initComponents();
+        invitationLinkField.requestFocusInWindow();
         setLocationRelativeTo(null);
     }
 
@@ -101,14 +104,22 @@ public final class MainForm extends JFrame {
         setName("pwad"); // NOI18N
 
         messageLabel.setText(bundle.getString("MainForm.messageLabel.text")); // NOI18N
+        messageLabel.setFocusable(false);
         messageLabel.setName("messageLabel"); // NOI18N
 
         invitationLinkLabel.setLabelFor(invitationLinkField);
         invitationLinkLabel.setText(bundle.getString("MainForm.invitationLinkLabel.text")); // NOI18N
+        invitationLinkLabel.setFocusable(false);
         invitationLinkLabel.setName("invitationLinkLabel"); // NOI18N
 
         invitationLinkField.setText(bundle.getString("MainForm.invitationLinkField.text")); // NOI18N
         invitationLinkField.setName("invitationLinkField"); // NOI18N
+        invitationLinkField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(final KeyEvent evt) {
+                invitationLinkFieldKeyPressed(evt);
+            }
+        });
 
         downloadButton.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.downloadButton.text"), new Object[] {})); // NOI18N
         downloadButton.setName("downloadButton"); // NOI18N
@@ -190,6 +201,14 @@ public final class MainForm extends JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void invitationLinkFieldKeyPressed(final KeyEvent evt) {// GEN-FIRST:event_invitationLinkFieldKeyPressed
+        logger.trace("{}", evt);
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            downloadButton.doClick();
+        }
+
+    }// GEN-LAST:event_invitationLinkFieldKeyPressed
 
     private void aboutMenuActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_aboutPwadActionPerformed
         logger.trace("{}", evt);
