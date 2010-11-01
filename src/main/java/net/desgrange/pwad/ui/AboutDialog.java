@@ -17,8 +17,14 @@
  */
 package net.desgrange.pwad.ui;
 
+import java.awt.Desktop;
 import java.awt.Dialog;
 import java.awt.Frame;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
@@ -33,9 +39,14 @@ import javax.swing.WindowConstants;
 
 import net.desgrange.pwad.service.EnvironmentService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public final class AboutDialog extends JDialog {
     private static final long serialVersionUID = -8568798361234817727L;
+    private transient final Logger logger = LoggerFactory.getLogger(getClass());
     private transient final EnvironmentService environmentService;
+    private String pwadUrl;
 
     public AboutDialog(final Frame parent, final EnvironmentService environmentService) {
         super(parent, Dialog.ModalityType.MODELESS);
@@ -60,6 +71,13 @@ public final class AboutDialog extends JDialog {
         aboutLabel.setHorizontalAlignment(SwingConstants.CENTER);
         aboutLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/AboutDialog").getString("AboutDialog.aboutLabel.text"), new Object[] { environmentService.getVersion() })); // NOI18N
         aboutLabel.setName("aboutLabel"); // NOI18N
+        aboutLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(final MouseEvent evt) {
+                aboutLabelMouseClicked(evt);
+            }
+        });
+        pwadUrl = ResourceBundle.getBundle("pwad/l10n/AboutDialog").getString("AboutDialog.pwadUrl");
 
         final GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,6 +102,17 @@ public final class AboutDialog extends JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void aboutLabelMouseClicked(final MouseEvent evt) {// GEN-FIRST:event_aboutLabelMouseClicked
+        logger.trace("{}", evt);
+        try {
+            Desktop.getDesktop().browse(new URI(pwadUrl));
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        } catch (final URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }// GEN-LAST:event_aboutLabelMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel aboutLabel;
