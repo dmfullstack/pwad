@@ -94,6 +94,7 @@ public class PwadService {
         final String userName = UrlUtils.getParameter(url, "uname");
         final String targetType = UrlUtils.getParameter(url, "target");
         final String targetId = UrlUtils.getParameter(url, "id");
+        final String authKey = UrlUtils.getParameter(url, "authkey");
 
         if (StringUtils.isBlank(userName) || StringUtils.isBlank(targetType) || StringUtils.isBlank(targetId)) {
             throw new BadUrlException("The link provided is not supported.");
@@ -107,6 +108,9 @@ public class PwadService {
         albumUrl.append("/albumid/").append(targetId);
         albumUrl.append("?kind=photo&imgmax=d");
         albumUrl.append("&max-results=").append(Short.MAX_VALUE);
+        if (StringUtils.isNotBlank(authKey)) {
+            albumUrl.append("&authkey=").append(authKey);
+        }
         return albumUrl;
     }
 

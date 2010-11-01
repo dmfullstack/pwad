@@ -71,6 +71,24 @@ public class PwadServiceTest {
         when(albumFeed.getTitle()).thenReturn(new PlainTextConstruct("My album"));
         when(albumFeed.getEntries()).thenReturn(Arrays.asList(createEntry("01", "100_0001.JPG"), createEntry("02", "100_0002.JPG")));
 
+        final Album actual = pwadService.getAlbumByInvitationLink("http://picasaweb.google.fr/lh/sredir?uname=my_name&target=ALBUM&id=1234567890&invite=LMN90OPQ&feat=email");
+        assertEquals("1234567890", actual.getId());
+        assertEquals("My album", actual.getName());
+        assertEquals(2, actual.getPictures().size());
+        assertEquals("01", actual.getPictures().get(0).getId());
+        assertEquals("100_0001.JPG", actual.getPictures().get(0).getName());
+        assertEquals("http://foo/bar/100_0001.JPG", actual.getPictures().get(0).getUrl());
+    }
+
+    @Test
+    public void testGetAlbumByInvitationLinkWithAuthKey() throws Exception {
+        final AlbumFeed albumFeed = mock(AlbumFeed.class);
+        final String expectedUrl = "http://picasaweb.google.com/data/feed/api/user/my_name/albumid/1234567890?kind=photo&imgmax=d&max-results=32767&authkey=ABC123DE-FGH456IJK78";
+        when(picasawebService.getFeed(new URL(expectedUrl), AlbumFeed.class)).thenReturn(albumFeed);
+        when(albumFeed.getGphotoId()).thenReturn("1234567890");
+        when(albumFeed.getTitle()).thenReturn(new PlainTextConstruct("My album"));
+        when(albumFeed.getEntries()).thenReturn(Arrays.asList(createEntry("01", "100_0001.JPG"), createEntry("02", "100_0002.JPG")));
+
         final Album actual = pwadService.getAlbumByInvitationLink("http://picasaweb.google.fr/lh/sredir?uname=my_name&target=ALBUM&id=1234567890&authkey=ABC123DE-FGH456IJK78&invite=LMN90OPQ&feat=email");
         assertEquals("1234567890", actual.getId());
         assertEquals("My album", actual.getName());
