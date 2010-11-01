@@ -65,7 +65,7 @@ public class PwadServiceTest {
     @Test
     public void testGetAlbumByInvitationLink() throws Exception {
         final AlbumFeed albumFeed = mock(AlbumFeed.class);
-        final String expectedUrl = "http://picasaweb.google.com/data/feed/api/user/my_name/albumid/1234567890?kind=photo&imgmax=d";
+        final String expectedUrl = "http://picasaweb.google.com/data/feed/api/user/my_name/albumid/1234567890?kind=photo&imgmax=d&max-results=32767";
         when(picasawebService.getFeed(new URL(expectedUrl), AlbumFeed.class)).thenReturn(albumFeed);
         when(albumFeed.getGphotoId()).thenReturn("1234567890");
         when(albumFeed.getTitle()).thenReturn(new PlainTextConstruct("My album"));

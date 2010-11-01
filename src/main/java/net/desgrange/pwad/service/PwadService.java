@@ -106,6 +106,7 @@ public class PwadService {
         albumUrl.append("/user/").append(userName);
         albumUrl.append("/albumid/").append(targetId);
         albumUrl.append("?kind=photo&imgmax=d");
+        albumUrl.append("&max-results=").append(Short.MAX_VALUE);
         return albumUrl;
     }
 
