@@ -33,7 +33,6 @@ import net.desgrange.pwad.model.Picture;
 import net.desgrange.pwad.service.exceptions.BadUrlException;
 import net.desgrange.pwad.service.exceptions.DownloadFailedException;
 
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,12 +51,12 @@ public class PwadService {
     }
 
     public Album getAlbumByInvitationLink(final String url) throws BadUrlException {
-        final StringBuilder albumUrl = buildAlbumUrl(url);
+        final String albumUrl = UrlUtils.parseInvitationLink(url);
         logger.debug("album url: {}", albumUrl);
         logger.trace("Connecting to google using proxy: {}:{}", System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
 
         try {
-            final AlbumFeed albumFeed = picasawebService.getFeed(new URL(albumUrl.toString()), AlbumFeed.class);
+            final AlbumFeed albumFeed = picasawebService.getFeed(new URL(albumUrl), AlbumFeed.class);
             logger.trace("Received album feed: {}", albumFeed);
             final Album album = new Album();
             album.setId(albumFeed.getGphotoId());
@@ -88,30 +87,6 @@ public class PwadService {
             pictures.add(picture);
         }
         return pictures;
-    }
-
-    private StringBuilder buildAlbumUrl(final String url) throws BadUrlException {
-        final String userName = UrlUtils.getParameter(url, "uname");
-        final String targetType = UrlUtils.getParameter(url, "target");
-        final String targetId = UrlUtils.getParameter(url, "id");
-        final String authKey = UrlUtils.getParameter(url, "authkey");
-
-        if (StringUtils.isBlank(userName) || StringUtils.isBlank(targetType) || StringUtils.isBlank(targetId)) {
-            throw new BadUrlException("The link provided is not supported.");
-        }
-        if (!"ALBUM".equalsIgnoreCase(targetType)) {
-            throw new BadUrlException("The link provided is not supported.");
-        }
-
-        final StringBuilder albumUrl = new StringBuilder("http://picasaweb.google.com/data/feed/api");
-        albumUrl.append("/user/").append(userName);
-        albumUrl.append("/albumid/").append(targetId);
-        albumUrl.append("?kind=photo&imgmax=d");
-        albumUrl.append("&max-results=").append(Short.MAX_VALUE);
-        if (StringUtils.isNotBlank(authKey)) {
-            albumUrl.append("&authkey=").append(authKey);
-        }
-        return albumUrl;
     }
 
     public void downloadPicture(final Picture picture, final File outputDirectory) throws DownloadFailedException {

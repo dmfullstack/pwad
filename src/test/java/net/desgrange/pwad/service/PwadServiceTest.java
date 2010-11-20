@@ -108,7 +108,7 @@ public class PwadServiceTest {
     public void testGetAlbumByInvitationLinkThrowsAnExceptionWhenGivenUrlIsNotSupported() {
         thrown.expect(BadUrlException.class);
         thrown.expectMessage("The link provided is not supported.");
-        pwadService.getAlbumByInvitationLink("http://picasaweb.google.fr/lh/sredir");
+        pwadService.getAlbumByInvitationLink("http://picasaweb.google.fr/lh");
     }
 
     @Test
