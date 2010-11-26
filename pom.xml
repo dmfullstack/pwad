@@ -96,8 +96,8 @@
                 <version>1.0-alpha-2</version>
                 <configuration>
                     <mainClass>net.desgrange.pwad.Main</mainClass>
-                    <iconFile>${basedir}/src/main/resources/pwad/images/pwad-logo.icns</iconFile>
-                    <javaApplicationStub>${basedir}/src/main/resources/JavaApplicationStub</javaApplicationStub>
+                    <iconFile>${basedir}/src/assembly/pwad-logo.icns</iconFile>
+                    <javaApplicationStub>${basedir}/src/assembly/JavaApplicationStub</javaApplicationStub>
                     <jvmVersion>1.6+</jvmVersion>
                 </configuration>
                 <executions>
