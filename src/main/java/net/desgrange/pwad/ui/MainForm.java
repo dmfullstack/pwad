@@ -222,8 +222,7 @@ public final class MainForm extends JFrame {
 
     private void downloadButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_downloadButtonActionPerformed
         logger.trace("{}", evt);
-        Album album = null;
-
+        Album album;
         try {
             album = pwadService.getAlbumByInvitationLink(invitationLinkField.getText());
         } catch (final BadUrlException e) {
@@ -231,8 +230,7 @@ public final class MainForm extends JFrame {
             return;
         }
 
-        File outputDirectory = null;
-
+        File outputDirectory;
         if (environmentService.isMacOs()) {
             System.setProperty("apple.awt.fileDialogForDirectories", "true");
             final FileDialog fileDialog = new FileDialog(this, selectTitle);

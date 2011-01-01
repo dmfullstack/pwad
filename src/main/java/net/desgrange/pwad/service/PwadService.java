@@ -96,7 +96,7 @@ public class PwadService {
             output = new FileOutputStream(new File(outputDirectory, picture.getName()));
             input = new URL(picture.getUrl()).openStream();
             final byte chunk[] = new byte[1024];
-            int read = 0;
+            int read;
             while ((read = input.read(chunk)) != -1) {
                 output.write(chunk, 0, read);
             }
