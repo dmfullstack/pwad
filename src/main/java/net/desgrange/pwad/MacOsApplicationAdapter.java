@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,23 +26,23 @@ import com.apple.eawt.ApplicationAdapter;
 import com.apple.eawt.ApplicationEvent;
 
 public class MacOsApplicationAdapter extends ApplicationAdapter {
-    private transient final Logger logger = LoggerFactory.getLogger(getClass());
-    private final MainForm mainForm;
+  private transient final Logger logger = LoggerFactory.getLogger(getClass());
+  private final MainForm mainForm;
 
-    public MacOsApplicationAdapter(final MainForm mainForm) {
-        this.mainForm = mainForm;
-    }
+  public MacOsApplicationAdapter(final MainForm mainForm) {
+    this.mainForm = mainForm;
+  }
 
-    @Override
-    public void handleQuit(final ApplicationEvent event) {
-        logger.trace("{}", event);
-        mainForm.quit();
-    }
+  @Override
+  public void handleQuit(final ApplicationEvent event) {
+    logger.trace("{}", event);
+    mainForm.quit();
+  }
 
-    @Override
-    public void handleAbout(final ApplicationEvent event) {
-        logger.trace("{}", event);
-        event.setHandled(true);
-        mainForm.displayAboutDialog();
-    }
+  @Override
+  public void handleAbout(final ApplicationEvent event) {
+    logger.trace("{}", event);
+    event.setHandled(true);
+    mainForm.displayAboutDialog();
+  }
 }

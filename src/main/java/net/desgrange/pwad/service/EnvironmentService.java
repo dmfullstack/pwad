@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,18 +24,18 @@ import java.util.Properties;
 import net.desgrange.pwad.Main;
 
 public class EnvironmentService {
-    private final Properties properties;
+  private final Properties properties;
 
-    public EnvironmentService(final String propertiesFilePath) throws IOException {
-        properties = new Properties();
-        properties.load(Main.class.getResource(propertiesFilePath).openStream());
-    }
+  public EnvironmentService(final String propertiesFilePath) throws IOException {
+    properties = new Properties();
+    properties.load(Main.class.getResource(propertiesFilePath).openStream());
+  }
 
-    public String getVersion() {
-        return properties.getProperty("pwad.version");
-    }
+  public String getVersion() {
+    return properties.getProperty("pwad.version");
+  }
 
-    public boolean isMacOs() {
-        return System.getProperty("os.name").toUpperCase(Locale.ENGLISH).startsWith("MAC OS X");
-    }
+  public boolean isMacOs() {
+    return System.getProperty("os.name").toUpperCase(Locale.ENGLISH).startsWith("MAC OS X");
+  }
 }

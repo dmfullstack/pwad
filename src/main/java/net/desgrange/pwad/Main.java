@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,46 +32,46 @@ import com.apple.eawt.Application;
 import com.google.gdata.client.photos.PicasawebService;
 
 public class Main {
-    private static final Logger logger = LoggerFactory.getLogger(Main.class);
-    private static final String APPLICATION_NAME = "pwad";
-    private static final String PROPERTIES_FILE_PATH = "/pwad/pwad.properties";
+  private static final Logger logger = LoggerFactory.getLogger(Main.class);
+  private static final String APPLICATION_NAME = "pwad";
+  private static final String PROPERTIES_FILE_PATH = "/pwad/pwad.properties";
 
-    public static void main(final String... args) throws Exception {
-        logger.info("Starting pwad (Picasa Web Albums Downloader)…");
-        System.setProperty("apple.laf.useScreenMenuBar", "true");
-        System.setProperty("com.apple.mrj.application.apple.menu.about.name", APPLICATION_NAME);
-        setLookAndFeel();
+  public static void main(final String... args) throws Exception {
+    logger.info("Starting pwad (Picasa Web Albums Downloader)…");
+    System.setProperty("apple.laf.useScreenMenuBar", "true");
+    System.setProperty("com.apple.mrj.application.apple.menu.about.name", APPLICATION_NAME);
+    setLookAndFeel();
 
-        final EnvironmentService environmentService = new EnvironmentService(PROPERTIES_FILE_PATH);
-        logger.info("pwad version: {}", environmentService.getVersion());
+    final EnvironmentService environmentService = new EnvironmentService(PROPERTIES_FILE_PATH);
+    logger.info("pwad version: {}", environmentService.getVersion());
 
-        final PicasawebService picasawebService = new PicasawebService(APPLICATION_NAME + "-" + environmentService.getVersion());
-        logger.info("PicasawebService version: {}", picasawebService.getServiceVersion());
+    final PicasawebService picasawebService = new PicasawebService(APPLICATION_NAME + "-" + environmentService.getVersion());
+    logger.info("PicasawebService version: {}", picasawebService.getServiceVersion());
 
-        final PwadService pwadService = new PwadService(picasawebService);
-        final MainForm mainForm = new MainForm();
-        mainForm.setEnvironmentService(environmentService);
-        mainForm.setPwadService(pwadService);
-        mainForm.init();
-        if (environmentService.isMacOs()) {
-            final Application macOsApplication = Application.getApplication();
-            macOsApplication.addApplicationListener(new MacOsApplicationAdapter(mainForm));
-            macOsApplication.setDockIconImage(new ImageIcon(Main.class.getResource("/pwad/images/pwad-logo_128.png")).getImage());
-        }
-        mainForm.setVisible(true);
+    final PwadService pwadService = new PwadService(picasawebService);
+    final MainForm mainForm = new MainForm();
+    mainForm.setEnvironmentService(environmentService);
+    mainForm.setPwadService(pwadService);
+    mainForm.init();
+    if (environmentService.isMacOs()) {
+      final Application macOsApplication = Application.getApplication();
+      macOsApplication.addApplicationListener(new MacOsApplicationAdapter(mainForm));
+      macOsApplication.setDockIconImage(new ImageIcon(Main.class.getResource("/pwad/images/pwad-logo_128.png")).getImage());
     }
+    mainForm.setVisible(true);
+  }
 
-    private static void setLookAndFeel() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (final ClassNotFoundException e) {
-            logger.warn("Unable to set look and feel", e);
-        } catch (final InstantiationException e) {
-            logger.warn("Unable to set look and feel", e);
-        } catch (final IllegalAccessException e) {
-            logger.warn("Unable to set look and feel", e);
-        } catch (final UnsupportedLookAndFeelException e) {
-            logger.warn("Unable to set look and feel", e);
-        }
+  private static void setLookAndFeel() {
+    try {
+      UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+    } catch (final ClassNotFoundException e) {
+      logger.warn("Unable to set look and feel", e);
+    } catch (final InstantiationException e) {
+      logger.warn("Unable to set look and feel", e);
+    } catch (final IllegalAccessException e) {
+      logger.warn("Unable to set look and feel", e);
+    } catch (final UnsupportedLookAndFeelException e) {
+      logger.warn("Unable to set look and feel", e);
     }
+  }
 }

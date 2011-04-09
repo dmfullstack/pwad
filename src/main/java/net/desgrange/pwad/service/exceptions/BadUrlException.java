@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,17 +18,17 @@
 package net.desgrange.pwad.service.exceptions;
 
 public class BadUrlException extends RuntimeException {
-    private static final long serialVersionUID = -1108309226264346515L;
+  private static final long serialVersionUID = -1108309226264346515L;
 
-    public BadUrlException() {
-        super();
-    }
+  public BadUrlException() {
+    super();
+  }
 
-    public BadUrlException(final String message) {
-        super(message);
-    }
+  public BadUrlException(final String message) {
+    super(message);
+  }
 
-    public BadUrlException(final Throwable cause) {
-        super(cause);
-    }
+  public BadUrlException(final Throwable cause) {
+    super(cause);
+  }
 }

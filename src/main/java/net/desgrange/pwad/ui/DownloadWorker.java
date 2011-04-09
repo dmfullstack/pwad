@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,30 +29,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DownloadWorker extends SwingWorker<Void, Integer> {
-    private final Logger logger = LoggerFactory.getLogger(getClass());
-    private final PwadService pwadService;
-    private final List<Picture> pictures;
-    private final File outputDirectory;
+  private final Logger logger = LoggerFactory.getLogger(getClass());
+  private final PwadService pwadService;
+  private final List<Picture> pictures;
+  private final File outputDirectory;
 
-    public DownloadWorker(final PwadService pwadService, final List<Picture> pictures, final File outputDirectory) {
-        this.pwadService = pwadService;
-        this.pictures = pictures;
-        this.outputDirectory = outputDirectory;
-    }
+  public DownloadWorker(final PwadService pwadService, final List<Picture> pictures, final File outputDirectory) {
+    this.pwadService = pwadService;
+    this.pictures = pictures;
+    this.outputDirectory = outputDirectory;
+  }
 
-    @Override
-    protected Void doInBackground() throws Exception {
-        logger.trace("Starting downloading pictures in background…");
-        for (int i = 0; i < pictures.size(); i++) {
-            logger.trace("Downloading picture {} out of {}…", i + 1, pictures.size());
-            setProgress(i + 1);
-            final Picture picture = pictures.get(i);
-            pwadService.downloadPicture(picture, outputDirectory);
-            if (Thread.currentThread().isInterrupted()) {
-                logger.trace("Interrupted");
-                break;
-            }
-        }
-        return null;
+  @Override
+  protected Void doInBackground() throws Exception {
+    logger.trace("Starting downloading pictures in background…");
+    for (int i = 0; i < pictures.size(); i++) {
+      logger.trace("Downloading picture {} out of {}…", i + 1, pictures.size());
+      setProgress(i + 1);
+      final Picture picture = pictures.get(i);
+      pwadService.downloadPicture(picture, outputDirectory);
+      if (Thread.currentThread().isInterrupted()) {
+        logger.trace("Interrupted");
+        break;
+      }
     }
+    return null;
+  }
 }

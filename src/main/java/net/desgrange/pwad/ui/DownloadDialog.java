@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,66 +45,66 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DownloadDialog extends JDialog {
-    private static final long serialVersionUID = 2574421000272809793L;
-    private transient final Logger logger = LoggerFactory.getLogger(getClass());
-    private transient final DownloadWorker worker;
+  private static final long serialVersionUID = 2574421000272809793L;
+  private transient final Logger logger = LoggerFactory.getLogger(getClass());
+  private transient final DownloadWorker worker;
 
-    public DownloadDialog(final Frame parent, final PwadService pwadService, final List<Picture> pictures, final File outputDirectory) {
-        super(parent, Dialog.ModalityType.DOCUMENT_MODAL);
-        getRootPane().putClientProperty("apple.awt.documentModalSheet", "true");
-        initComponents();
-        final String pattern = progressLabel.getText();
-        progressLabel.setText(MessageFormat.format(pattern, 0, pictures.size()));
-        worker = new DownloadWorker(pwadService, pictures, outputDirectory);
-        worker.addPropertyChangeListener(new PropertyChangeListener() {
-            public void propertyChange(final PropertyChangeEvent event) {
-                logger.trace("{} - {}: {}", new Object[] { event, event.getPropertyName(), event.getNewValue() });
-                if ("progress".equals(event.getPropertyName())) {
-                    final Integer pictureNumber = (Integer) event.getNewValue();
-                    progressLabel.setText(MessageFormat.format(pattern, pictureNumber, pictures.size()));
-                    progressBar.setValue(100 * pictureNumber / pictures.size());
-                }
-                if ("state".equals(event.getPropertyName()) && SwingWorker.StateValue.DONE.equals(event.getNewValue())) {
-                    progressBar.setValue(100);
-                    dispose();
-                }
-            }
-        });
-    }
+  public DownloadDialog(final Frame parent, final PwadService pwadService, final List<Picture> pictures, final File outputDirectory) {
+    super(parent, Dialog.ModalityType.DOCUMENT_MODAL);
+    getRootPane().putClientProperty("apple.awt.documentModalSheet", "true");
+    initComponents();
+    final String pattern = progressLabel.getText();
+    progressLabel.setText(MessageFormat.format(pattern, 0, pictures.size()));
+    worker = new DownloadWorker(pwadService, pictures, outputDirectory);
+    worker.addPropertyChangeListener(new PropertyChangeListener() {
+      public void propertyChange(final PropertyChangeEvent event) {
+        logger.trace("{} - {}: {}", new Object[] { event, event.getPropertyName(), event.getNewValue() });
+        if ("progress".equals(event.getPropertyName())) {
+          final Integer pictureNumber = (Integer) event.getNewValue();
+          progressLabel.setText(MessageFormat.format(pattern, pictureNumber, pictures.size()));
+          progressBar.setValue(100 * pictureNumber / pictures.size());
+        }
+        if ("state".equals(event.getPropertyName()) && SwingWorker.StateValue.DONE.equals(event.getNewValue())) {
+          progressBar.setValue(100);
+          dispose();
+        }
+      }
+    });
+  }
 
-    public void run() {
-        setLocationRelativeTo(getParent());
-        worker.execute();
-        setVisible(true);
-    }
+  public void run() {
+    setLocationRelativeTo(getParent());
+    worker.execute();
+    setVisible(true);
+  }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+  // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+  private void initComponents() {
 
-        progressLabel = new JLabel();
-        progressBar = new JProgressBar();
-        cancelButton = new JButton();
+    progressLabel = new JLabel();
+    progressBar = new JProgressBar();
+    cancelButton = new JButton();
 
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.title"), new Object[] {})); // NOI18N
-        setResizable(false);
+    setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+    setTitle(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.title"), new Object[] {})); // NOI18N
+    setResizable(false);
 
-        progressLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.progressLabel.text"), new Object[] {})); // NOI18N
-        progressLabel.setName("progressLabel"); // NOI18N
+    progressLabel.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.progressLabel.text"), new Object[] {})); // NOI18N
+    progressLabel.setName("progressLabel"); // NOI18N
 
-        progressBar.setName("progressBar"); // NOI18N
+    progressBar.setName("progressBar"); // NOI18N
 
-        cancelButton.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.cancelButton.text"), new Object[] {})); // NOI18N
-        cancelButton.setName("cancelButton"); // NOI18N
-        cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(final ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
+    cancelButton.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.cancelButton.text"), new Object[] {})); // NOI18N
+    cancelButton.setName("cancelButton"); // NOI18N
+    cancelButton.addActionListener(new ActionListener() {
+      public void actionPerformed(final ActionEvent evt) {
+        cancelButtonActionPerformed(evt);
+      }
+    });
 
-        final GroupLayout layout = new GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
+    final GroupLayout layout = new GroupLayout(getContentPane());
+    getContentPane().setLayout(layout);
+    layout.setHorizontalGroup(
                 layout.createParallelGroup(Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
@@ -114,7 +114,7 @@ public class DownloadDialog extends JDialog {
                                         .addComponent(cancelButton, Alignment.TRAILING))
                                 .addContainerGap())
                 );
-        layout.setVerticalGroup(
+    layout.setVerticalGroup(
                 layout.createParallelGroup(Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
@@ -126,18 +126,18 @@ public class DownloadDialog extends JDialog {
                                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 );
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+    pack();
+  }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
-        logger.trace("{}", evt);
-        cancelButton.setEnabled(false);
-        worker.cancel(true);
-    }// GEN-LAST:event_cancelButtonActionPerformed
+  private void cancelButtonActionPerformed(final ActionEvent evt) {// GEN-FIRST:event_cancelButtonActionPerformed
+    logger.trace("{}", evt);
+    cancelButton.setEnabled(false);
+    worker.cancel(true);
+  }// GEN-LAST:event_cancelButtonActionPerformed
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private JButton cancelButton;
-    private JProgressBar progressBar;
-    private JLabel progressLabel;
-    // End of variables declaration//GEN-END:variables
+  // Variables declaration - do not modify//GEN-BEGIN:variables
+  private JButton cancelButton;
+  private JProgressBar progressBar;
+  private JLabel progressLabel;
+  // End of variables declaration//GEN-END:variables
 }

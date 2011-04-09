@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,9 +18,9 @@
 package net.desgrange.pwad.service.exceptions;
 
 public class DownloadFailedException extends RuntimeException {
-    private static final long serialVersionUID = -801325764822826139L;
+  private static final long serialVersionUID = -801325764822826139L;
 
-    public DownloadFailedException(final Throwable cause) {
-        super(cause);
-    }
+  public DownloadFailedException(final Throwable cause) {
+    super(cause);
+  }
 }

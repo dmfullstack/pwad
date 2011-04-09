@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,17 +28,17 @@ import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 
 public class DisplayAboutDialogTest extends PwadTestCase {
-    @Test
-    public void testUserCanSeeSomeInformationsAboutTheApplication() {
-        final Window window = getMainWindow();
-        final MenuItem fileMenu = window.getMenuBar().getMenu("File");
-        WindowInterceptor.init(fileMenu.getSubMenu("About pwad").triggerClick()).process(new WindowHandler() {
-            @Override
-            public Trigger process(final Window dialog) throws Exception {
-                assertTrue(dialog.getTextBox("aboutLabel").textContains("<b>pwad</b>", "Version ", "pwad homepage", "© Laurent Desgrange, 2010"));
-                dialog.dispose();
-                return Trigger.DO_NOTHING;
-            }
-        }).run();
-    }
+  @Test
+  public void testUserCanSeeSomeInformationsAboutTheApplication() {
+    final Window window = getMainWindow();
+    final MenuItem fileMenu = window.getMenuBar().getMenu("File");
+    WindowInterceptor.init(fileMenu.getSubMenu("About pwad").triggerClick()).process(new WindowHandler() {
+      @Override
+      public Trigger process(final Window dialog) throws Exception {
+        assertTrue(dialog.getTextBox("aboutLabel").textContains("<b>pwad</b>", "Version ", "pwad homepage", "© Laurent Desgrange, 2010-2011"));
+        dialog.dispose();
+        return Trigger.DO_NOTHING;
+      }
+    }).run();
+  }
 }

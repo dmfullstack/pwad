@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,51 +38,51 @@ import org.uispec4j.Window;
 import org.uispec4j.interception.WindowInterceptor;
 
 public class DownloadDialogTest extends UiTestCase {
-    private PwadService pwadService;
-    private List<Picture> pictures;
-    private File outputDirectory;
+  private PwadService pwadService;
+  private List<Picture> pictures;
+  private File outputDirectory;
 
-    @Before
-    public void setUp() {
-        pwadService = mock(PwadService.class);
-        pictures = Arrays.asList(new Picture(), new Picture());
-        outputDirectory = mock(File.class);
-    }
+  @Before
+  public void setUp() {
+    pwadService = mock(PwadService.class);
+    pictures = Arrays.asList(new Picture(), new Picture());
+    outputDirectory = mock(File.class);
+  }
 
-    @Test
-    public void testDefaultState() {
-        final BlockingAnswer blockingAnswer = new BlockingAnswer();
-        doAnswer(blockingAnswer).when(pwadService).downloadPicture(pictures.get(0), outputDirectory);
-        final Window dialog = createWindow();
-        assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
-        assertTrue(dialog.isModal());
-        assertTrue(dialog.getProgressBar().completionEquals(50));
-        assertTrue(dialog.getButton("Cancel").isEnabled());
-        blockingAnswer.unblock();
-        assertTrue(dialog.getTextBox().textEquals("Downloading picture 2 out of 2…"));
-        assertFalse(dialog.isVisible());
-    }
+  @Test
+  public void testDefaultState() {
+    final BlockingAnswer blockingAnswer = new BlockingAnswer();
+    doAnswer(blockingAnswer).when(pwadService).downloadPicture(pictures.get(0), outputDirectory);
+    final Window dialog = createWindow();
+    assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
+    assertTrue(dialog.isModal());
+    assertTrue(dialog.getProgressBar().completionEquals(50));
+    assertTrue(dialog.getButton("Cancel").isEnabled());
+    blockingAnswer.unblock();
+    assertTrue(dialog.getTextBox().textEquals("Downloading picture 2 out of 2…"));
+    assertFalse(dialog.isVisible());
+  }
 
-    @Test
-    public void testCancelStopsDownload() throws Exception {
-        final BlockingAnswer blockingAnswer = new BlockingAnswer();
-        doAnswer(blockingAnswer).when(pwadService).downloadPicture(pictures.get(0), outputDirectory);
-        final Window dialog = createWindow();
-        assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
-        dialog.getButton("Cancel").click();
-        assertFalse(dialog.getButton("Cancel").isEnabled());
-        blockingAnswer.unblock();
-        assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
-        assertFalse(dialog.isVisible());
-    }
+  @Test
+  public void testCancelStopsDownload() throws Exception {
+    final BlockingAnswer blockingAnswer = new BlockingAnswer();
+    doAnswer(blockingAnswer).when(pwadService).downloadPicture(pictures.get(0), outputDirectory);
+    final Window dialog = createWindow();
+    assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
+    dialog.getButton("Cancel").click();
+    assertFalse(dialog.getButton("Cancel").isEnabled());
+    blockingAnswer.unblock();
+    assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
+    assertFalse(dialog.isVisible());
+  }
 
-    private Window createWindow() {
-        final DownloadDialog dialog = new DownloadDialog(null, pwadService, pictures, outputDirectory);
-        return WindowInterceptor.getModalDialog(new Trigger() {
-            @Override
-            public void run() throws Exception {
-                dialog.run();
-            }
-        });
-    }
+  private Window createWindow() {
+    final DownloadDialog dialog = new DownloadDialog(null, pwadService, pictures, outputDirectory);
+    return WindowInterceptor.getModalDialog(new Trigger() {
+      @Override
+      public void run() throws Exception {
+        dialog.run();
+      }
+    });
+  }
 }

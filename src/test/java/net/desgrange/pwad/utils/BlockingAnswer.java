@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,17 +21,17 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 public class BlockingAnswer implements Answer<Void> {
-    private boolean blocking = true;
+  private boolean blocking = true;
 
-    @Override
-    public Void answer(final InvocationOnMock invocation) throws Throwable {
-        while (blocking) {
-            Thread.sleep(50);
-        }
-        return null;
+  @Override
+  public Void answer(final InvocationOnMock invocation) throws Throwable {
+    while (blocking) {
+      Thread.sleep(50);
     }
+    return null;
+  }
 
-    public void unblock() {
-        blocking = false;
-    }
+  public void unblock() {
+    blocking = false;
+  }
 }

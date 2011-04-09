@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,55 +39,55 @@ import org.uispec4j.interception.WindowHandler;
 import org.uispec4j.interception.WindowInterceptor;
 
 public class DownloadPublicAlbumTest extends PwadTestCase {
-    private Window window;
-    private TextBox linkField;
-    private Button downloadButton;
+  private Window window;
+  private TextBox linkField;
+  private Button downloadButton;
 
-    @Before
-    public void setUp() {
-        window = getMainWindow();
-        linkField = window.getInputTextBox("Invitation link");
-        downloadButton = window.getButton("Download");
-    }
+  @Before
+  public void setUp() {
+    window = getMainWindow();
+    linkField = window.getInputTextBox("Invitation link");
+    downloadButton = window.getButton("Download");
+  }
 
-    @Test
-    public void testUserCanDownloadPublicAlbumFromInvitationLink() throws Exception {
-        assertTrue(window.titleEquals("pwad - Picasa Web Albums Downloader"));
-        assertTrue(downloadButton.isEnabled());
-        linkField.setText(createInvitationLink());
+  @Test
+  public void testUserCanDownloadPublicAlbumFromInvitationLink() throws Exception {
+    assertTrue(window.titleEquals("pwad - Picasa Web Albums Downloader"));
+    assertTrue(downloadButton.isEnabled());
+    linkField.setText(createInvitationLink());
 
-        final File outputFolder = createTempDirectory();
-        WindowInterceptor.init(downloadButton.triggerClick())
+    final File outputFolder = createTempDirectory();
+    WindowInterceptor.init(downloadButton.triggerClick())
                 .process(FileChooserHandler.init().titleEquals("Select output folder").assertAcceptsDirectoriesOnly().select(outputFolder))
                 .process(new WindowHandler() {
-                    @Override
-                    public Trigger process(final Window dialog) throws Exception {
-                        assertTrue(dialog.titleEquals("Downloading…"));
-                        assertTrue(dialog.getTextBox().textContains("Downloading picture", "out of", "…"));
-                        assertTrue(dialog.getProgressBar().isVisible());
-                        assertTrue(dialog.getProgressBar().completionEquals(0));
-                        assertTrue(dialog.getProgressBar().isCompleted());
-                        return Trigger.DO_NOTHING;
-                    }
+                  @Override
+                  public Trigger process(final Window dialog) throws Exception {
+                    assertTrue(dialog.titleEquals("Downloading…"));
+                    assertTrue(dialog.getTextBox().textContains("Downloading picture", "out of", "…"));
+                    assertTrue(dialog.getProgressBar().isVisible());
+                    assertTrue(dialog.getProgressBar().completionEquals(0));
+                    assertTrue(dialog.getProgressBar().isCompleted());
+                    return Trigger.DO_NOTHING;
+                  }
                 }).run();
-        final List<String> actualFiles = Arrays.asList(outputFolder.list());
-        Collections.sort(actualFiles);
-        assertEquals("[100_0001.JPG, 100_0002.JPG]", actualFiles.toString());
-    }
+    final List<String> actualFiles = Arrays.asList(outputFolder.list());
+    Collections.sort(actualFiles);
+    assertEquals("[100_0001.JPG, 100_0002.JPG]", actualFiles.toString());
+  }
 
-    private String createInvitationLink() {
-        final String userId = "dead_kennedys";
-        final String albumId = "holiday_in_cambodia";
-        final String authenticationKey = "the_authentication_key";
-        final String invitationId = "invitation_id";
-        return "http://picasaweb.google.fr/lh/sredir?uname=" + userId + "&target=ALBUM&id=" + albumId + "&authkey=" + authenticationKey + "&invite=" + invitationId + "&feat=email";
-    }
+  private String createInvitationLink() {
+    final String userId = "dead_kennedys";
+    final String albumId = "holiday_in_cambodia";
+    final String authenticationKey = "the_authentication_key";
+    final String invitationId = "invitation_id";
+    return "http://picasaweb.google.fr/lh/sredir?uname=" + userId + "&target=ALBUM&id=" + albumId + "&authkey=" + authenticationKey + "&invite=" + invitationId + "&feat=email";
+  }
 
-    private File createTempDirectory() throws IOException {
-        final File file = File.createTempFile(getClass().getSimpleName(), "");
-        file.delete();
-        file.mkdir();
-        file.deleteOnExit();
-        return file;
-    }
+  private File createTempDirectory() throws IOException {
+    final File file = File.createTempFile(getClass().getSimpleName(), "");
+    file.delete();
+    file.mkdir();
+    file.deleteOnExit();
+    return file;
+  }
 }

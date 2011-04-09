@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,13 +26,13 @@ import org.uispec4j.MenuItem;
 import org.uispec4j.Window;
 
 public class QuitApplicationTest extends PwadTestCase {
-    @Test
-    public void testUserCanQuitTheApplicationThroughTheFileMenu() {
-        final Window window = getMainWindow();
-        final MenuItem fileMenu = window.getMenuBar().getMenu("File");
+  @Test
+  public void testUserCanQuitTheApplicationThroughTheFileMenu() {
+    final Window window = getMainWindow();
+    final MenuItem fileMenu = window.getMenuBar().getMenu("File");
 
-        assertTrue(window.isVisible());
-        fileMenu.getSubMenu("Quit").click();
-        assertFalse(window.isVisible());
-    }
+    assertTrue(window.isVisible());
+    fileMenu.getSubMenu("Quit").click();
+    assertFalse(window.isVisible());
+  }
 }

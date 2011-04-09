@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,32 +22,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Album implements Serializable {
-    private static final long serialVersionUID = 4993642747667918694L;
-    private String id;
-    private String name;
-    private ArrayList<Picture> pictures;
+  private static final long serialVersionUID = 4993642747667918694L;
+  private String id;
+  private String name;
+  private ArrayList<Picture> pictures;
 
-    public String getId() {
-        return id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setId(final String id) {
-        this.id = id;
-    }
+  public void setId(final String id) {
+    this.id = id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-    public List<Picture> getPictures() {
-        return pictures;
-    }
+  public List<Picture> getPictures() {
+    return pictures;
+  }
 
-    public void setPictures(final List<Picture> pictures) {
-        this.pictures = pictures == null ? null : new ArrayList<Picture>(pictures);
-    }
+  public void setPictures(final List<Picture> pictures) {
+    this.pictures = pictures == null ? null : new ArrayList<Picture>(pictures);
+  }
 }

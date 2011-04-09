@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,18 +23,18 @@ import org.uispec4j.UISpec4J;
 import org.uispec4j.interception.toolkit.UISpecDisplay;
 
 public abstract class UiTestCase {
-    static {
-        UISpec4J.init();
-    }
+  static {
+    UISpec4J.init();
+  }
 
-    @Before
-    public void setUpUISpecDisplay() {
-        UISpecDisplay.instance().reset();
-    }
+  @Before
+  public void setUpUISpecDisplay() {
+    UISpecDisplay.instance().reset();
+  }
 
-    @After
-    public void tearDownUISpecDisplay() {
-        UISpecDisplay.instance().rethrowIfNeeded();
-        UISpecDisplay.instance().reset();
-    }
+  @After
+  public void tearDownUISpecDisplay() {
+    UISpecDisplay.instance().rethrowIfNeeded();
+    UISpecDisplay.instance().reset();
+  }
 }

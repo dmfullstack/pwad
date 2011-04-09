@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,32 +20,32 @@ package net.desgrange.pwad.model;
 import java.io.Serializable;
 
 public class Picture implements Serializable {
-    private static final long serialVersionUID = 2265935029548908159L;
-    private String id;
-    private String name;
-    private String url;
+  private static final long serialVersionUID = 2265935029548908159L;
+  private String id;
+  private String name;
+  private String url;
 
-    public String getId() {
-        return id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setId(final String id) {
-        this.id = id;
-    }
+  public void setId(final String id) {
+    this.id = id;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setName(final String name) {
-        this.name = name;
-    }
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-    public String getUrl() {
-        return url;
-    }
+  public String getUrl() {
+    return url;
+  }
 
-    public void setUrl(final String url) {
-        this.url = url;
-    }
+  public void setUrl(final String url) {
+    this.url = url;
+  }
 }

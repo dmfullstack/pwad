@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,26 +27,26 @@ import org.uispec4j.Window;
 import org.uispec4j.interception.MainClassAdapter;
 
 public abstract class PwadTestCase extends UiTestCase {
-    private UISpecAdapter adapter;
+  private UISpecAdapter adapter;
 
-    @Before
-    public void ensureEnvironmentIsInitialized() throws Exception {
-        FunctionalTestEnvironment.getInstance();
-    }
+  @Before
+  public void ensureEnvironmentIsInitialized() throws Exception {
+    FunctionalTestEnvironment.getInstance();
+  }
 
-    @After
-    public void afterTest() {
-        adapter = null;
-    }
+  @After
+  public void afterTest() {
+    adapter = null;
+  }
 
-    public Window getMainWindow() {
-        return getAdapter().getMainWindow();
-    }
+  public Window getMainWindow() {
+    return getAdapter().getMainWindow();
+  }
 
-    private UISpecAdapter getAdapter() {
-        if (adapter == null) {
-            adapter = new MainClassAdapter(Main.class);
-        }
-        return adapter;
+  private UISpecAdapter getAdapter() {
+    if (adapter == null) {
+      adapter = new MainClassAdapter(Main.class);
     }
+    return adapter;
+  }
 }

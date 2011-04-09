@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010 Laurent Desgrange
+ * Copyright 2010-2011 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,28 +23,28 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class EnvironmentServiceTest {
-    private static final String TEST_PROPERTIES_FILE_PATH = "/test/test.properties";
-    private EnvironmentService service;
+  private static final String TEST_PROPERTIES_FILE_PATH = "/test/test.properties";
+  private EnvironmentService service;
 
-    @Before
-    public void setUp() throws Exception {
-        service = new EnvironmentService(TEST_PROPERTIES_FILE_PATH);
-    }
+  @Before
+  public void setUp() throws Exception {
+    service = new EnvironmentService(TEST_PROPERTIES_FILE_PATH);
+  }
 
-    @SuppressWarnings("unused")
-    @Test(expected = NullPointerException.class)
-    public void testConstructorThrowsAnExceptioIfGivenPathIsNull() throws Exception {
-        new EnvironmentService(null);
-    }
+  @SuppressWarnings("unused")
+  @Test(expected = NullPointerException.class)
+  public void testConstructorThrowsAnExceptioIfGivenPathIsNull() throws Exception {
+    new EnvironmentService(null);
+  }
 
-    @SuppressWarnings("unused")
-    @Test(expected = NullPointerException.class)
-    public void testConstructorThrowsAnExceptionIfGivenFileDoesNotExist() throws Exception {
-        new EnvironmentService("test/does_not_exists.properties");
-    }
+  @SuppressWarnings("unused")
+  @Test(expected = NullPointerException.class)
+  public void testConstructorThrowsAnExceptionIfGivenFileDoesNotExist() throws Exception {
+    new EnvironmentService("test/does_not_exists.properties");
+  }
 
-    @Test
-    public void testGetVersion() throws Exception {
-        assertEquals("1.3.3.7-TEST", service.getVersion());
-    }
+  @Test
+  public void testGetVersion() throws Exception {
+    assertEquals("1.3.3.7-TEST", service.getVersion());
+  }
 }
