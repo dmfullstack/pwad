@@ -49,7 +49,7 @@ public class FunctionalTestEnvironment {
   private FunctionalTestEnvironment() throws Exception {
     System.setProperty("os.name", "linux");
     System.setProperty("http.proxyHost", "localhost");
-    System.setProperty("http.proxyPort", "8080");
+    System.setProperty("http.proxyPort", Integer.toString(getPort()));
     startServer();
   }
 
@@ -86,7 +86,7 @@ public class FunctionalTestEnvironment {
 
   private int getPort() {
     if (port == 0) {
-      port = 8080;// TODO find a free port to use automatically
+      port = 8095; // TODO find a free port to use automatically
     }
     return port;
   }
