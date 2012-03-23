@@ -1,6 +1,6 @@
 /**
  *
- * Copyright 2010-2011 Laurent Desgrange
+ * Copyright 2010-2012 Laurent Desgrange
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ public class DisplayAboutDialogTest extends PwadTestCase {
     WindowInterceptor.init(fileMenu.getSubMenu("About pwad").triggerClick()).process(new WindowHandler() {
       @Override
       public Trigger process(final Window dialog) throws Exception {
-        assertTrue(dialog.getTextBox("aboutLabel").textContains("<b>pwad</b>", "Version ", "pwad homepage", "© Laurent Desgrange, 2010-2011"));
+        assertTrue(dialog.getTextBox("aboutLabel").textContains("<b>pwad</b>", "Version ", "pwad homepage", "© Laurent Desgrange, 2010-2012"));
         dialog.dispose();
         return Trigger.DO_NOTHING;
       }
