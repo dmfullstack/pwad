@@ -1,4 +1,4 @@
-require 'buildr/cobertura'
+require 'buildr/java/cobertura'
 require 'buildr/jdepend'
 require 'buildr-findBugs'
 
