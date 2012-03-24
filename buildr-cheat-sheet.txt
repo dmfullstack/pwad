@@ -1,0 +1,12 @@
+INSTALL ON MAC OS X
+
+- Download and install MacRuby (http://www.macruby.org/).
+- In Terminal run: sudo gem install buildr buildr-findBugs
+
+INSTALL ON LINUX
+
+- sudo env JAVA_HOME='/usr/lib/jvm/java-6-sun' gem install buildr buildr-findBugs (adapt path to your java home)
+
+RUN EVERYTHING
+
+$ buildr clean package pwad:reports
