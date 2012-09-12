@@ -124,6 +124,7 @@ public final class MainForm extends JFrame {
     downloadButton.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.downloadButton.text"), new Object[] {})); // NOI18N
     downloadButton.setName("downloadButton"); // NOI18N
     downloadButton.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent evt) {
         downloadButtonActionPerformed(evt);
       }
@@ -141,6 +142,7 @@ public final class MainForm extends JFrame {
     aboutMenu.setText(bundle.getString("MainForm.aboutMenu.text")); // NOI18N
     aboutMenu.setName("aboutMenu"); // NOI18N
     aboutMenu.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent evt) {
         aboutMenuActionPerformed(evt);
       }
@@ -153,6 +155,7 @@ public final class MainForm extends JFrame {
     quitMenu.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/MainForm").getString("MainForm.quitMenu.text"), new Object[] {})); // NOI18N
     quitMenu.setName("quitMenu"); // NOI18N
     quitMenu.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent evt) {
         quitMenuActionPerformed(evt);
       }
@@ -169,35 +172,36 @@ public final class MainForm extends JFrame {
     final GroupLayout layout = new GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addComponent(messageLabel, GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
-                                                .addContainerGap())
-                                        .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
-                                                        .addComponent(downloadButton)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addComponent(invitationLinkLabel)
-                                                                .addPreferredGap(ComponentPlacement.UNRELATED)
-                                                                .addComponent(invitationLinkField, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)))
-                                                .addGap(20, 20, 20))))
-                );
+        layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(messageLabel, GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(invitationLinkLabel)
+                        .addPreferredGap(ComponentPlacement.UNRELATED)
+                        .addComponent(invitationLinkField)
+                        .addContainerGap())))
+            .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(downloadButton)
+                .addContainerGap())
+        );
     layout.setVerticalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(messageLabel)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
-                                        .addComponent(invitationLinkLabel)
-                                        .addComponent(invitationLinkField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(downloadButton)
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
+        layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(messageLabel)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(Alignment.BASELINE)
+                    .addComponent(invitationLinkLabel)
+                    .addComponent(invitationLinkField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(downloadButton)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents

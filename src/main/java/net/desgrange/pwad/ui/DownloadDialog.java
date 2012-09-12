@@ -57,12 +57,13 @@ public class DownloadDialog extends JDialog {
     progressLabel.setText(MessageFormat.format(pattern, 0, pictures.size()));
     worker = new DownloadWorker(pwadService, pictures, outputDirectory);
     worker.addPropertyChangeListener(new PropertyChangeListener() {
+      @Override
       public void propertyChange(final PropertyChangeEvent event) {
         logger.trace("{} - {}: {}", new Object[] { event, event.getPropertyName(), event.getNewValue() });
         if ("progress".equals(event.getPropertyName())) {
           final Integer pictureNumber = (Integer) event.getNewValue();
           progressLabel.setText(MessageFormat.format(pattern, pictureNumber, pictures.size()));
-          progressBar.setValue(100 * pictureNumber / pictures.size());
+          progressBar.setValue((100 * pictureNumber) / pictures.size());
         }
         if ("state".equals(event.getPropertyName()) && SwingWorker.StateValue.DONE.equals(event.getNewValue())) {
           progressBar.setValue(100);
@@ -97,6 +98,7 @@ public class DownloadDialog extends JDialog {
     cancelButton.setText(MessageFormat.format(ResourceBundle.getBundle("pwad/l10n/DownloadDialog").getString("DownloadDialog.cancelButton.text"), new Object[] {})); // NOI18N
     cancelButton.setName("cancelButton"); // NOI18N
     cancelButton.addActionListener(new ActionListener() {
+      @Override
       public void actionPerformed(final ActionEvent evt) {
         cancelButtonActionPerformed(evt);
       }
@@ -105,26 +107,26 @@ public class DownloadDialog extends JDialog {
     final GroupLayout layout = new GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(Alignment.LEADING)
-                                        .addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                                        .addComponent(progressLabel, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
-                                        .addComponent(cancelButton, Alignment.TRAILING))
-                                .addContainerGap())
-                );
+        layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(Alignment.LEADING)
+                    .addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addComponent(progressLabel, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+                    .addComponent(cancelButton, Alignment.TRAILING))
+                .addContainerGap())
+        );
     layout.setVerticalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(progressLabel)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(cancelButton)
-                                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
+        layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(progressLabel)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(progressBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(cancelButton)
+                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents

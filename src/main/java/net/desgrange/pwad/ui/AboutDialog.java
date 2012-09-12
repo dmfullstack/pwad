@@ -82,23 +82,23 @@ public final class AboutDialog extends JDialog {
     final GroupLayout layout = new GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
-                                        .addComponent(logoLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
-                                        .addComponent(aboutLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
-                                .addContainerGap())
-                );
+        layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(Alignment.TRAILING)
+                    .addComponent(logoLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                    .addComponent(aboutLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
+                .addContainerGap())
+        );
     layout.setVerticalGroup(
-                layout.createParallelGroup(Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(logoLabel)
-                                .addPreferredGap(ComponentPlacement.RELATED)
-                                .addComponent(aboutLabel)
-                                .addContainerGap())
-                );
+        layout.createParallelGroup(Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoLabel)
+                .addPreferredGap(ComponentPlacement.RELATED)
+                .addComponent(aboutLabel, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
     pack();
   }// </editor-fold>//GEN-END:initComponents
@@ -107,9 +107,7 @@ public final class AboutDialog extends JDialog {
     logger.trace("{}", evt);
     try {
       Desktop.getDesktop().browse(new URI(pwadUrl));
-    } catch (final IOException e) {
-      throw new RuntimeException(e);
-    } catch (final URISyntaxException e) {
+    } catch (final IOException | URISyntaxException e) {
       throw new RuntimeException(e);
     }
   }// GEN-LAST:event_aboutLabelMouseClicked
