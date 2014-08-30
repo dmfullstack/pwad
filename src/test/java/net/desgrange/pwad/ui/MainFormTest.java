@@ -62,7 +62,6 @@ public class MainFormTest extends UiTestCase {
     assertTrue(fileMenu.isEnabled());
     assertTrue(fileMenu.getSubMenu("About pwad").isEnabled());
     assertTrue(fileMenu.getSubMenu("Quit").isEnabled());
-
   }
 
   @Test
@@ -76,22 +75,22 @@ public class MainFormTest extends UiTestCase {
 
     window.getInputTextBox("Invitation link").setText(badLink);
     WindowInterceptor.init(window.getButton().triggerClick()).process(BasicHandler.init()
-                .assertTitleEquals("Bad link provided")
-                .assertContainsText("The link you provided was not recognized as a valid Picasa Album link.")
-                .triggerButtonClick("OK")).run();
+        .assertTitleEquals("Bad link provided")
+        .assertContainsText("The link you provided was not recognized as a valid Picasa Album link.")
+        .triggerButtonClick("OK")).run();
 
     window.getInputTextBox("Invitation link").setText(link);
     WindowInterceptor.init(window.getButton().triggerClick()).process(new FileChooserHandler().cancelSelection()).run();
     WindowInterceptor.init(window.getButton().triggerClick())
-                .process(new FileChooserHandler().select(System.getProperty("java.io.tmpdir")))
-                .process(new WindowHandler() {
-                  @Override
-                  public Trigger process(final Window downloadWindow) throws Exception {
-                    assertTrue(downloadWindow.isModal());
-                    assertTrue(downloadWindow.titleEquals("Downloading…"));
-                    return Trigger.DO_NOTHING;
-                  }
-                }).run();
+        .process(new FileChooserHandler().select(System.getProperty("java.io.tmpdir")))
+        .process(new WindowHandler() {
+          @Override
+          public Trigger process(final Window downloadWindow) throws Exception {
+            assertTrue(downloadWindow.isModal());
+            assertTrue(downloadWindow.titleEquals("Downloading…"));
+            return Trigger.DO_NOTHING;
+          }
+        }).run();
   }
 
   private Album createAlbum(final String name, final int numberOfPictures) {
