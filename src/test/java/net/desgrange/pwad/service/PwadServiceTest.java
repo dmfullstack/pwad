@@ -124,7 +124,7 @@ public class PwadServiceTest {
   }
 
   @Test
-  public void testDownloadPictureThrowsAnExceptionIfDownloadFailed() {
+  public void testDownloadPictureThrowsAnExceptionIfDownloadFailed() throws Exception {
     final File outputFolder = testFolder.newFolder("output_folder");
     final Picture picture = new Picture();
     picture.setName("02.JPG");
