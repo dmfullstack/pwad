@@ -60,10 +60,10 @@ public class DownloadDialog extends JDialog {
       @Override
       public void propertyChange(final PropertyChangeEvent event) {
         logger.trace("{} - {}: {}", new Object[] { event, event.getPropertyName(), event.getNewValue() });
-        if ("progress".equals(event.getPropertyName())) {
+        if (DownloadWorker.PROGRESS_PROPERTY_NAME.equals(event.getPropertyName())) {
           final Integer pictureNumber = (Integer) event.getNewValue();
           progressLabel.setText(MessageFormat.format(pattern, pictureNumber, pictures.size()));
-          progressBar.setValue((100 * pictureNumber) / pictures.size());
+          progressBar.setValue(100 * pictureNumber / pictures.size());
         }
         if ("state".equals(event.getPropertyName()) && SwingWorker.StateValue.DONE.equals(event.getNewValue())) {
           progressBar.setValue(100);

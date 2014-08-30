@@ -37,7 +37,6 @@ public class UrlUtilsTest {
   public void testGetParameterThrowsAnExceptionIfGivenUrlIsTooWeirdToBeParsed() {
     checkParameterException(null);
     checkParameterException("[]");
-    checkParameterException("http://bad_url?a=b?b=c");
   }
 
   @Test

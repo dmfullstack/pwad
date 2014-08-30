@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DownloadWorker extends SwingWorker<Void, Integer> {
+  public static final String PROGRESS_PROPERTY_NAME = DownloadWorker.class.getSimpleName() + ".progress";
   private final Logger logger = LoggerFactory.getLogger(getClass());
   private final PwadService pwadService;
   private final List<Picture> pictures;
@@ -45,7 +46,8 @@ public class DownloadWorker extends SwingWorker<Void, Integer> {
     logger.trace("Starting downloading pictures in background…");
     for (int i = 0; i < pictures.size(); i++) {
       logger.trace("Downloading picture {} out of {}…", i + 1, pictures.size());
-      setProgress((100 * i) / pictures.size());
+      firePropertyChange(PROGRESS_PROPERTY_NAME, i, i + 1);
+      setProgress(100 * i / pictures.size());
       final Picture picture = pictures.get(i);
       pwadService.downloadPicture(picture, outputDirectory);
       if (Thread.currentThread().isInterrupted()) {

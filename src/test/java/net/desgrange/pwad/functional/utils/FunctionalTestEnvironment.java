@@ -57,6 +57,7 @@ public class FunctionalTestEnvironment {
     server = new Server(getPort());
     server.setHandler(new AbstractHandler() {
       @Override
+      @SuppressWarnings("synthetic-access")
       public void handle(final String target, final Request jettyRequest, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ServletException {
         logger.trace("Target: {}", target);
         if (target.equals("/data/feed/api/user/dead_kennedys/albumid/holiday_in_cambodia")) {

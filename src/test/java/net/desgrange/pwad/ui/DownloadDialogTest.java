@@ -54,9 +54,9 @@ public class DownloadDialogTest extends UiTestCase {
     final BlockingAnswer blockingAnswer = new BlockingAnswer();
     doAnswer(blockingAnswer).when(pwadService).downloadPicture(pictures.get(0), outputDirectory);
     final Window dialog = createWindow();
-    assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
+    assertTrue(dialog.getTextBox().textEquals("Downloading picture 0 out of 2…"));
     assertTrue(dialog.isModal());
-    assertTrue(dialog.getProgressBar().completionEquals(50));
+    assertTrue(dialog.getProgressBar().completionEquals(0));
     assertTrue(dialog.getButton("Cancel").isEnabled());
     blockingAnswer.unblock();
     assertTrue(dialog.getTextBox().textEquals("Downloading picture 2 out of 2…"));
@@ -68,11 +68,11 @@ public class DownloadDialogTest extends UiTestCase {
     final BlockingAnswer blockingAnswer = new BlockingAnswer();
     doAnswer(blockingAnswer).when(pwadService).downloadPicture(pictures.get(0), outputDirectory);
     final Window dialog = createWindow();
-    assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
+    assertTrue(dialog.getTextBox().textEquals("Downloading picture 0 out of 2…"));
     dialog.getButton("Cancel").click();
     assertFalse(dialog.getButton("Cancel").isEnabled());
     blockingAnswer.unblock();
-    assertTrue(dialog.getTextBox().textEquals("Downloading picture 1 out of 2…"));
+    assertTrue(dialog.getTextBox().textEquals("Downloading picture 0 out of 2…"));
     assertFalse(dialog.isVisible());
   }
 
